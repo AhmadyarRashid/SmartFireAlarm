@@ -11,7 +11,7 @@ export default class Portfolio extends Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
-                            <h2 className="section-heading text-uppercase">Portfolio</h2>
+                            <h2 className="section-heading text-uppercase">Products</h2>
                             <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet
                                 consectetur.</h3>
                         </div>
@@ -27,7 +27,7 @@ export default class Portfolio extends Component{
                                 <img className="img-fluid" src="./images/portfolio/04-thumbnail.jpg" alt=""/>
                             </a>
                             <div className="portfolio-caption">
-                                <h4>Threads</h4>
+                                <h4>Hub Devices</h4>
                                 <p className="text-muted">Illustration</p>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ export default class Portfolio extends Component{
                                 <img className="img-fluid" src="./images/portfolio/02-thumbnail.jpg" alt=""/>
                             </a>
                             <div className="portfolio-caption">
-                                <h4>Explore</h4>
+                                <h4>Slave Devices</h4>
                                 <p className="text-muted">Graphic Design</p>
                             </div>
                         </div>

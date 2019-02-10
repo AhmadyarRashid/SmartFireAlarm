@@ -1,12 +1,12 @@
-import React , {Component} from 'react';
+import React, {Component} from 'react';
 
-export default class Service extends Component{
-    constructor(props){
+export default class Service extends Component {
+    constructor(props) {
         super(props);
     }
-    
+
     render() {
-        return(
+        return (
             <section id="services">
                 <div className="container">
                     <div className="row">
@@ -18,30 +18,21 @@ export default class Service extends Component{
                     </div>
                     <div className="row text-center">
                         <div className="col-md-4">
-          <span className="fa-stack fa-4x">
-            <i className="fas fa-circle fa-stack-2x text-primary"></i>
-            <i className="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-          </span>
-                            <h4 className="service-heading">E-Commerce</h4>
+
+                            <h4 className="service-heading" >E-Commerce</h4>
                             <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                 Minima
                                 maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         </div>
                         <div className="col-md-4">
-          <span className="fa-stack fa-4x">
-            <i className="fas fa-circle fa-stack-2x text-primary"></i>
-            <i className="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
+
                             <h4 className="service-heading">Responsive Design</h4>
                             <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                 Minima
                                 maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         </div>
                         <div className="col-md-4">
-          <span className="fa-stack fa-4x">
-            <i className="fas fa-circle fa-stack-2x text-primary"></i>
-            <i className="fas fa-lock fa-stack-1x fa-inverse"></i>
-          </span>
+
                             <h4 className="service-heading">Web Security</h4>
                             <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                 Minima

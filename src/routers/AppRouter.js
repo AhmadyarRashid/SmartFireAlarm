@@ -11,6 +11,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import Home from '../components/Home/HomeComponent';
 import Login from '../components/LoginComponent';
 import Signup from '../components/SignUpComponent';
+import Userportal from "../components/UserPortal/UserportalComponent";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const AppRouter = () => (
         <Route path="/" component={Home} exact={true} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup}/>
+        <Route path='/userportal' component={Userportal}/>
         <Route path="/create" component={AddExpensePage} />
         <Route path="/edit/:id" component={EditExpensePage} />
         <Route path="/dashboard" component={Dashboard}/>

@@ -2,17 +2,52 @@ import React, {Component} from 'react';
 import Navigation from './NavigationComponent';
 import HeaderHome from './HeaderHomeComponent';
 import Services from './ServicesComponent';
-import Portfolio from './PortfolioComponent';
+import Products from './ProductsComponent';
 import About from './AboutComponent';
 import Team from './TeamComponent';
 import Contact from './ContactComponent';
 import Footer from './FooterComponent';
+import {NavLink} from 'react-router-dom';
+import {
+    InputGroup,
+    InputGroupText,
+    InputGroupAddon,
+    FormGroup,
+    Label,
+    Col,
+    Input,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
+} from 'reactstrap';
+import {connect} from 'react-redux';
+import {addCart} from '../../actions/addToCart';
 
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showModal: false
+        }
     }
 
+    productHandler = () => {
+
+        if (this.props.userAuth.isAuth == true){
+            this.props.dispatch(addCart({deviceId: 1, deviceDescription: 'HUB Device' , quantity : 2 , amount: 100}))
+        }
+        console.log(this.props.cart);
+
+        this.toggleModal();
+    }
+
+    toggleModal = () => {
+        this.setState((preStat) => ({
+            showModal: !preStat.showModal
+        }));
+    }
 
     render() {
         return (
@@ -21,7 +56,7 @@ class Home extends Component {
                 <Navigation/>
                 <HeaderHome/>
                 <Services/>
-                <Portfolio/>
+                <Products/>
                 <About/>
                 <Team/>
                 <Contact/>
@@ -42,51 +77,64 @@ class Home extends Component {
                                         <div className="modal-body">
                                             <div className='row'>
                                                 <div className='col'>
-                                                    <h2 className="text-uppercase">Project Name</h2>
+                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>HUB
+                                                        Device</h3>
                                                     <p className="item-intro text-muted">Lorem ipsum dolor sit amet
                                                         consectetur.</p>
                                                     <img className="img-fluid d-block mx-auto"
-                                                         src="./images/portfolio/01-full.jpg"
+                                                         src="http://localhost:8080/images/portfolio/01-full.jpg"
                                                          alt=""/>
                                                 </div>
-                                                <div className='col' style={{marginTop: 200}}>
+                                                <div className='col' style={{marginTop: 20}}>
                                                     <p>Use this area to describe your project. Lorem ipsum dolor sit
                                                         amet,
                                                         consectetur adipisicing elit. Est blanditiis dolorem culpa
                                                         incidunt
-                                                        minus dignissimos deserunt repellat aperiam quasi sunt officia
-                                                        expedita
-                                                        beatae cupiditate, maiores repudiandae, nostrum, reiciendis
-                                                        facere
-                                                        nemo!</p>
-                                                    <div className="form-group">
-                                                        Quantity:
-                                                        <input className="form-control" id="phone" type="number"
-                                                               placeholder="Quantity" required="required"
-                                                               data-validation-required-message="Quantity"/>
-                                                    </div>
-                                                    <div>
-                                                        Price:
-                                                        <p>$15</p>
-                                                    </div>
+                                                    </p>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>Shipping:</Label>
+                                                        <Col sm={10}>
+                                                            <p>Free Shipping in Pakistan Estimated Delivery
+                                                                Time:23-40days</p>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>QTY:</Label>
+                                                        <Col sm={10}>
+                                                            <Input type="number" placeholder="1"/>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>AMT: </Label>
+                                                        <Col sm={10}>
+                                                            <Input type="number" placeholder="$ 10"/>
+                                                        </Col>
+                                                    </FormGroup>
                                                     <div className='row'>
-                                                        <button type="button" className='btn btn-primary home-product'>
-                                                            Add To Cart
-                                                        </button>
-                                                        &nbsp;&nbsp;
-                                                        <button type="button" className='btn btn-primary home-product'>
-                                                            Buy
-                                                        </button>
-                                                        &nbsp;&nbsp;
-                                                        <button className="btn btn-primary home-product"
-                                                                data-dismiss="modal" type="button">
-                                                            Close Project
-                                                        </button>
+                                                        <div className='col-12'>
+                                                            <center>
+                                                                <NavLink to='/userportal'>
+                                                                    <Button type="button"
+                                                                            className='btn btn-primary btn-lg'>
+                                                                        Buy Now
+                                                                    </Button>
+                                                                </NavLink>
+                                                                {' '}
+                                                                <Button type="button" onClick={this.productHandler}
+                                                                        className='btn btn-primary btn-lg'>
+                                                                    Add To Cart
+                                                                </Button>
+                                                                {' '}
+                                                                <Button className="btn btn-primary btn-lg"
+                                                                        data-dismiss="modal" type="button">
+                                                                    Clear
+                                                                </Button>
+                                                            </center>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -108,28 +156,66 @@ class Home extends Component {
                                 <div className="row">
                                     <div className="col-lg-8 mx-auto">
                                         <div className="modal-body">
+                                            <div className='row'>
+                                                <div className='col'>
+                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>HUB
+                                                        Device</h3>
+                                                    <p className="item-intro text-muted">Lorem ipsum dolor sit amet
+                                                        consectetur.</p>
+                                                    <img className="img-fluid d-block mx-auto"
+                                                         src="http://localhost:8080/images/portfolio/01-full.jpg"
+                                                         alt=""/>
+                                                </div>
+                                                <div className='col' style={{marginTop: 20}}>
+                                                    <p>Use this area to describe your project. Lorem ipsum dolor sit
+                                                        amet,
+                                                        consectetur adipisicing elit. Est blanditiis dolorem culpa
+                                                        incidunt
+                                                    </p>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>Shipping:</Label>
+                                                        <Col sm={10}>
+                                                            <p>Free Shipping in Pakistan Estimated Delivery
+                                                                Time:23-40days</p>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>QTY:</Label>
+                                                        <Col sm={10}>
+                                                            <Input type="number" placeholder="1"/>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <FormGroup row>
+                                                        <Label for="exampleEmail" sm={2}>AMT: </Label>
+                                                        <Col sm={10}>
+                                                            <Input type="number" placeholder="$ 10"/>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <div className='row'>
+                                                        <div className='col-12'>
+                                                            <center>
+                                                                <NavLink to='/userportal'>
+                                                                    <Button type="button"
+                                                                            className='btn btn-primary btn-lg'>
+                                                                        Buy Now
+                                                                    </Button>
+                                                                </NavLink>
+                                                                {' '}
+                                                                <Button type="button" onClick={this.productHandler}
+                                                                        className='btn btn-primary btn-lg'>
+                                                                    Add To Cart
+                                                                </Button>
+                                                                {' '}
+                                                                <Button className="btn btn-primary btn-lg"
+                                                                        data-dismiss="modal" type="button">
+                                                                    Clear
+                                                                </Button>
+                                                            </center>
+                                                        </div>
 
-                                            <h2 className="text-uppercase">Project Name</h2>
-                                            <p className="item-intro text-muted">Lorem ipsum dolor sit amet
-                                                consectetur.</p>
-                                            <img className="img-fluid d-block mx-auto"
-                                                 src="./images/portfolio/02-full.jpg"
-                                                 alt=""/>
-                                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt
-                                                minus dignissimos deserunt repellat aperiam quasi sunt officia
-                                                expedita
-                                                beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere
-                                                nemo!</p>
-                                            <ul className="list-inline">
-                                                <li>Date: January 2017</li>
-                                                <li>Client: Explore</li>
-                                                <li>Category: Graphic Design</li>
-                                            </ul>
-                                            <button className="btn btn-primary" data-dismiss="modal" type="button">
-                                                <i className="fas fa-times"></i>
-                                                Close Project
-                                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,10 +223,31 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-                
+
+
+                {/*Modal*/}
+                <Modal isOpen={this.state.showModal} toggle={this.toggleModal} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Confirmation</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggleModal}>Buy Now</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleModal}>Continue Shopping</Button>
+                    </ModalFooter>
+                </Modal>
+
+
             </div>
         );
     }
 }
-
-export default Home;
+const mapStatToProps = state => ({
+    userAuth : state.userAuth,
+    cart : state.cart
+})
+export default connect(mapStatToProps)(Home);
