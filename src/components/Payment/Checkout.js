@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import NavLink from "react-router-dom/es/NavLink";
 
 const styles = theme => ({
     appBar: {
@@ -56,11 +57,11 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return <AddressForm />;
+            return <AddressForm/>;
         case 1:
-            return <PaymentForm />;
+            return <PaymentForm/>;
         case 2:
-            return <Review />;
+            return <Review/>;
         default:
             throw new Error('Unknown step');
     }
@@ -89,13 +90,17 @@ class Checkout extends React.Component {
         });
     };
 
+    backHome = () => {
+        window.open("http://localhost:8080", "_self")
+    }
+
     render() {
-        const { classes } = this.props;
-        const { activeStep } = this.state;
+        const {classes} = this.props;
+        const {activeStep} = this.state;
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
@@ -118,6 +123,13 @@ class Checkout extends React.Component {
                                         Your order number is #2001539. We have emailed your order confirmation, and will
                                         send you an update when your order has shipped.
                                     </Typography>
+                                    <Button
+                                        onClick={this.backHome}
+                                        variant="contained"
+                                        color="primary"
+                                       >
+                                        Back To Home
+                                    </Button>
                                 </React.Fragment>
                             ) : (
                                 <React.Fragment>
@@ -140,6 +152,9 @@ class Checkout extends React.Component {
                                 </React.Fragment>
                             )}
                         </React.Fragment>
+
+
+
                     </Paper>
                 </main>
             </React.Fragment>

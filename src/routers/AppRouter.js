@@ -4,14 +4,13 @@ import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
 import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
-import Header from '../components/Header';
-import Signin from '../components/SignIn';
 import CheckOut from '../components/Payment/Checkout';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Home from '../components/Home/HomeComponent';
 import Login from '../components/LoginComponent';
 import Signup from '../components/SignUpComponent';
 import Userportal from "../components/UserPortal/UserportalComponent";
+import CartDetail from '../components/Home/CartDetailsComponent';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -22,6 +21,7 @@ const AppRouter = () => (
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup}/>
         <Route path='/userportal' component={Userportal}/>
+        <Route path='/showCart' component={CartDetail} />
         <Route path="/create" component={AddExpensePage} />
         <Route path="/edit/:id" component={EditExpensePage} />
         <Route path="/dashboard" component={Dashboard}/>

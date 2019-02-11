@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import {Breadcrumb, BreadcrumbItem, FormGroup, Label, Input} from 'reactstrap';
+import {connect} from 'react-redux';
 
 class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonStat: false
+            buttonStat: false,
+            email: '',
+            userName: '',
+            address:'',
+            phoneNo: ''
         }
     }
 
@@ -15,6 +20,37 @@ class UserProfile extends Component {
             buttonStat: !prevStat.buttonStat
         }))
     }
+
+    componentWillMount() {
+        this.setState(() => ({
+            email: this.props.userAuth.email,
+            userName: this.props.userAuth.userName,
+            address : this.props.userAuth.address,
+            phoneNo: this.props.userAuth.phoneNo
+        }));
+    }
+
+    changeName = (event) => {
+        var userName = event.target.value;
+        this.setState(()=> ({
+            userName
+        }));
+    }
+
+    changePhoneNo = (event) => {
+        var phoneNo = event.target.value;
+        this.setState(()=> ({
+            phoneNo
+        }));
+    }
+
+    changeAddress = (event) => {
+        var address = event.target.value;
+        this.setState(()=> ({
+            address
+        }));
+    }
+
 
     render() {
         return (
@@ -32,12 +68,12 @@ class UserProfile extends Component {
                                          src='http://localhost:8080/images/team/2.jpg' alt='User Image'/>
                                 </div>
                                 <div className='col'>
-                                    <label>All Orders : 2</label><br/>
-                                    <label>Awaiting Payment: 0</label><br/>
-                                    <label>Awaiting Shipment: 0</label><br/>
-                                    <label>Awaiting delivery: 0</label><br/>
-                                    <label>Awaiting Feedback: 0</label><br/>
-                                    <label>Disputes: 0</label>
+                                    <label>All Orders : {this.props.userAuth.orders}</label><br/>
+                                    <label>Awaiting Payment: {this.props.userAuth.awaitingPayment}</label><br/>
+                                    <label>Awaiting Shipment: {this.props.userAuth.awaitingShipment}</label><br/>
+                                    <label>Awaiting delivery: {this.props.userAuth.awaitingDelivery}</label><br/>
+                                    <label>Awaiting Feedback: { this.props.userAuth.awaitingFeedback}</label><br/>
+                                    <label>Disputes: {this.props.userAuth.disputes}</label>
                                 </div>
                             </div>
                         </div>
@@ -47,25 +83,25 @@ class UserProfile extends Component {
                         <div className='col-md-8 col-sm-12'>
                             <FormGroup>
                                 <Label for="exampleAddress">Name</Label>
-                                <Input id='nametxt' type="text"  disabled={this.state.buttonStat ? false : true} value={this.props.name}
+                                <Input id='nametxt' type="text" onChange={event => this.changeName(event)}  disabled={this.state.buttonStat ? false : true} value={this.state.userName}
                                        className='form-control-lg' name="address"
                                        id="exampleAddress"/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleAddress">Phone No</Label>
-                                <Input id='phonetxt' type="text" disabled={this.state.buttonStat ? false : true} value={this.props.phoneNo}
+                                <Input id='phonetxt' type="text" onChange={event => this.changePhoneNo(event)}  disabled={this.state.buttonStat ? false : true} value={this.state.phoneNo}
                                        className='form-control-lg' name="address"
                                        id="exampleAddress"/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleAddress">Email</Label>
-                                <Input id='emailtxt' type="text" disabled={this.state.buttonStat ? false : true} value={this.props.email}
+                                <Input id='emailtxt' type="text" disabled={true} value={this.props.email}
                                        className='form-control-lg' name="address"
                                        id="exampleAddress"/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleAddress">Address</Label>
-                                <Input id='addresstxt' type="text" disabled={this.state.buttonStat ? false : true} value={this.props.address}
+                                <Input id='addresstxt' type="text" onChange={event => this.changeAddress(event)}  disabled={this.state.buttonStat ? false : true} value={this.state.address}
                                        className='form-control-lg' name="address"
                                        id="exampleAddress"/>
                             </FormGroup>
@@ -88,4 +124,8 @@ UserProfile.defaultProps = {
     address: 'Sector G-9 islamabad, pakistan'
 }
 
-export default UserProfile;
+const mapStatToProps = state => ({
+   userAuth: state.userAuth
+});
+
+export default connect(mapStatToProps)(UserProfile);

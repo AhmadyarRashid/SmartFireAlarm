@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {connect} from "react-redux";
 
 const Navigation = (props) => (
-    <nav className="navbar-dark  navbar  navbar-expand-lg  fixed-top" id="mainNav">
+    <nav className="navbar-dark bg-dark navbar  navbar-expand-lg  fixed-top" id="mainNav">
         <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">Smart Fire Alarm System</a>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -30,19 +30,36 @@ const Navigation = (props) => (
                         <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
                     </li>
                     {
-                        props.userAuth.isAuth === true ? <li className="nav-item">
-                                <NavLink to='/userportal'>
-                                    <a className="nav-link js-scroll-trigger">
-                                        <i className='fas fa-fw fa-shopping-cart'></i>
-                                    </a>
-                                </NavLink>
-                            </li> :
+                        props.userAuth.isAuth === true ?
                             <li className="nav-item">
-                                <NavLink to='/login'><a className="nav-link js-scroll-trigger">Login</a></NavLink>
+                                         <NavLink to='/showCart' className="nav-link js-scroll-trigger">
+                                             <i className='fas fa-fw fa-shopping-cart'></i>
+                                         </NavLink>
+                                      </li>
+                            :
+                            <li className="nav-item">
+                                          <NavLink to='/login' className="nav-link js-scroll-trigger">
+                                            Login
+                                         </NavLink>
                             </li>
 
                     }
 
+                    {
+                        props.userAuth.isAuth === true ?
+                            <li className="nav-item">
+                                <NavLink to='/userportal' className="nav-link js-scroll-trigger">
+                                    <i className='fas fa-fw fa-user'></i>
+                                </NavLink>
+                            </li>
+                            :
+                            <li className="nav-item">
+                                <NavLink to='/signup' className="nav-link js-scroll-trigger">
+                                    Signup
+                                </NavLink>
+                            </li>
+
+                    }
 
                 </ul>
             </div>

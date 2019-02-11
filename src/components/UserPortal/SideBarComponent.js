@@ -14,9 +14,7 @@ class SideBar extends Component {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
             console.log(this.props.userAuth);
-            // if (this.props.userAuth.isAuth == false){
-            //     return <Redirect to='/'/>
-            // }
+            window.open('http://localhost:8080/' , '_self');
         }
 
         const redirectHome = () => {

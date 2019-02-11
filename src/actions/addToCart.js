@@ -2,7 +2,7 @@ import * as ActionsTypes from '../actionsTypes/ActionsTypes';
 
 export const addCart = (
     {
-        deviceId = 1,
+        deviceId = 0,
         deviceDescription = '',
         quantity = 0,
         amount = 0,
@@ -15,4 +15,21 @@ export const addCart = (
         quantity,
         amount
     }
+});
+
+
+export const deleteItemFromCart = (deviceId = 0) => ({
+    type: ActionsTypes.deleteFronCart,
+    deviceId
+});
+
+export const updateQuantityCart = (
+    {
+        deviceId = 0,
+        quantity = 0
+    } ={}
+    )=>({
+    type: ActionsTypes.updateCart,
+    deviceId,
+    quantity
 })

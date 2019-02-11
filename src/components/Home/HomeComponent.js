@@ -29,23 +29,53 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            hubQty: 1,
+            hubAmount: 1200,
+            slaveQty: 1,
+            slaveAmount: 600
         }
     }
 
-    productHandler = () => {
+    HubProductHandler = () => {
 
-        if (this.props.userAuth.isAuth == true){
-            this.props.dispatch(addCart({deviceId: 1, deviceDescription: 'HUB Device' , quantity : 2 , amount: 100}))
-        }
+        this.props.dispatch(addCart({deviceId: 1, quantity: this.state.hubQty, amount: this.state.hubAmount}))
         console.log(this.props.cart);
+        this.toggleModal();
+    }
 
+    SlaveProductHandler = () => {
+
+        this.props.dispatch(addCart({deviceId: 2, quantity: this.state.slaveQty, amount: this.state.slaveAmount}))
+        console.log(this.props.cart);
         this.toggleModal();
     }
 
     toggleModal = () => {
         this.setState((preStat) => ({
-            showModal: !preStat.showModal
+            showModal: !preStat.showModal,
+            hubQty: 1,
+            hubAmount: 1200,
+            slaveQty: 1,
+            slaveAmount: 600
+        }));
+    }
+
+    changeHubQty = (event) => {
+        var hubQty = Number(event.target.value);
+        var hubAmount = 1200 * Number(hubQty);
+        this.setState(() => ({
+            hubQty,
+            hubAmount
+        }));
+    }
+
+    changeSlaveQty = (event) => {
+        var slaveQty = Number(event.target.value);
+        var slaveAmount = 600 * Number(slaveQty);
+        this.setState(() => ({
+            slaveQty,
+            slaveAmount
         }));
     }
 
@@ -101,26 +131,30 @@ class Home extends Component {
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>QTY:</Label>
                                                         <Col sm={10}>
-                                                            <Input type="number" placeholder="1"/>
+                                                            <Input type="number"
+                                                                   onChange={event => this.changeHubQty(event)}
+                                                                   value={this.state.hubQty}/>
                                                         </Col>
                                                     </FormGroup>
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>AMT: </Label>
                                                         <Col sm={10}>
-                                                            <Input type="number" placeholder="$ 10"/>
+                                                            <Input type="number" disabled={true}
+                                                                   value={this.state.hubAmount}/>
                                                         </Col>
                                                     </FormGroup>
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
-                                                                <NavLink to='/userportal'>
+                                                                <NavLink to='/showCart'>
                                                                     <Button type="button"
+                                                                            data-dismiss="modal"
                                                                             className='btn btn-primary btn-lg'>
                                                                         Buy Now
                                                                     </Button>
                                                                 </NavLink>
                                                                 {' '}
-                                                                <Button type="button" onClick={this.productHandler}
+                                                                <Button type="button" onClick={this.HubProductHandler}
                                                                         className='btn btn-primary btn-lg'>
                                                                     Add To Cart
                                                                 </Button>
@@ -182,32 +216,41 @@ class Home extends Component {
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>QTY:</Label>
                                                         <Col sm={10}>
-                                                            <Input type="number" placeholder="1"/>
+                                                            <Input type="number"
+                                                                   onChange={event => this.changeSlaveQty(event)}
+                                                                   value={this.state.slaveQty}/>
                                                         </Col>
                                                     </FormGroup>
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>AMT: </Label>
                                                         <Col sm={10}>
-                                                            <Input type="number" placeholder="$ 10"/>
+                                                            <Input type="number" disabled={true}
+                                                                   value={this.state.slaveAmount}/>
                                                         </Col>
                                                     </FormGroup>
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
-                                                                <NavLink to='/userportal'>
-                                                                    <Button type="button"
-                                                                            className='btn btn-primary btn-lg'>
+                                                                <NavLink to='/showCart'>
+                                                                    <Button
+                                                                        type="button"
+                                                                        data-dismiss="modal"
+                                                                        className='btn btn-primary btn-lg'>
                                                                         Buy Now
                                                                     </Button>
                                                                 </NavLink>
                                                                 {' '}
-                                                                <Button type="button" onClick={this.productHandler}
-                                                                        className='btn btn-primary btn-lg'>
+                                                                <Button
+                                                                    type="button"
+                                                                    onClick={this.SlaveProductHandler}
+                                                                    className='btn btn-primary btn-lg'>
                                                                     Add To Cart
                                                                 </Button>
                                                                 {' '}
-                                                                <Button className="btn btn-primary btn-lg"
-                                                                        data-dismiss="modal" type="button">
+                                                                <Button
+                                                                    className="btn btn-primary btn-lg"
+                                                                    data-dismiss="modal"
+                                                                    type="button">
                                                                     Clear
                                                                 </Button>
                                                             </center>
@@ -236,7 +279,7 @@ class Home extends Component {
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleModal}>Buy Now</Button>{' '}
+                        <NavLink to='\showCart' className='btn btn-primary' onClick={this.toggleModal}>Buy Now</NavLink>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Continue Shopping</Button>
                     </ModalFooter>
                 </Modal>
@@ -246,8 +289,9 @@ class Home extends Component {
         );
     }
 }
+
 const mapStatToProps = state => ({
-    userAuth : state.userAuth,
-    cart : state.cart
+    userAuth: state.userAuth,
+    cart: state.cart
 })
 export default connect(mapStatToProps)(Home);
