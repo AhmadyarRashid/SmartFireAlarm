@@ -31,7 +31,7 @@ class SideBar extends Component {
                     <li className="nav-item">
                         <NavLink to='/userportal/' className="nav-link">
                             <i className="fas fa-fw fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
+                            <span>My Order</span>
                         </NavLink>
                     </li>
                     <li className="nav-item">

@@ -14,6 +14,8 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import NavLink from "react-router-dom/es/NavLink";
+import {connect} from 'react-redux';
+import {userSignOut} from "../../actions/UserAuthenticate";
 
 const styles = theme => ({
     appBar: {
@@ -98,67 +100,96 @@ class Checkout extends React.Component {
         const {classes} = this.props;
         const {activeStep} = this.state;
 
-        return (
-            <React.Fragment>
-                <CssBaseline/>
-                <main className={classes.layout}>
-                    <Paper className={classes.paper}>
-                        <Typography component="h1" variant="h4" align="center">
-                            Checkout
-                        </Typography>
-                        <Stepper activeStep={activeStep} className={classes.stepper}>
-                            {steps.map(label => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                        <React.Fragment>
-                            {activeStep === steps.length ? (
+        const SignOutHandler = () => {
+            console.log('===============click on signOut Button==================');
+            this.props.dispatch(userSignOut());
+            window.open('http://localhost:8080/' , '_self');
+        }
+
+        if (this.props.userAuth.isAuth == false){
+            window.open('http://localhost:8080/' , '_self');
+        }else {
+            return (
+                <div>
+                    <nav className="navbar navbar-dark bg-dark">
+                        <a className="navbar-brand" href='#'><h2>Cart</h2></a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item active">
+                                    <NavLink to={'/'} className="nav-link" href="#">Home <span className="sr-only">(current)</span></NavLink>
+                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span className="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <React.Fragment>
+                        <CssBaseline/>
+                        <main className={classes.layout}>
+                            <Paper className={classes.paper}>
+                                <Typography component="h1" variant="h4" align="center">
+                                    Checkout
+                                </Typography>
+                                <Stepper activeStep={activeStep} className={classes.stepper}>
+                                    {steps.map(label => (
+                                        <Step key={label}>
+                                            <StepLabel>{label}</StepLabel>
+                                        </Step>
+                                    ))}
+                                </Stepper>
                                 <React.Fragment>
-                                    <Typography variant="h5" gutterBottom>
-                                        Thank you for your order.
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        Your order number is #2001539. We have emailed your order confirmation, and will
-                                        send you an update when your order has shipped.
-                                    </Typography>
-                                    <Button
-                                        onClick={this.backHome}
-                                        variant="contained"
-                                        color="primary"
-                                       >
-                                        Back To Home
-                                    </Button>
-                                </React.Fragment>
-                            ) : (
-                                <React.Fragment>
-                                    {getStepContent(activeStep)}
-                                    <div className={classes.buttons}>
-                                        {activeStep !== 0 && (
-                                            <Button onClick={this.handleBack} className={classes.button}>
-                                                Back
+                                    {activeStep === steps.length ? (
+                                        <React.Fragment>
+                                            <Typography variant="h5" gutterBottom>
+                                                Thank you for your order.
+                                            </Typography>
+                                            <Typography variant="subtitle1">
+                                                Your order number is #2001539. We have emailed your order confirmation, and
+                                                will
+                                                send you an update when your order has shipped.
+                                            </Typography>
+                                            <Button
+                                                onClick={this.backHome}
+                                                variant="contained"
+                                                color="primary"
+                                            >
+                                                Back To Home
                                             </Button>
-                                        )}
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                            className={classes.button}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                        </Button>
-                                    </div>
+                                        </React.Fragment>
+                                    ) : (
+                                        <React.Fragment>
+                                            {getStepContent(activeStep)}
+                                            <div className={classes.buttons}>
+                                                {activeStep !== 0 && (
+                                                    <Button onClick={this.handleBack} className={classes.button}>
+                                                        Back
+                                                    </Button>
+                                                )}
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    className={classes.button}
+                                                >
+                                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                                </Button>
+                                            </div>
+                                        </React.Fragment>
+                                    )}
                                 </React.Fragment>
-                            )}
-                        </React.Fragment>
 
 
+                            </Paper>
+                        </main>
+                    </React.Fragment>
+                </div>
+            );
+        }
 
-                    </Paper>
-                </main>
-            </React.Fragment>
-        );
+
     }
 }
 
@@ -166,4 +197,8 @@ Checkout.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+const mapStatToProps = state => ({
+    userAuth: state.userAuth
+})
+
+export default connect(mapStatToProps)(withStyles(styles)(Checkout));

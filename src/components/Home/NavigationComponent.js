@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {connect} from "react-redux";
 
 const Navigation = (props) => (
-    <nav className="navbar-dark bg-dark navbar  navbar-expand-lg  fixed-top" id="mainNav">
+    <nav className="navbar navbar-dark navbar-expand-lg  fixed-top" id="mainNav">
         <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">Smart Fire Alarm System</a>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"

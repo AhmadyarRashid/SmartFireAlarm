@@ -4,6 +4,8 @@ export const addCart = (
     {
         deviceId = 0,
         deviceDescription = '',
+        image = '',
+        unitPrice = 0,
         quantity = 0,
         amount = 0,
     } = {}
@@ -12,6 +14,8 @@ export const addCart = (
     payload: {
         deviceId,
         deviceDescription,
+        image,
+        unitPrice,
         quantity,
         amount
     }

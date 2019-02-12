@@ -5330,6 +5330,16 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
+startbootstrap-agency@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/startbootstrap-agency/-/startbootstrap-agency-5.0.5.tgz#2c1bb5efe650f167fc5af43076e768738fb95495"
+  integrity sha512-9AFAnLoMWrMU3LuLNzvBQvb9Xp0xPsOgMA3CxJFEhwP7UeDn6P/Zgf7ZD2yzXVZC+mOEhAN9tsZ+XfRZWcFF5Q==
+  dependencies:
+    "@fortawesome/fontawesome-free" "5.7.0"
+    bootstrap "4.2.1"
+    jquery "3.3.1"
+    jquery.easing "^1.4.1"
+
 "statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"

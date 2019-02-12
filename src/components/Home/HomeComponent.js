@@ -9,9 +9,6 @@ import Contact from './ContactComponent';
 import Footer from './FooterComponent';
 import {NavLink} from 'react-router-dom';
 import {
-    InputGroup,
-    InputGroupText,
-    InputGroupAddon,
     FormGroup,
     Label,
     Col,
@@ -39,14 +36,28 @@ class Home extends Component {
 
     HubProductHandler = () => {
 
-        this.props.dispatch(addCart({deviceId: 1, quantity: this.state.hubQty, amount: this.state.hubAmount}))
+        this.props.dispatch(addCart({
+            deviceId: 1,
+            deviceDescription: this.props.deviceDescription1,
+            image: this.props.deviceImage1,
+            unitPrice: this.props.unitPrice1,
+            quantity: this.state.hubQty,
+            amount: this.state.hubAmount
+        }));
         console.log(this.props.cart);
         this.toggleModal();
     }
 
     SlaveProductHandler = () => {
 
-        this.props.dispatch(addCart({deviceId: 2, quantity: this.state.slaveQty, amount: this.state.slaveAmount}))
+        this.props.dispatch(addCart({
+            deviceId: 2,
+            deviceDescription: this.props.deviceDescription2,
+            image: this.props.deviceImage2,
+            unitPrice: this.props.unitPrice2,
+            quantity: this.state.slaveQty,
+            amount: this.state.slaveAmount
+        }))
         console.log(this.props.cart);
         this.toggleModal();
     }
@@ -279,7 +290,8 @@ class Home extends Component {
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </ModalBody>
                     <ModalFooter>
-                        <NavLink to='\showCart' className='btn btn-primary' onClick={this.toggleModal}>Buy Now</NavLink>{' '}
+                        <NavLink to='\showCart' className='btn btn-primary' onClick={this.toggleModal}>Buy
+                            Now</NavLink>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Continue Shopping</Button>
                     </ModalFooter>
                 </Modal>
@@ -294,4 +306,14 @@ const mapStatToProps = state => ({
     userAuth: state.userAuth,
     cart: state.cart
 })
+
+
+Home.defaultProps = {
+    deviceDescription1: 'Hub Device',
+    deviceImage1: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
+    unitPrice1: 1200,
+    deviceDescription2: 'Slave Device',
+    deviceImage2: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
+    unitPrice2: 600
+};
 export default connect(mapStatToProps)(Home);

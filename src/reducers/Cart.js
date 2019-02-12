@@ -1,50 +1,39 @@
 import * as ActionsTypes from '../actionsTypes/ActionsTypes';
 
-const defaultCart = [
-    {
-        deviceId: 1,
-        deviceDescription: 'Hub Device',
-        image: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
-        unitPrice: 1200,
-        quantity: 0,
-        amount: 0
-    },
-    {
-        deviceId: 2,
-        deviceDescription: 'Slave Device',
-        image: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
-        unitPrice: 600,
-        quantity: 0,
-        amount: 0
-    }];
+const defaultCart = [];
 
 export default (state = defaultCart, action) => {
     switch (action.type) {
         case ActionsTypes.addToCart:
-            state.map(item => {
-                if (item.deviceId == action.payload.deviceId) {
-                    item.quantity = Number(item.quantity) + Number(action.payload.quantity);
-                    item.amount = Number(item.amount) + Number(action.payload.amount);
-                    return state;
-                }
-            });
-        case ActionsTypes.deleteFronCart:
-            if (action.deviceId > 0){
-                state[Number(action.deviceId) - 1].quantity = 0;
-                state[Number(action.deviceId) - 1].amount = state[Number(action.deviceId) - 1].unitPrice;
+
+            var found = state.some((item) => item.deviceId == action.payload.deviceId);
+            if (found) {
+                state.forEach((item, index) => {
+                    if (item.deviceId == action.payload.deviceId) {
+                        item.quantity = Number(item.quantity) +  Number(action.payload.quantity);
+                        item.amount = Number(item.amount) + Number(action.payload.amount);
+                        return state;
+                    }
+                });
+            } else {
+                state.push(action.payload);
                 return state;
+            }
+        case ActionsTypes.deleteFronCart:
+            if (action.deviceId > 0) {
+                return state.filter(item => item.deviceId != action.deviceId);
             } else {
                 return state;
             }
 
         case ActionsTypes.updateCart:
-            if (action.deviceId > 0){
-                state[Number(action.deviceId) - 1].quantity = action.quantity;
-                state[Number(action.deviceId) - 1].amount = Number(action.quantity) * state[Number(action.deviceId) - 1].unitPrice;
-                return state;
-            } else {
-                return state;
-            }
+            state.forEach(item => {
+                if (item.deviceId == action.deviceId){
+                    item.quantity = Number(action.quantity);
+                    item.amount = Number(action.quantity) * Number(item.unitPrice);
+                    return state;
+                }
+            })
 
         default:
             return state;
