@@ -7,7 +7,7 @@ import About from './AboutComponent';
 import Team from './TeamComponent';
 import Contact from './ContactComponent';
 import Footer from './FooterComponent';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 import {
     FormGroup,
     Label,
@@ -30,36 +30,60 @@ class Home extends Component {
             hubQty: 1,
             hubAmount: 1200,
             slaveQty: 1,
-            slaveAmount: 600
+            slaveAmount: 600,
+            error:''
         }
     }
 
     HubProductHandler = () => {
 
-        this.props.dispatch(addCart({
-            deviceId: 1,
-            deviceDescription: this.props.deviceDescription1,
-            image: this.props.deviceImage1,
-            unitPrice: this.props.unitPrice1,
-            quantity: this.state.hubQty,
-            amount: this.state.hubAmount
-        }));
+        if (Number(this.state.hubQty) > 0){
+            this.setState(({
+                error:''
+            }));
+            this.props.dispatch(addCart({
+                deviceId: 1,
+                deviceDescription: this.props.deviceDescription1,
+                image: this.props.deviceImage1,
+                unitPrice: this.props.unitPrice1,
+                quantity: this.state.hubQty,
+                amount: this.state.hubAmount
+            }));
+
+            this.toggleModal();
+        } else {
+            this.setState(({
+                error:'Please Enter Quantity!'
+            }));
+        }
+
         console.log(this.props.cart);
-        this.toggleModal();
+
     }
 
     SlaveProductHandler = () => {
 
-        this.props.dispatch(addCart({
-            deviceId: 2,
-            deviceDescription: this.props.deviceDescription2,
-            image: this.props.deviceImage2,
-            unitPrice: this.props.unitPrice2,
-            quantity: this.state.slaveQty,
-            amount: this.state.slaveAmount
-        }))
-        console.log(this.props.cart);
-        this.toggleModal();
+        if (Number(this.state.slaveQty > 0)){
+            this.setState(({
+                error:''
+            }));
+            this.props.dispatch(addCart({
+                deviceId: 2,
+                deviceDescription: this.props.deviceDescription2,
+                image: this.props.deviceImage2,
+                unitPrice: this.props.unitPrice2,
+                quantity: this.state.slaveQty,
+                amount: this.state.slaveAmount
+            }))
+            console.log(this.props.cart);
+            this.toggleModal();
+        } else {
+            this.setState(({
+                error:'Please Enter Quantity!'
+            }));
+        }
+
+
     }
 
     toggleModal = () => {
@@ -91,6 +115,11 @@ class Home extends Component {
     }
 
     render() {
+        const BuybtnHandler = () => {
+            console.log('============= buy button clicked ==============');
+            window.open('http://localhost:8080/showCart' , '_self');
+        }
+
         return (
             <div id="page-top">
 
@@ -154,25 +183,23 @@ class Home extends Component {
                                                                    value={this.state.hubAmount}/>
                                                         </Col>
                                                     </FormGroup>
+                                                    {
+                                                        !!this.state.error && <p className='text-danger'>{this.state.error}</p>
+                                                    }
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
-                                                                <NavLink to='/showCart'>
-                                                                    <Button type="button"
-                                                                            data-dismiss="modal"
-                                                                            className='btn btn-primary btn-lg'>
-                                                                        Buy Now
-                                                                    </Button>
-                                                                </NavLink>
+                                                                <Button
+                                                                    onClick={() => BuybtnHandler()}
+                                                                    type="button"
+                                                                    data-dismiss="modal"
+                                                                    className='btn btn-primary btn-lg'>
+                                                                    Buy Now
+                                                                </Button>
                                                                 {' '}
                                                                 <Button type="button" onClick={this.HubProductHandler}
                                                                         className='btn btn-primary btn-lg'>
                                                                     Add To Cart
-                                                                </Button>
-                                                                {' '}
-                                                                <Button className="btn btn-primary btn-lg"
-                                                                        data-dismiss="modal" type="button">
-                                                                    Clear
                                                                 </Button>
                                                             </center>
                                                         </div>
@@ -239,11 +266,15 @@ class Home extends Component {
                                                                    value={this.state.slaveAmount}/>
                                                         </Col>
                                                     </FormGroup>
+                                                    {
+                                                        !!this.state.error && <p className='text-danger'>{this.state.error}</p>
+                                                    }
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
                                                                 <NavLink to='/showCart'>
                                                                     <Button
+                                                                        onClick={() => BuybtnHandler()}
                                                                         type="button"
                                                                         data-dismiss="modal"
                                                                         className='btn btn-primary btn-lg'>
@@ -256,13 +287,6 @@ class Home extends Component {
                                                                     onClick={this.SlaveProductHandler}
                                                                     className='btn btn-primary btn-lg'>
                                                                     Add To Cart
-                                                                </Button>
-                                                                {' '}
-                                                                <Button
-                                                                    className="btn btn-primary btn-lg"
-                                                                    data-dismiss="modal"
-                                                                    type="button">
-                                                                    Clear
                                                                 </Button>
                                                             </center>
                                                         </div>

@@ -37,6 +37,7 @@
     "reactstrap": "^7.1.0",
     "recharts": "^1.4.1",
     "redux": "3.7.2",
+    "redux-persist": "^5.10.0",
     "sass-loader": "6.0.6",
     "startbootstrap-agency": "^5.0.5",
     "style-loader": "0.18.2",

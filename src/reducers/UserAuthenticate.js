@@ -30,6 +30,11 @@ export default (state = userAuthenticateDefaultState, action) => {
             state.password = '';
             state.error = '';
             return state;
+        case ActionsTypes.updateProfile:
+            state.userName = action.payload.userName;
+            state.phoneNo = action.payload.phoneNo;
+            state.address = action.payload.address;
+            return state;
         default:
             return state;
     }

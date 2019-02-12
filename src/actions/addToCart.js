@@ -2,6 +2,7 @@ import * as ActionsTypes from '../actionsTypes/ActionsTypes';
 
 export const addCart = (
     {
+        id=0,
         deviceId = 0,
         deviceDescription = '',
         image = '',
@@ -12,6 +13,7 @@ export const addCart = (
 ) => ({
     type : ActionsTypes.addToCart,
     payload: {
+        id : deviceId,
         deviceId,
         deviceDescription,
         image,

@@ -17,3 +17,18 @@ export const userSignOut = (
 ) => ({
     type: ActionsTypes.userSignOut
 })
+
+export const updateProfile = (
+    {
+        userName = '',
+        phoneNo = '',
+        address = ''
+    } = {}
+) => ({
+    type : ActionsTypes.updateProfile,
+    payload : {
+        userName,
+        phoneNo,
+        address
+    }
+})

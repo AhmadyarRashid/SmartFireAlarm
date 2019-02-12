@@ -1,6 +1,6 @@
 import React from "react";
 import ChangePassword from '../DashBoardComponent/UserCPComponent';
-import AddToCart from '../DashBoardComponent/ATCComponent';
+import AddToCart from '../DashBoardComponent/MyOrderComponent';
 import UserProfile from '../DashBoardComponent/UserProfileComponent';
 import Payment from '../Payment/Checkout';
 
