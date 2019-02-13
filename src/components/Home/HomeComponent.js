@@ -20,7 +20,7 @@ import {
     ModalFooter
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {addCart} from '../../actions/addToCart';
+import {addCart} from '../../actions/cart';
 
 class Home extends Component {
     constructor(props) {
@@ -43,12 +43,15 @@ class Home extends Component {
             }));
             this.props.dispatch(addCart({
                 deviceId: 1,
+                deviceName: this.props.deviceName1,
                 deviceDescription: this.props.deviceDescription1,
                 image: this.props.deviceImage1,
                 unitPrice: this.props.unitPrice1,
                 quantity: this.state.hubQty,
                 amount: this.state.hubAmount
             }));
+
+            localStorage.setItem("cart" , JSON.stringify(this.props.cart));
 
             this.toggleModal();
         } else {
@@ -69,6 +72,7 @@ class Home extends Component {
             }));
             this.props.dispatch(addCart({
                 deviceId: 2,
+                deviceName: this.props.deviceName2,
                 deviceDescription: this.props.deviceDescription2,
                 image: this.props.deviceImage2,
                 unitPrice: this.props.unitPrice2,
@@ -76,7 +80,10 @@ class Home extends Component {
                 amount: this.state.slaveAmount
             }))
             console.log(this.props.cart);
+
+            localStorage.setItem("cart" , JSON.stringify(this.props.cart));
             this.toggleModal();
+
         } else {
             this.setState(({
                 error:'Please Enter Quantity!'
@@ -333,10 +340,12 @@ const mapStatToProps = state => ({
 
 
 Home.defaultProps = {
-    deviceDescription1: 'Hub Device',
+    deviceName1: 'HUB Device',
+    deviceDescription1: 'Auto generate call and notify to user',
     deviceImage1: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice1: 1200,
-    deviceDescription2: 'Slave Device',
+    deviceName2:'Slave Device',
+    deviceDescription2: 'send health to server and hub device',
     deviceImage2: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice2: 600
 };

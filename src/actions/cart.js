@@ -4,6 +4,7 @@ export const addCart = (
     {
         id=0,
         deviceId = 0,
+        deviceName = '',
         deviceDescription = '',
         image = '',
         unitPrice = 0,
@@ -14,6 +15,7 @@ export const addCart = (
     type : ActionsTypes.addToCart,
     payload: {
         id : deviceId,
+        deviceName,
         deviceId,
         deviceDescription,
         image,
@@ -38,4 +40,17 @@ export const updateQuantityCart = (
     type: ActionsTypes.updateCart,
     deviceId,
     quantity
+});
+
+export const lastUpdatedCart = (
+    {
+        updatedCart = []
+    } = {}
+)=> ({
+    type : ActionsTypes.lastUpdatedCart,
+    payload : updatedCart
+});
+
+export const clearCart = () => ({
+    type: ActionsTypes.clearcart
 })

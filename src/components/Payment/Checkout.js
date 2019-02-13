@@ -16,6 +16,8 @@ import Review from './Review';
 import NavLink from "react-router-dom/es/NavLink";
 import {connect} from 'react-redux';
 import {userSignOut} from "../../actions/UserAuthenticate";
+import {lastUpdatedCart,clearCart} from "../../actions/cart";
+import {addOrder} from '../../actions/myOrders';
 
 const styles = theme => ({
     appBar: {
@@ -75,9 +77,26 @@ class Checkout extends React.Component {
     };
 
     handleNext = () => {
+        if (this.state.activeStep == 2) {
+            console.log('========= place order btn clicked =============');
+            this.props.dispatch(addOrder(this.props.cart));
+            setTimeout(() => {
+                this.props.dispatch(clearCart());
+                localStorage.removeItem('cart');
+
+                console.log('=============== New Updated States =============');
+                console.log('================ cart =============\n' , this.props.cart);
+                console.log('================ MyOrder =============\n' , this.props.myOrder);
+            }, 1500);
+
+
+        }
+
+
         this.setState(state => ({
             activeStep: state.activeStep + 1,
         }));
+
     };
 
     handleBack = () => {
@@ -96,6 +115,13 @@ class Checkout extends React.Component {
         window.open("http://localhost:8080", "_self")
     }
 
+    componentWillMount() {
+        if (this.props.cart.length == 0) {
+            var cart = JSON.parse(localStorage.getItem('cart'));
+            this.props.dispatch(lastUpdatedCart({updatedCart: cart}));
+        }
+    }
+
     render() {
         const {classes} = this.props;
         const {activeStep} = this.state;
@@ -103,12 +129,12 @@ class Checkout extends React.Component {
         const SignOutHandler = () => {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
-            window.open('http://localhost:8080/' , '_self');
+            window.open('http://localhost:8080/', '_self');
         }
 
-        if (this.props.userAuth.isAuth == false){
-            window.open('http://localhost:8080/' , '_self');
-        }else {
+        if (this.props.userAuth.isAuth == false) {
+            window.open('http://localhost:8080/', '_self');
+        } else {
             return (
                 <div>
                     <nav className="navbar navbar-dark bg-dark">
@@ -120,8 +146,10 @@ class Checkout extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item active">
-                                    <NavLink to={'/'} className="nav-link" href="#">Home <span className="sr-only">(current)</span></NavLink>
-                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span className="sr-only">(current)</span></a>
+                                    <NavLink to={'/'} className="nav-link" href="#">Home <span
+                                        className="sr-only">(current)</span></NavLink>
+                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span
+                                        className="sr-only">(current)</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -147,7 +175,8 @@ class Checkout extends React.Component {
                                                 Thank you for your order.
                                             </Typography>
                                             <Typography variant="subtitle1">
-                                                Your order number is #2001539. We have emailed your order confirmation, and
+                                                Your order number is #2001539. We have emailed your order confirmation,
+                                                and
                                                 will
                                                 send you an update when your order has shipped.
                                             </Typography>
@@ -198,7 +227,9 @@ Checkout.propTypes = {
 };
 
 const mapStatToProps = state => ({
-    userAuth: state.userAuth
+    userAuth: state.userAuth,
+    cart: state.cart,
+    myOrder: state.myOrder
 })
 
 export default connect(mapStatToProps)(withStyles(styles)(Checkout));

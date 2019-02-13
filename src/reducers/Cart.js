@@ -10,7 +10,7 @@ export default (state = defaultCart, action) => {
             if (found) {
                 state.forEach((item, index) => {
                     if (item.deviceId == action.payload.deviceId) {
-                        item.quantity = Number(item.quantity) +  Number(action.payload.quantity);
+                        item.quantity = Number(item.quantity) + Number(action.payload.quantity);
                         item.amount = Number(item.amount) + Number(action.payload.amount);
                         return state;
                     }
@@ -28,13 +28,28 @@ export default (state = defaultCart, action) => {
 
         case ActionsTypes.updateCart:
             state.forEach(item => {
-                if (item.deviceId == action.deviceId){
+                if (item.deviceId == action.deviceId) {
                     item.quantity = Number(action.quantity);
                     item.amount = Number(action.quantity) * Number(item.unitPrice);
                     return state;
                 }
             })
 
+        case ActionsTypes.lastUpdatedCart:
+           // console.log('========= last updated cart ==========\n', action.payload);
+            try{
+                action.payload.forEach(item => {
+                    state.push(item);
+                })
+            }catch (e) {
+                console.log(e);
+            }finally {
+                return state;
+            }
+
+        case ActionsTypes.clearcart:
+            state = [];
+            return state;
         default:
             return state;
     }

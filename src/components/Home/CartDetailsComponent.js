@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {deleteItemFromCart, updateQuantityCart} from '../../actions/addToCart';
+import {deleteItemFromCart, updateQuantityCart} from '../../actions/cart';
 import {userSignOut} from "../../actions/UserAuthenticate";
+import {lastUpdatedCart} from '../../actions/cart';
 
 class CartDetails extends Component {
     constructor(props) {
@@ -13,7 +14,14 @@ class CartDetails extends Component {
         }
     }
 
+
     componentWillMount() {
+        if (this.props.cart.length == 0) {
+            console.log(JSON.parse(localStorage.getItem('cart')));
+            var cart = JSON.parse(localStorage.getItem('cart'));
+            this.props.dispatch(lastUpdatedCart({updatedCart: cart}));
+        }
+
         var item1Qty = 0, item2Qty = 0;
         this.props.cart.forEach(item => {
             if (item.deviceId == 1) {
@@ -29,7 +37,6 @@ class CartDetails extends Component {
             item2Qty
         }));
     }
-
 
 
     render() {
@@ -52,13 +59,30 @@ class CartDetails extends Component {
                 }))
             }
             this.props.dispatch(updateQuantityCart({deviceId: deviceId, quantity: Number(event.target.value)}));
-
             console.log(this.props.cart);
+            localStorage.removeItem('cart');
+            try {
+                console.log('======== local storage Remove all Item ========\n', JSON.parse(localStorage.getItem('cart')));
+            } catch (e) {
+                console.log('===== errror to show empty ==========');
+
+            }
+            localStorage.setItem('cart', JSON.stringify(this.props.cart));
         }
 
         const removeItem = (deviceId) => {
             this.props.dispatch(deleteItemFromCart(deviceId));
-            console.log(this.props.cart);
+            const cloneCart = this.props.cart;
+            const updateCart = cloneCart.filter(item => item.deviceId != deviceId);
+
+            localStorage.removeItem('cart');
+            try {
+                console.log('======== local storage Remove all Item ========\n', JSON.parse(localStorage.getItem('cart')));
+            } catch (e) {
+                console.log('===== errror to show empty ==========');
+
+            }
+            localStorage.setItem('cart', JSON.stringify(updateCart));
         }
 
         const showTotalAmount = () => {
@@ -105,25 +129,39 @@ class CartDetails extends Component {
         const SignOutHandler = () => {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
-            window.open('http://localhost:8080/' , '_self');
+            window.open('http://localhost:8080/', '_self');
         }
 
-        if(this.props.userAuth.isAuth == false){
-            window.open('http://localhost:8080/' , '_self');
-        }else {
+        if (this.props.userAuth.isAuth == false) {
+            window.open('http://localhost:8080/', '_self');
+        } else {
             return (
                 <div>
-                    <nav className="navbar navbar-dark bg-dark">
-                        <a className="navbar-brand" href='#'><h2>Cart</h2></a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a className="navbar-brand" href='#'><h3>Cart Details</h3></a>
+                        <button
+                            className="navbar-toggler"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbarNav"
+                            aria-controls="navbarNav"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
-                                <li className="nav-item active">
-                                    <NavLink to={'/'} className="nav-link" href="#">Home <span className="sr-only">(current)</span></NavLink>
-                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span className="sr-only">(current)</span></a>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#"><span
+                                        className="sr-only">(current)</span></a>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink to={'/'} className="nav-link" href="#">Home <span
+                                        className="sr-only">(current)</span></NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span
+                                        className="sr-only">(current)</span></a>
                                 </li>
                             </ul>
                         </div>
