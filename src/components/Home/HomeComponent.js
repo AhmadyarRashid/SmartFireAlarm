@@ -103,6 +103,20 @@ class Home extends Component {
         }));
     }
 
+    toggleBuyModal = () => {
+        this.setState((preStat) => ({
+            showModal: !preStat.showModal,
+            hubQty: 1,
+            hubAmount: 1200,
+            slaveQty: 1,
+            slaveAmount: 600
+        }));
+        setTimeout(() => {
+            window.open('http://localhost:8080/showCart' , '_self');
+        }, 750);
+
+    }
+
     changeHubQty = (event) => {
         var hubQty = Number(event.target.value);
         var hubAmount = 1200 * Number(hubQty);
@@ -122,9 +136,61 @@ class Home extends Component {
     }
 
     render() {
-        const BuybtnHandler = () => {
+        const BuyHUBbtnHandler = () => {
             console.log('============= buy button clicked ==============');
-            window.open('http://localhost:8080/showCart' , '_self');
+            if (Number(this.state.hubQty) > 0){
+                this.setState(({
+                    error:''
+                }));
+                this.props.dispatch(addCart({
+                    deviceId: 1,
+                    deviceName: this.props.deviceName1,
+                    deviceDescription: this.props.deviceDescription1,
+                    image: this.props.deviceImage1,
+                    unitPrice: this.props.unitPrice1,
+                    quantity: this.state.hubQty,
+                    amount: this.state.hubAmount
+                }));
+
+                localStorage.setItem("cart" , JSON.stringify(this.props.cart));
+                window.open('http://localhost:8080/showCart' , '_self');
+            } else {
+                this.setState(({
+                    error:'Please Enter Quantity!'
+                }));
+            }
+
+            console.log(this.props.cart);
+
+        }
+
+        const BuySLAVEbtnHandler = () => {
+            console.log('============= buy button clicked ==============');
+            if (Number(this.state.slaveQty > 0)){
+                this.setState(({
+                    error:''
+                }));
+                this.props.dispatch(addCart({
+                    deviceId: 2,
+                    deviceName: this.props.deviceName2,
+                    deviceDescription: this.props.deviceDescription2,
+                    image: this.props.deviceImage2,
+                    unitPrice: this.props.unitPrice2,
+                    quantity: this.state.slaveQty,
+                    amount: this.state.slaveAmount
+                }))
+                console.log(this.props.cart);
+
+                localStorage.setItem("cart" , JSON.stringify(this.props.cart));
+
+                window.open('http://localhost:8080/showCart' , '_self');
+            } else {
+                this.setState(({
+                    error:'Please Enter Quantity!'
+                }));
+            }
+
+
         }
 
         return (
@@ -197,7 +263,7 @@ class Home extends Component {
                                                         <div className='col-12'>
                                                             <center>
                                                                 <Button
-                                                                    onClick={() => BuybtnHandler()}
+                                                                    onClick={() => BuyHUBbtnHandler()}
                                                                     type="button"
                                                                     data-dismiss="modal"
                                                                     className='btn btn-primary btn-lg'>
@@ -237,7 +303,7 @@ class Home extends Component {
                                         <div className="modal-body">
                                             <div className='row'>
                                                 <div className='col'>
-                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>HUB
+                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>SLAVE
                                                         Device</h3>
                                                     <p className="item-intro text-muted">Lorem ipsum dolor sit amet
                                                         consectetur.</p>
@@ -281,7 +347,7 @@ class Home extends Component {
                                                             <center>
                                                                 <NavLink to='/showCart'>
                                                                     <Button
-                                                                        onClick={() => BuybtnHandler()}
+                                                                        onClick={() => BuySLAVEbtnHandler()}
                                                                         type="button"
                                                                         data-dismiss="modal"
                                                                         className='btn btn-primary btn-lg'>
@@ -321,8 +387,8 @@ class Home extends Component {
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </ModalBody>
                     <ModalFooter>
-                        <NavLink to='\showCart' className='btn btn-primary' onClick={this.toggleModal}>Buy
-                            Now</NavLink>{' '}
+                        <Button className='btn btn-primary' onClick={this.toggleBuyModal}>Buy
+                            Now</Button>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Continue Shopping</Button>
                     </ModalFooter>
                 </Modal>
