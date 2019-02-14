@@ -24,7 +24,7 @@ const AppRouter = () => (
         <Route path='/showCart' component={CartDetail} />
         <Route path="/create" component={AddExpensePage} />
         <Route path="/edit/:id" component={EditExpensePage} />
-        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/admin" component={Dashboard}/>
         <Route path="/help" component={HelpPage} />
         <Route path="/payment" component={CheckOut}/>
         <Route component={NotFoundPage} />
