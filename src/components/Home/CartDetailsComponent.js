@@ -129,6 +129,12 @@ class CartDetails extends Component {
         const SignOutHandler = () => {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
+            try{
+                localStorage.removeItem('userAuth');
+                localStorage.removeItem('cart');
+            }catch (e) {
+                console.log(e);
+            }
             window.open('http://localhost:8080/', '_self');
         }
 

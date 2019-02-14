@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from "react-redux";
 
+
 const Navigation = (props) => (
     <nav className="navbar navbar-dark navbar-expand-lg  fixed-top" id="mainNav">
         <div className="container">

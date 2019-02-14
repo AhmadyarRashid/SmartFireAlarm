@@ -31,4 +31,26 @@ export const updateProfile = (
         phoneNo,
         address
     }
+});
+
+export const localToRedux = (
+    {
+        email= '',
+        password='',
+        isAuth= false,
+        userName= '',
+        phoneNo = '',
+        address = ''
+    }={}
+) => ({
+    type: ActionsTypes.localStorageToRedux,
+    payload: {
+        email,
+        password,
+        isAuth,
+        userName,
+        phoneNo,
+        address
+
+    }
 })

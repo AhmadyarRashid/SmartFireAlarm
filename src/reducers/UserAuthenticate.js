@@ -1,7 +1,7 @@
 import * as ActionsTypes from '../actionsTypes/ActionsTypes';
 
 const userAuthenticateDefaultState = {
-    isAuth: true,
+    isAuth: false,
     email: '',
     password: '',
     error: '',
@@ -29,8 +29,25 @@ export default (state = userAuthenticateDefaultState, action) => {
             state.email = '';
             state.password = '';
             state.error = '';
+            state.userName = '';
+            state.phoneNo = '';
+            state.address = '';
+            state.orders= 0;
+            state.awaitingPayment= 0;
+            state.awaitingShipment= 0;
+            state.awaitingDelivery= 0;
+            state.awaitingFeedback= 0;
+            state.disputes= 0;
             return state;
         case ActionsTypes.updateProfile:
+            state.userName = action.payload.userName;
+            state.phoneNo = action.payload.phoneNo;
+            state.address = action.payload.address;
+            return state;
+        case ActionsTypes.localStorageToRedux:
+            state.isAuth = action.payload.isAuth;
+            state.email = action.payload.email;
+            state.password = action.payload.password;
             state.userName = action.payload.userName;
             state.phoneNo = action.payload.phoneNo;
             state.address = action.payload.address;

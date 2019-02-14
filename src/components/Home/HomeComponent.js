@@ -7,7 +7,7 @@ import About from './AboutComponent';
 import Team from './TeamComponent';
 import Contact from './ContactComponent';
 import Footer from './FooterComponent';
-import {NavLink,Redirect} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {
     FormGroup,
     Label,
@@ -21,6 +21,7 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 import {addCart} from '../../actions/cart';
+import {localToRedux} from '../../actions/UserAuthenticate';
 
 class Home extends Component {
     constructor(props) {
@@ -31,15 +32,16 @@ class Home extends Component {
             hubAmount: 1200,
             slaveQty: 1,
             slaveAmount: 600,
-            error:''
+            error: '',
+            auth: {}
         }
     }
 
     HubProductHandler = () => {
 
-        if (Number(this.state.hubQty) > 0){
+        if (Number(this.state.hubQty) > 0) {
             this.setState(({
-                error:''
+                error: ''
             }));
             this.props.dispatch(addCart({
                 deviceId: 1,
@@ -51,12 +53,12 @@ class Home extends Component {
                 amount: this.state.hubAmount
             }));
 
-            localStorage.setItem("cart" , JSON.stringify(this.props.cart));
+            localStorage.setItem("cart", JSON.stringify(this.props.cart));
 
             this.toggleModal();
         } else {
             this.setState(({
-                error:'Please Enter Quantity!'
+                error: 'Please Enter Quantity!'
             }));
         }
 
@@ -66,9 +68,9 @@ class Home extends Component {
 
     SlaveProductHandler = () => {
 
-        if (Number(this.state.slaveQty > 0)){
+        if (Number(this.state.slaveQty > 0)) {
             this.setState(({
-                error:''
+                error: ''
             }));
             this.props.dispatch(addCart({
                 deviceId: 2,
@@ -81,16 +83,34 @@ class Home extends Component {
             }))
             console.log(this.props.cart);
 
-            localStorage.setItem("cart" , JSON.stringify(this.props.cart));
+            localStorage.setItem("cart", JSON.stringify(this.props.cart));
             this.toggleModal();
 
         } else {
             this.setState(({
-                error:'Please Enter Quantity!'
+                error: 'Please Enter Quantity!'
             }));
         }
 
 
+    }
+
+    componentWillMount() {
+        try {
+            var user = localStorage.getItem('userAuth');
+            user = JSON.parse(user);
+            this.props.dispatch(localToRedux({
+                email: user.email,
+                password: user.password,
+                isAuth: user.isAuth,
+                userName: user.userName,
+                phoneNo: user.phoneNo,
+                address: user.address
+            }));
+
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     toggleModal = () => {
@@ -112,7 +132,7 @@ class Home extends Component {
             slaveAmount: 600
         }));
         setTimeout(() => {
-            window.open('http://localhost:8080/showCart' , '_self');
+            window.open('http://localhost:8080/showCart', '_self');
         }, 750);
 
     }
@@ -138,9 +158,9 @@ class Home extends Component {
     render() {
         const BuyHUBbtnHandler = () => {
             console.log('============= buy button clicked ==============');
-            if (Number(this.state.hubQty) > 0){
+            if (Number(this.state.hubQty) > 0) {
                 this.setState(({
-                    error:''
+                    error: ''
                 }));
                 this.props.dispatch(addCart({
                     deviceId: 1,
@@ -152,11 +172,11 @@ class Home extends Component {
                     amount: this.state.hubAmount
                 }));
 
-                localStorage.setItem("cart" , JSON.stringify(this.props.cart));
-                window.open('http://localhost:8080/showCart' , '_self');
+                localStorage.setItem("cart", JSON.stringify(this.props.cart));
+                window.open('http://localhost:8080/showCart', '_self');
             } else {
                 this.setState(({
-                    error:'Please Enter Quantity!'
+                    error: 'Please Enter Quantity!'
                 }));
             }
 
@@ -166,9 +186,9 @@ class Home extends Component {
 
         const BuySLAVEbtnHandler = () => {
             console.log('============= buy button clicked ==============');
-            if (Number(this.state.slaveQty > 0)){
+            if (Number(this.state.slaveQty > 0)) {
                 this.setState(({
-                    error:''
+                    error: ''
                 }));
                 this.props.dispatch(addCart({
                     deviceId: 2,
@@ -181,12 +201,12 @@ class Home extends Component {
                 }))
                 console.log(this.props.cart);
 
-                localStorage.setItem("cart" , JSON.stringify(this.props.cart));
+                localStorage.setItem("cart", JSON.stringify(this.props.cart));
 
-                window.open('http://localhost:8080/showCart' , '_self');
+                window.open('http://localhost:8080/showCart', '_self');
             } else {
                 this.setState(({
-                    error:'Please Enter Quantity!'
+                    error: 'Please Enter Quantity!'
                 }));
             }
 
@@ -257,7 +277,8 @@ class Home extends Component {
                                                         </Col>
                                                     </FormGroup>
                                                     {
-                                                        !!this.state.error && <p className='text-danger'>{this.state.error}</p>
+                                                        !!this.state.error &&
+                                                        <p className='text-danger'>{this.state.error}</p>
                                                     }
                                                     <div className='row'>
                                                         <div className='col-12'>
@@ -340,7 +361,8 @@ class Home extends Component {
                                                         </Col>
                                                     </FormGroup>
                                                     {
-                                                        !!this.state.error && <p className='text-danger'>{this.state.error}</p>
+                                                        !!this.state.error &&
+                                                        <p className='text-danger'>{this.state.error}</p>
                                                     }
                                                     <div className='row'>
                                                         <div className='col-12'>
@@ -410,7 +432,7 @@ Home.defaultProps = {
     deviceDescription1: 'Auto generate call and notify to user',
     deviceImage1: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice1: 1200,
-    deviceName2:'Slave Device',
+    deviceName2: 'Slave Device',
     deviceDescription2: 'send health to server and hub device',
     deviceImage2: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice2: 600
