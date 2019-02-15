@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -13,13 +11,25 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import NavLink from "react-router-dom/es/NavLink";
 import {connect} from 'react-redux';
 import {userSignOut} from "../../actions/UserAuthenticate";
-import {lastUpdatedCart,clearCart} from "../../actions/cart";
+import {lastUpdatedCart, clearCart} from "../../actions/cart";
 import {addOrder} from '../../actions/myOrders';
+import SimpleNavigation from '../Home/SimpleNavigationComponent';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#fed136',
+        }
+    }
+})
 
 const styles = theme => ({
+
+
     appBar: {
         position: 'relative',
     },
@@ -44,7 +54,7 @@ const styles = theme => ({
         },
     },
     stepper: {
-        padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
+        padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
     },
     buttons: {
         display: 'flex',
@@ -85,8 +95,8 @@ class Checkout extends React.Component {
                 localStorage.removeItem('cart');
 
                 console.log('=============== New Updated States =============');
-                console.log('================ cart =============\n' , this.props.cart);
-                console.log('================ MyOrder =============\n' , this.props.myOrder);
+                console.log('================ cart =============\n', this.props.cart);
+                console.log('================ MyOrder =============\n', this.props.myOrder);
             }, 1500);
 
 
@@ -129,10 +139,10 @@ class Checkout extends React.Component {
         const SignOutHandler = () => {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
-            try{
+            try {
                 localStorage.removeItem('userAuth');
                 localStorage.removeItem('cart');
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
             window.open('http://localhost:8080/', '_self');
@@ -142,85 +152,72 @@ class Checkout extends React.Component {
             window.open('http://localhost:8080/', '_self');
         } else {
             return (
-                <div>
-                    <nav className="navbar navbar-dark bg-dark">
-                        <a className="navbar-brand" href='#'><h2>Cart</h2></a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav">
-                                <li className="nav-item active">
-                                    <NavLink to={'/'} className="nav-link" href="#">Home <span
-                                        className="sr-only">(current)</span></NavLink>
-                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span
-                                        className="sr-only">(current)</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <React.Fragment>
-                        <CssBaseline/>
-                        <main className={classes.layout}>
-                            <Paper className={classes.paper}>
-                                <Typography component="h1" variant="h4" align="center">
-                                    Checkout
-                                </Typography>
-                                <Stepper activeStep={activeStep} className={classes.stepper}>
-                                    {steps.map(label => (
-                                        <Step key={label}>
-                                            <StepLabel>{label}</StepLabel>
-                                        </Step>
-                                    ))}
-                                </Stepper>
-                                <React.Fragment>
-                                    {activeStep === steps.length ? (
-                                        <React.Fragment>
-                                            <Typography variant="h5" gutterBottom>
-                                                Thank you for your order.
-                                            </Typography>
-                                            <Typography variant="subtitle1">
-                                                Your order number is #2001539. We have emailed your order confirmation,
-                                                and
-                                                will
-                                                send you an update when your order has shipped.
-                                            </Typography>
-                                            <Button
-                                                onClick={this.backHome}
-                                                variant="contained"
-                                                color="primary"
-                                            >
-                                                Back To Home
-                                            </Button>
-                                        </React.Fragment>
-                                    ) : (
-                                        <React.Fragment>
-                                            {getStepContent(activeStep)}
-                                            <div className={classes.buttons}>
-                                                {activeStep !== 0 && (
-                                                    <Button onClick={this.handleBack} className={classes.button}>
-                                                        Back
-                                                    </Button>
-                                                )}
+                <MuiThemeProvider theme={theme}>
+                    <div>
+                        <SimpleNavigation/>
+                        <React.Fragment>
+                            <CssBaseline/>
+                            <main className={classes.layout}>
+                                <Paper className={classes.paper}>
+                                    <Typography component="h1" variant="h4" align="center">
+                                        Checkout
+                                    </Typography>
+                                    <Stepper activeStep={activeStep} className={classes.stepper}>
+                                        {steps.map(label => (
+                                            <Step key={label}>
+                                                <StepLabel>{label}</StepLabel>
+                                            </Step>
+                                        ))}
+                                    </Stepper>
+                                    <React.Fragment>
+                                        {activeStep === steps.length ? (
+                                            <React.Fragment>
+                                                <Typography variant="h5" gutterBottom>
+                                                    Thank you for your order. Your order placed sucessfully.
+                                                </Typography>
+                                                <Typography variant="subtitle1">
+                                                    Your order number is #2001539. We have emailed your order
+                                                    confirmation,
+                                                    and
+                                                    will
+                                                    send you an update when your order has shipped.
+                                                </Typography>
                                                 <Button
+                                                    onClick={this.backHome}
                                                     variant="contained"
-                                                    color="primary"
-                                                    onClick={this.handleNext}
-                                                    className={classes.button}
+                                                    color="#ff0000"
                                                 >
-                                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                                    Back To Home
                                                 </Button>
-                                            </div>
-                                        </React.Fragment>
-                                    )}
-                                </React.Fragment>
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                {getStepContent(activeStep)}
+                                                <div className={classes.buttons}>
+                                                    {activeStep !== 0 && (
+                                                        <Button onClick={this.handleBack} className={classes.button}>
+                                                            Back
+                                                        </Button>
+                                                    )}
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={this.handleNext}
+                                                        className={classes.button}
+                                                    >
+                                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                                    </Button>
+                                                </div>
+                                            </React.Fragment>
+                                        )}
+                                    </React.Fragment>
 
 
-                            </Paper>
-                        </main>
-                    </React.Fragment>
-                </div>
+                                </Paper>
+                            </main>
+                        </React.Fragment>
+                    </div>
+                </MuiThemeProvider>
             );
         }
 

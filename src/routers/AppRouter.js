@@ -11,10 +11,13 @@ import Login from '../components/LoginComponent';
 import Signup from '../components/SignUpComponent';
 import Userportal from "../components/UserPortal/UserportalComponent";
 import CartDetail from '../components/Home/CartDetailsComponent';
+import {createBrowserHistory} from 'history';
+
+const histroy = createBrowserHistory();
 
 const AppRouter = () => (
-  <BrowserRouter>
-    <div>
+  <BrowserRouter >
+    <div history={histroy}>
       {/*<Header />*/}
       <Switch>
         <Route path="/" component={Home} exact={true} />

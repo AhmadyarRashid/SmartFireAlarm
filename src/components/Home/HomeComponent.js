@@ -20,7 +20,7 @@ import {
     ModalFooter
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {addCart} from '../../actions/cart';
+import {addCart, lastUpdatedCart} from '../../actions/cart';
 import {localToRedux} from '../../actions/UserAuthenticate';
 
 class Home extends Component {
@@ -109,6 +109,16 @@ class Home extends Component {
             }));
 
         } catch (e) {
+            console.log(e);
+        }
+
+        try{
+            if (this.props.cart.length == 0) {
+                console.log(JSON.parse(localStorage.getItem('cart')));
+                var cart = JSON.parse(localStorage.getItem('cart'));
+                this.props.dispatch(lastUpdatedCart({updatedCart: cart}));
+            }
+        }catch (e) {
             console.log(e);
         }
     }
@@ -396,7 +406,6 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-
 
                 {/*Modal*/}
                 <Modal isOpen={this.state.showModal} toggle={this.toggleModal} className={this.props.className}>

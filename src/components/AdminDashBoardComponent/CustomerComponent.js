@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { CSVExport,Search } from 'react-bootstrap-table2-toolkit';
 
 const products = [
     {id: 0, name: 'milk', price: 30},
@@ -42,6 +42,7 @@ const products = [
     {id: 34, name: 'milk7', price: 36}
 ];
 const { ExportCSVButton } = CSVExport;
+const { SearchBar } = Search;
 
 const columns = [{
     dataField: 'id',
@@ -50,13 +51,11 @@ const columns = [{
 }, {
     dataField: 'name',
     text: 'Product Name',
-    sort: true,
-    filter: textFilter()
+    sort: true
 }, {
     dataField: 'price',
     text: 'Product Price',
-    sort: true,
-    filter: textFilter()
+    sort: true
 }];
 
 class CustomerComponent extends Component {
@@ -80,11 +79,12 @@ class CustomerComponent extends Component {
                     data={products}
                     columns={columns}
                     exportCSV
+                    search
                 >
                     {
                         props => (
                             <div>
-                                <ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>
+                                <SearchBar { ...props.searchProps } />
                                 <hr />
                                 <BootstrapTable
                                     bootstrap4

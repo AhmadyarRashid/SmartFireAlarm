@@ -9,7 +9,7 @@ const HeaderHome = (props) => (
                 <div className="intro-heading text-uppercase">{props.description}</div>
                 <center>
                     <a id='sendMessageButton'
-                       className="btn btn-info btn-group-lg text-uppercase js-scroll-trigger home-btn"
+                       className="btn btn-primary btn-group-lg text-uppercase js-scroll-trigger home-btn"
                        href="#services">Tell Me More</a>
                 </center>
             </div>

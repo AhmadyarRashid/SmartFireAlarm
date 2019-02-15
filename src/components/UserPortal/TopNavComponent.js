@@ -10,11 +10,11 @@ export  default class TopNav extends Component{
         return(
             <nav className="navbar navbar-expand navbar-dark bg-dark static-top">
 
-                <a className="navbar-brand mr-1" href="index.html">Portal</a>
+                <NavLink to='/' className="navbar-brand mr-1">Control Panel</NavLink>
 
-                <button className="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-                    <i className="fas fa-bars"></i>
-                </button>
+                {/*<button className="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">*/}
+                    {/*<i className="fas fa-bars"></i>*/}
+                {/*</button>*/}
 
 
                 <form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">

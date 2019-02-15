@@ -17,9 +17,5 @@ export const routes = [
     {
         path:'/userportal/profile',
         main: () => <UserProfile/>
-    },
-    {
-        path:'/userportal/payment',
-        main : () => <Payment/>
     }
 ];

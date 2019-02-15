@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {deleteItemFromCart, updateQuantityCart} from '../../actions/cart';
 import {userSignOut} from "../../actions/UserAuthenticate";
 import {lastUpdatedCart} from '../../actions/cart';
+import SimpleNav from './SimpleNavigationComponent';
 
 class CartDetails extends Component {
     constructor(props) {
@@ -60,14 +61,20 @@ class CartDetails extends Component {
             }
             this.props.dispatch(updateQuantityCart({deviceId: deviceId, quantity: Number(event.target.value)}));
             console.log(this.props.cart);
-            localStorage.removeItem('cart');
+
             try {
+                localStorage.removeItem('cart');
                 console.log('======== local storage Remove all Item ========\n', JSON.parse(localStorage.getItem('cart')));
             } catch (e) {
                 console.log('===== errror to show empty ==========');
 
             }
-            localStorage.setItem('cart', JSON.stringify(this.props.cart));
+            try{
+                localStorage.setItem('cart', JSON.stringify(this.props.cart));
+            }catch (e) {
+                console.log(e);
+            }
+
         }
 
         const removeItem = (deviceId) => {
@@ -85,13 +92,23 @@ class CartDetails extends Component {
             localStorage.setItem('cart', JSON.stringify(updateCart));
         }
 
-        const showTotalAmount = () => {
+        const TotalAmount = () => {
             var total = 0;
             this.props.cart.forEach(item => {
                 total += Number(item.amount)
             })
             return (
-                <p>{total}</p>
+                <p align="right">{total}</p>
+            )
+        }
+
+        const OrderTotal = () => {
+            var total = 0;
+            this.props.cart.forEach(item => {
+                total += Number(item.amount)
+            })
+            return (
+                <p align="right">{total + 200}</p>
             )
         }
 
@@ -107,17 +124,17 @@ class CartDetails extends Component {
                     <span>1 Year Warrenty*</span>
                 </td>
                 <td>
-                    <input className='form-control' onChange={event => changeQTYHandler(event, item.deviceId)}
+                    <input min={1} className='form-control' onChange={event => changeQTYHandler(event, item.deviceId)}
                            value={item.deviceId == 1 ? this.state.item1Qty : this.state.item2Qty} type='number'/>
                 </td>
                 <td>
                     <span className='text-muted'>pieces</span>
                 </td>
                 <td>
-                    {item.unitPrice} <span className='text-muted'>/piece</span>
+                    <p align="right">{item.unitPrice} <span className='text-muted'>/piece</span></p>
                 </td>
                 <td>
-                    US$0.20 15 days No tracking information available
+                    <p align="right">{Number(item.unitPrice) * Number(item.quantity)}</p>
                 </td>
                 <td>
                     <button onClick={event => removeItem(item.deviceId)} className='btn btn-link'>Remove
@@ -139,40 +156,99 @@ class CartDetails extends Component {
         }
 
         if (this.props.userAuth.isAuth == false) {
-            window.open('http://localhost:8080/', '_self');
+            try{
+                var auth = localStorage.getItem('userAuth');
+                auth = JSON.parse(auth);
+                if(auth.isAuth){
+                    return (
+                        <div>
+                            <SimpleNav/>
+
+                            <div className='container' style={{marginTop:110}}>
+                                <table className='table table-hover table-striped table-responsive'>
+
+
+                                    {this.props.cart.length == 0 ?
+                                        '' :
+                                        <thead>
+                                        <tr>
+                                            <th colSpan={3}>Product Name & Details</th>
+                                            <th colSpan={2}>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                            <th colSpan={2}></th>
+                                        </tr>
+                                        </thead>
+                                    }
+
+                                    <tbody>
+
+                                    {this.props.cart.map((item, index) => (
+                                        renderCardItems(item, index)
+                                    ))}
+
+                                    </tbody>
+
+                                    {this.props.cart.length == 0 ?
+                                        'Your Cart is Empty!' :
+                                        <tfoot>
+                                        <tr>
+                                            <td colSpan={5}></td>
+                                            <td><p align="right"
+                                                   className='text-muted'>Total Amount: </p></td>
+                                            <td>
+                                                {
+                                                    TotalAmount()
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={5}></td>
+                                            <td><p align="right"
+                                                   className='text-muted'>Shipping: </p></td>
+                                            <td>
+                                                <p align="right">200</p>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colSpan={5}></td>
+                                            <td><p align="right"
+                                                   className='text-muted'>Order Total: </p></td>
+                                            <td>
+                                                {
+                                                    OrderTotal()
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={6}></td>
+                                            <td>
+                                                <center>
+                                                    <NavLink to='/payment' className='btn btn-primary btn-lg'>Check Out</NavLink>
+                                                </center>
+
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    );
+                }
+            }catch (e) {
+                console.log(e);
+                window.open('http://localhost:8080/', '_self');
+            }
+
         } else {
             return (
                 <div>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href='#'><h3>Cart Details</h3></a>
-                        <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarNav"
-                            aria-controls="navbarNav"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav">
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#"><span
-                                        className="sr-only">(current)</span></a>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink to={'/'} className="nav-link" href="#">Home <span
-                                        className="sr-only">(current)</span></NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <a onClick={SignOutHandler} className="nav-link" href="#">Signout <span
-                                        className="sr-only">(current)</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div className='container'>
+                    <SimpleNav/>
+
+                    <div className='container' style={{marginTop:110}}>
                         <table className='table table-hover table-striped table-responsive'>
 
 
@@ -183,7 +259,7 @@ class CartDetails extends Component {
                                     <th colSpan={3}>Product Name & Details</th>
                                     <th colSpan={2}>Quantity</th>
                                     <th>Price</th>
-                                    <th>Shipping Details</th>
+                                    <th>Amount</th>
                                     <th colSpan={2}></th>
                                 </tr>
                                 </thead>
@@ -201,28 +277,39 @@ class CartDetails extends Component {
                                 'Your Cart is Empty!' :
                                 <tfoot>
                                 <tr>
-                                    <td colSpan={6}></td>
-                                    <td><span
-                                        className='text-muted'>Subtotal: </span>
-                                        {/*{Number(this.props.cart[0].amount) + Number(this.props.cart[1].amount)}*/}
+                                    <td colSpan={5}></td>
+                                    <td><p align="right"
+                                           className='text-muted'>Total Amount: </p></td>
+                                    <td>
                                         {
-                                            showTotalAmount()
+                                            TotalAmount()
                                         }
                                     </td>
-                                    <td colSpan={2}><span className='text-muted'>Shipping: </span>0</td>
                                 </tr>
                                 <tr>
-                                    <td align='right' colSpan={8}><span
-                                        className='text-muted'>Total: </span>
-                                        {/*{Number(this.props.cart[0].amount) + Number(this.props.cart[1].amount)}*/}
-                                        {showTotalAmount()}
+                                    <td colSpan={5}></td>
+                                    <td><p align="right"
+                                           className='text-muted'>Shipping: </p></td>
+                                    <td>
+                                        <p align="right">200</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colSpan={5}></td>
+                                    <td><p align="right"
+                                           className='text-muted'>Order Total: </p></td>
+                                    <td>
+                                        {
+                                            OrderTotal()
+                                        }
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={7}></td>
+                                    <td colSpan={6}></td>
                                     <td>
                                         <center>
-                                            <NavLink to='/payment' className='btn btn-primary btn-lg'>Buy</NavLink>
+                                            <NavLink to='/payment' className='btn btn-primary btn-lg'>Check Out</NavLink>
                                         </center>
 
                                     </td>

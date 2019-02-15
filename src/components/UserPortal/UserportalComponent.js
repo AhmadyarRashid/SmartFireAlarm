@@ -13,7 +13,7 @@ export default class Userportal extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+            <BrowserRouter history={this.props.history}>
                 <div>
                     <div id="page-top">
                         <TopNav/>

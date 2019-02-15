@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from "react-redux";
-
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
 
 const Navigation = (props) => (
-    <nav className="navbar navbar-dark navbar-expand-lg  fixed-top" id="mainNav">
+    <nav className="navbar navbar-dark navbar-expand-lg bg-dark fixed-top" id="mainNav">
         <div className="container">
             <a className="navbar-brand js-scroll-trigger" href="#page-top">Smart Fire Alarm System</a>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -33,15 +34,21 @@ const Navigation = (props) => (
                     {
                         props.userAuth.isAuth === true ?
                             <li className="nav-item">
-                                         <NavLink to='/showCart' className="nav-link js-scroll-trigger">
-                                             <i className='fas fa-fw fa-shopping-cart'></i>
-                                         </NavLink>
-                                      </li>
+                                <NavLink to='/showCart' className="nav-link js-scroll-trigger">
+                                    {
+                                        props.cart.length > 0 ?
+                                            <Badge badgeContent={props.cart.length} color="secondary">
+                                                <i className='fas fa-fw fa-shopping-cart'></i>
+                                            </Badge> :
+                                            <i className='fas fa-fw fa-shopping-cart'></i>
+                                    }
+                                </NavLink>
+                            </li>
                             :
                             <li className="nav-item">
-                                          <NavLink to='/login' className="nav-link js-scroll-trigger">
-                                            Login
-                                         </NavLink>
+                                <NavLink to='/login' className="nav-link js-scroll-trigger">
+                                    Login
+                                </NavLink>
                             </li>
 
                     }
@@ -73,7 +80,8 @@ const Navigation = (props) => (
 
 
 const MapStatToProps = (state) => ({
-    userAuth: state.userAuth
+    userAuth: state.userAuth,
+    cart: state.cart
 });
 
 export default connect(MapStatToProps)(Navigation);
