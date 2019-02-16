@@ -63,6 +63,7 @@ const styles = theme => ({
     button: {
         marginTop: theme.spacing.unit * 3,
         marginLeft: theme.spacing.unit,
+        color:'white'
     },
 });
 
@@ -185,7 +186,6 @@ class Checkout extends React.Component {
                                                 <Button
                                                     onClick={this.backHome}
                                                     variant="contained"
-                                                    color="#ff0000"
                                                 >
                                                     Back To Home
                                                 </Button>

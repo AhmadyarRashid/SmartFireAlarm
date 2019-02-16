@@ -24,6 +24,7 @@ import {addCart, lastUpdatedCart} from '../../actions/cart';
 import {localToRedux} from '../../actions/UserAuthenticate';
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -32,67 +33,75 @@ class Home extends Component {
             hubAmount: 1200,
             slaveQty: 1,
             slaveAmount: 600,
-            error: '',
-            auth: {}
+            error: ''
         }
     }
 
     HubProductHandler = () => {
-
-        if (Number(this.state.hubQty) > 0) {
+        if(!this.props.userAuth.isAuth){
             this.setState(({
-                error: ''
+                error: 'Please Login First!'
             }));
-            this.props.dispatch(addCart({
-                deviceId: 1,
-                deviceName: this.props.deviceName1,
-                deviceDescription: this.props.deviceDescription1,
-                image: this.props.deviceImage1,
-                unitPrice: this.props.unitPrice1,
-                quantity: this.state.hubQty,
-                amount: this.state.hubAmount
-            }));
+        }else {
+            if (Number(this.state.hubQty) > 0) {
+                this.setState(({
+                    error: ''
+                }));
+                this.props.dispatch(addCart({
+                    deviceId: 1,
+                    deviceName: this.props.deviceName1,
+                    deviceDescription: this.props.deviceDescription1,
+                    image: this.props.deviceImage1,
+                    unitPrice: this.props.unitPrice1,
+                    quantity: this.state.hubQty,
+                    amount: this.state.hubAmount
+                }));
 
-            localStorage.setItem("cart", JSON.stringify(this.props.cart));
+                localStorage.setItem("cart", JSON.stringify(this.props.cart));
 
-            this.toggleModal();
-        } else {
-            this.setState(({
-                error: 'Please Enter Quantity!'
-            }));
+                this.toggleModal();
+            } else {
+                this.setState(({
+                    error: 'Please Enter Quantity!'
+                }));
+            }
+
         }
-
         console.log(this.props.cart);
 
     }
 
     SlaveProductHandler = () => {
 
-        if (Number(this.state.slaveQty > 0)) {
+        if(!this.props.userAuth.isAuth){
             this.setState(({
-                error: ''
+                error: 'Please Login First!'
             }));
-            this.props.dispatch(addCart({
-                deviceId: 2,
-                deviceName: this.props.deviceName2,
-                deviceDescription: this.props.deviceDescription2,
-                image: this.props.deviceImage2,
-                unitPrice: this.props.unitPrice2,
-                quantity: this.state.slaveQty,
-                amount: this.state.slaveAmount
-            }))
-            console.log(this.props.cart);
+        }else {
+            if (Number(this.state.slaveQty > 0)) {
+                this.setState(({
+                    error: ''
+                }));
+                this.props.dispatch(addCart({
+                    deviceId: 2,
+                    deviceName: this.props.deviceName2,
+                    deviceDescription: this.props.deviceDescription2,
+                    image: this.props.deviceImage2,
+                    unitPrice: this.props.unitPrice2,
+                    quantity: this.state.slaveQty,
+                    amount: this.state.slaveAmount
+                }))
+                console.log(this.props.cart);
 
-            localStorage.setItem("cart", JSON.stringify(this.props.cart));
-            this.toggleModal();
+                localStorage.setItem("cart", JSON.stringify(this.props.cart));
+                this.toggleModal();
 
-        } else {
-            this.setState(({
-                error: 'Please Enter Quantity!'
-            }));
+            } else {
+                this.setState(({
+                    error: 'Please Enter Quantity!'
+                }));
+            }
         }
-
-
     }
 
     componentWillMount() {
@@ -142,6 +151,7 @@ class Home extends Component {
             slaveAmount: 600
         }));
         setTimeout(() => {
+            //return <Redirect to='/showCart'/>
             window.open('http://localhost:8080/showCart', '_self');
         }, 750);
 
@@ -167,59 +177,70 @@ class Home extends Component {
 
     render() {
         const BuyHUBbtnHandler = () => {
-            console.log('============= buy button clicked ==============');
-            if (Number(this.state.hubQty) > 0) {
+            if(!this.props.userAuth.isAuth){
                 this.setState(({
-                    error: ''
+                    error: 'Please Login First!'
                 }));
-                this.props.dispatch(addCart({
-                    deviceId: 1,
-                    deviceName: this.props.deviceName1,
-                    deviceDescription: this.props.deviceDescription1,
-                    image: this.props.deviceImage1,
-                    unitPrice: this.props.unitPrice1,
-                    quantity: this.state.hubQty,
-                    amount: this.state.hubAmount
-                }));
+            }else {
+                console.log('============= buy button clicked ==============');
+                if (Number(this.state.hubQty) > 0) {
+                    this.setState(({
+                        error: ''
+                    }));
+                    this.props.dispatch(addCart({
+                        deviceId: 1,
+                        deviceName: this.props.deviceName1,
+                        deviceDescription: this.props.deviceDescription1,
+                        image: this.props.deviceImage1,
+                        unitPrice: this.props.unitPrice1,
+                        quantity: this.state.hubQty,
+                        amount: this.state.hubAmount
+                    }));
 
-                localStorage.setItem("cart", JSON.stringify(this.props.cart));
-                window.open('http://localhost:8080/showCart', '_self');
-            } else {
-                this.setState(({
-                    error: 'Please Enter Quantity!'
-                }));
+                    localStorage.setItem("cart", JSON.stringify(this.props.cart));
+                    window.open('http://localhost:8080/showCart', '_self');
+                } else {
+                    this.setState(({
+                        error: 'Please Enter Quantity!'
+                    }));
+                }
+
             }
-
             console.log(this.props.cart);
 
         }
 
         const BuySLAVEbtnHandler = () => {
-            console.log('============= buy button clicked ==============');
-            if (Number(this.state.slaveQty > 0)) {
+            if(!this.props.userAuth.isAuth){
                 this.setState(({
-                    error: ''
+                    error: 'Please Login First!'
                 }));
-                this.props.dispatch(addCart({
-                    deviceId: 2,
-                    deviceName: this.props.deviceName2,
-                    deviceDescription: this.props.deviceDescription2,
-                    image: this.props.deviceImage2,
-                    unitPrice: this.props.unitPrice2,
-                    quantity: this.state.slaveQty,
-                    amount: this.state.slaveAmount
-                }))
-                console.log(this.props.cart);
+            }else {
+                console.log('============= buy button clicked ==============');
+                if (Number(this.state.slaveQty > 0)) {
+                    this.setState(({
+                        error: ''
+                    }));
+                    this.props.dispatch(addCart({
+                        deviceId: 2,
+                        deviceName: this.props.deviceName2,
+                        deviceDescription: this.props.deviceDescription2,
+                        image: this.props.deviceImage2,
+                        unitPrice: this.props.unitPrice2,
+                        quantity: this.state.slaveQty,
+                        amount: this.state.slaveAmount
+                    }))
+                    console.log(this.props.cart);
 
-                localStorage.setItem("cart", JSON.stringify(this.props.cart));
+                    localStorage.setItem("cart", JSON.stringify(this.props.cart));
 
-                window.open('http://localhost:8080/showCart', '_self');
-            } else {
-                this.setState(({
-                    error: 'Please Enter Quantity!'
-                }));
+                    window.open('http://localhost:8080/showCart', '_self');
+                } else {
+                    this.setState(({
+                        error: 'Please Enter Quantity!'
+                    }));
+                }
             }
-
 
         }
 
@@ -411,15 +432,10 @@ class Home extends Component {
                 <Modal isOpen={this.state.showModal} toggle={this.toggleModal} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Confirmation</ModalHeader>
                     <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                       Your order are sucessfully added into cart.
                     </ModalBody>
                     <ModalFooter>
-                        <Button className='btn btn-primary' onClick={this.toggleBuyModal}>Buy
-                            Now</Button>{' '}
+                        <Button className='btn btn-primary' onClick={this.toggleBuyModal}>View Cart</Button>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Continue Shopping</Button>
                     </ModalFooter>
                 </Modal>

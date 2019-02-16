@@ -31,7 +31,6 @@ class Login extends Component {
 
         const submitLoginForm = (e) => {
             e.preventDefault();
-            console.log('============= form submit sucessfully ========\n', this.state.email, this.state.password);
             if (this.state.email.trim() === '' || this.state.password.trim() === '') {
                 this.setState(() => ({
                     error: 'Email or Password are Empty'
@@ -44,24 +43,30 @@ class Login extends Component {
 
                 login(user).then(res => {
                     if (res) {
-                        console.log('================ login sucessfully ==========\n' , res);
+                        if (res.login == 'OK'){
+                            this.setState(() => ({
+                                error: ''
+                            }));
 
-                        this.setState(() => ({
-                            error: ''
-                        }));
-                        // this.props.dispatch(userAuth(this.state.email, this.state.password));
-                        let auth = {
-                            email: this.state.email,
-                            password:this.state.password,
-                            isAuth: true,
-                            userName:'Ahmad Yar',
-                            phoneNo:'03131539336',
-                            address:'Sector G-9/2 Islamabad'
-                        };
-                        this.props.dispatch(localToRedux(auth));
-                        localStorage.setItem('userAuth', JSON.stringify(auth));
-                        console.log(this.props.userAuth);
-                        this.props.history.push('/');
+                            // this.props.dispatch(userAuth(this.state.email, this.state.password));
+                            let auth = {
+                                email: res.res.email,
+                                password:res.res.password,
+                                isAuth: true,
+                                userName:res.res.name,
+                                phoneNo:res.res.phoneNo,
+                                address:res.res.address
+                            };
+                            this.props.dispatch(localToRedux(auth));
+                            localStorage.setItem('userAuth', JSON.stringify(auth));
+                            console.log(this.props.userAuth);
+                            this.props.history.push('/');
+                        } else {
+                            this.setState(() => ({
+                                error: res.login
+                            }));
+                        }
+
                     }
                 })
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Breadcrumb, BreadcrumbItem, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import {updateProfile} from '../../actions/UserAuthenticate';
+import {userUpdateProfile} from '../../middleWare/userFunctions';
 
 class UserProfile extends Component {
     constructor(props) {
@@ -23,24 +24,43 @@ class UserProfile extends Component {
                     error: 'Some Field are Empty!'
                 }))
             } else {
-                this.setState((preState) => ({
-                    error: '',
-                    userName: preState.userName.trim(),
-                    phoneNo : preState.phoneNo.trim(),
-                    address: preState.phoneNo.trim()
-                }))
-                this.props.dispatch(updateProfile({
-                    userName: this.state.userName.trim(),
-                    phoneNo: this.state.phoneNo.trim(),
-                    address: this.state.address.trim()
-                }));
-                this.toggleEditSaveBtn();
+                userUpdateProfile({email : this.state.email.trim(),
+                    name: this.state.userName.trim(),
+                    address: this.state.address.trim(),
+                    phoneNo: this.state.phoneNo.trim()
+                }).then(res => {
+                    if (res.up == 'OK'){
+                        this.setState({
+                            error: 'Data Update Sucessfully'
+                        })
+
+                        setTimeout(() => {
+                            this.setState((preState) => ({
+                                error: '',
+                                userName: preState.userName.trim(),
+                                phoneNo : preState.phoneNo.trim(),
+                                address: preState.address.trim()
+                            }));
+                            this.props.dispatch(updateProfile({
+                                userName: this.state.userName.trim(),
+                                phoneNo: this.state.phoneNo.trim(),
+                                address: this.state.address.trim()
+                            }));
+                            this.toggleEditSaveBtn();
+                        }, 1500);
+                    } else {
+                        this.setState({
+                            error: res.up
+                        })
+                    }
+                }).catch(e => {
+                    console.log(e);
+                })
 
             }
         }else {
             this.toggleEditSaveBtn();
         }
-
     }
 
     toggleEditSaveBtn = () => {
@@ -99,13 +119,10 @@ class UserProfile extends Component {
                                         <img width='150' height='150' className='img-thumbnail'
                                              src='http://localhost:8080/images/team/2.jpg' alt='User Image'/>
                                     </div>
-                                    <div className='col'>
+                                    <div className='col' style={{marginTop:25}}>
                                         <label>All Orders : {this.props.userAuth.orders}</label><br/>
-                                        <label>Awaiting Payment: {this.props.userAuth.awaitingPayment}</label><br/>
                                         <label>Awaiting Shipment: {this.props.userAuth.awaitingShipment}</label><br/>
-                                        <label>Awaiting delivery: {this.props.userAuth.awaitingDelivery}</label><br/>
-                                        <label>Awaiting Feedback: {this.props.userAuth.awaitingFeedback}</label><br/>
-                                        <label>Disputes: {this.props.userAuth.disputes}</label>
+                                        <label>Awaiting delivery: {this.props.userAuth.awaitingDelivery}</label>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +148,7 @@ class UserProfile extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleAddress">Email</Label>
-                                    <Input id='emailtxt' type="text" disabled={true} value={this.props.email}
+                                    <Input id='emailtxt' type="text" disabled={true} value={this.props.userAuth.email}
                                            className='form-control-lg' name="address"
                                            id="exampleAddress"/>
                                 </FormGroup>
