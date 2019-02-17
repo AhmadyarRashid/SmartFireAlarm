@@ -5,11 +5,11 @@ import EditExpensePage from '../components/EditExpensePage';
 import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
 import CheckOut from '../components/Payment/Checkout';
-import Dashboard from '../components/Dashboard/Dashboard';
+import Dashboard from '../components/AdminDashboard/Dashboard';
 import Home from '../components/Home/HomeComponent';
 import Login from '../components/LoginComponent';
 import Signup from '../components/SignUpComponent';
-import Userportal from "../components/UserPortal/UserportalComponent";
+import Userportal from "../components/UserPortalDashboard/UserportalComponent";
 import CartDetail from '../components/Home/CartDetailsComponent';
 import {createBrowserHistory} from 'history';
 

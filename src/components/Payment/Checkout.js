@@ -17,7 +17,7 @@ import {lastUpdatedCart, clearCart} from "../../actions/cart";
 import {addOrder} from '../../actions/myOrders';
 import SimpleNavigation from '../Home/SimpleNavigationComponent';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-
+import {buyProduct} from '../../middleWare/userFunctions';
 
 const theme = createMuiTheme({
     palette: {
@@ -88,19 +88,46 @@ class Checkout extends React.Component {
     };
 
     handleNext = () => {
+
         if (this.state.activeStep == 2) {
+
+
             console.log('========= place order btn clicked =============');
+
+            /*
+            let totalAmount = 0;
+            this.props.cart.forEach(item => {
+                totalAmount += Number(item.amount);
+            })
+            totalAmount += 200;
+            const buyCart = {
+                amount:totalAmount,
+                cart:[],
+                user:this.props.userAuth.email
+            }
+            this.props.cart.forEach(item => {
+                if (item.deviceId == 1){
+                    buyCart.cart.push({type:'HUB', quantity : item.quantity})
+                }
+                if (item.deviceId == 2){
+                    buyCart.cart.push({type:'SLAVE', quantity : item.quantity})
+                }
+            });
+            */
+
+
+
+
+           // buyProduct(buyCart);
+
             this.props.dispatch(addOrder(this.props.cart));
             setTimeout(() => {
                 this.props.dispatch(clearCart());
                 localStorage.removeItem('cart');
-
                 console.log('=============== New Updated States =============');
                 console.log('================ cart =============\n', this.props.cart);
                 console.log('================ MyOrder =============\n', this.props.myOrder);
             }, 1500);
-
-
         }
 
 

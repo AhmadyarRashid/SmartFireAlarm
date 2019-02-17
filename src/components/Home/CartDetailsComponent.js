@@ -5,16 +5,18 @@ import {deleteItemFromCart, updateQuantityCart} from '../../actions/cart';
 import {userSignOut} from "../../actions/UserAuthenticate";
 import {lastUpdatedCart} from '../../actions/cart';
 import SimpleNav from './SimpleNavigationComponent';
+import {getProductQty} from "../../middleWare/userFunctions";
 
 class CartDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             item1Qty: 0,
-            item2Qty: 0
+            item2Qty: 0,
+            maxHub: 0,
+            maxSlave: 0
         }
     }
-
 
     componentWillMount() {
         if (this.props.cart.length == 0) {
@@ -37,8 +39,36 @@ class CartDetails extends Component {
             item1Qty,
             item2Qty
         }));
-    }
 
+        getProductQty({})
+            .then(res => {
+                if (res.gq == 'OK') {
+                    console.log(res.doc);
+                    res.doc.forEach(item => {
+
+                        if(item._id == 'HUB'){
+                            console.log(item);
+                            var maxHub = item.count;
+                            this.setState({
+                                maxHub
+                            })
+                        }
+                        if(item._id == 'SLAVE'){
+                            console.log(item);
+                            var maxSlave = item.count;
+                            this.setState({
+                                maxSlave
+                            })
+                        }
+                    })
+                } else {
+                    console.log('No data found');
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
 
     render() {
         const changeQTYHandler = (event, deviceId) => {
@@ -50,16 +80,31 @@ class CartDetails extends Component {
                 qty = Number(event.target.value);
             }
             if (deviceId == 1) {
-                this.setState(() => ({
-                    item1Qty: qty
-                }));
+                if(qty <= this.state.maxHub){
+                    this.setState(() => ({
+                        item1Qty: qty
+                    }));
+                }else {
+                    this.setState(() => ({
+                        item1Qty: 1
+                    }));
+                    qty = 1
+                }
             }
             if (deviceId == 2) {
-                this.setState(() => ({
-                    item2Qty: qty
-                }))
+                if (qty <= this.state.maxSlave){
+                    this.setState(() => ({
+                        item2Qty: qty
+                    }))
+                } else {
+                    this.setState(() => ({
+                        item2Qty: 1
+                    }))
+                    qty = 1
+                }
+
             }
-            this.props.dispatch(updateQuantityCart({deviceId: deviceId, quantity: Number(event.target.value)}));
+            this.props.dispatch(updateQuantityCart({deviceId: deviceId, quantity: qty}));
             console.log(this.props.cart);
 
             try {
@@ -69,9 +114,9 @@ class CartDetails extends Component {
                 console.log('===== errror to show empty ==========');
 
             }
-            try{
+            try {
                 localStorage.setItem('cart', JSON.stringify(this.props.cart));
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
 
@@ -146,25 +191,25 @@ class CartDetails extends Component {
         const SignOutHandler = () => {
             console.log('===============click on signOut Button==================');
             this.props.dispatch(userSignOut());
-            try{
+            try {
                 localStorage.removeItem('userAuth');
                 localStorage.removeItem('cart');
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
             window.open('http://localhost:8080/', '_self');
         }
 
         if (this.props.userAuth.isAuth == false) {
-            try{
+            try {
                 var auth = localStorage.getItem('userAuth');
                 auth = JSON.parse(auth);
-                if(auth.isAuth){
+                if (auth.isAuth) {
                     return (
                         <div>
                             <SimpleNav/>
 
-                            <div className='container' style={{marginTop:110}}>
+                            <div className='container' style={{marginTop: 110}}>
                                 <table className='table table-hover table-striped table-responsive'>
 
 
@@ -225,7 +270,8 @@ class CartDetails extends Component {
                                             <td colSpan={6}></td>
                                             <td>
                                                 <center>
-                                                    <NavLink to='/payment' className='btn btn-primary btn-lg'>Check Out</NavLink>
+                                                    <NavLink to='/payment' className='btn btn-primary btn-lg'>Check
+                                                        Out</NavLink>
                                                 </center>
 
                                             </td>
@@ -238,7 +284,7 @@ class CartDetails extends Component {
                         </div>
                     );
                 }
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
                 window.open('http://localhost:8080/', '_self');
             }
@@ -248,7 +294,7 @@ class CartDetails extends Component {
                 <div>
                     <SimpleNav/>
 
-                    <div className='container' style={{marginTop:110}}>
+                    <div className='container' style={{marginTop: 110}}>
                         <table className='table table-hover table-striped table-responsive'>
 
 
@@ -309,7 +355,8 @@ class CartDetails extends Component {
                                     <td colSpan={6}></td>
                                     <td>
                                         <center>
-                                            <NavLink to='/payment' className='btn btn-primary btn-lg'>Check Out</NavLink>
+                                            <NavLink to='/payment' className='btn btn-primary btn-lg'>Check
+                                                Out</NavLink>
                                         </center>
 
                                     </td>
@@ -326,7 +373,6 @@ class CartDetails extends Component {
 
     }
 }
-
 
 const mapStatToProps = state => ({
     cart: state.cart,

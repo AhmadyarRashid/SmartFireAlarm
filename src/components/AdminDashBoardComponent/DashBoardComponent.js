@@ -8,8 +8,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import SimpleLineChart from '../Dashboard/SimpleLineChart';
-import SimpleTable from '../Dashboard//SimpleTable';
+import SimpleLineChart from '../AdminDashboard/SimpleLineChart';
+import SimpleTable from '../AdminDashboard//SimpleTable';
 
 
 class DashBoardComponent extends Component {
@@ -28,12 +28,6 @@ class DashBoardComponent extends Component {
                 <Typography component="div" className={classes.chartContainer}>
                     <SimpleLineChart/>
                 </Typography>
-                <Typography variant="h4" gutterBottom component="h2">
-                    Products
-                </Typography>
-                <div className={classes.tableContainer}>
-                    <SimpleTable/>
-                </div>
             </main>
         )
     }

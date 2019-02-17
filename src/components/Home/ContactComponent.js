@@ -1,8 +1,80 @@
 import React, {Component} from 'react';
+import {userQuery} from '../../middleWare/userFunctions';
 
 export default class Contact extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            name: '',
+            phoneNo: '',
+            email: '',
+            message: '',
+            error: ''
+        }
+    }
+
+    contactHandler = (e) => {
+        e.preventDefault();
+        if (this.state.name.trim() !== '' || this.state.email.trim() !== '' || this.state.message.trim !== '') {
+            console.log(this.state);
+
+            userQuery({
+                    name: this.state.name,
+                    email: this.state.email,
+                    phoneNo: this.state.phoneNo,
+                    message: this.state.message
+                }
+            )
+                .then(res => {
+                    if (res.con == 'OK') {
+                        this.setState({
+                            error: 'Query Submitted Sucessfully'
+                        })
+
+                        setTimeout(() => {
+                            this.setState(() => ({
+                                name: '',
+                                phoneNo: '',
+                                email: '',
+                                message: '',
+                                error: ''
+                            }));
+                        }, 1000)
+                    }
+                })
+        } else {
+            this.setState({
+                error: 'Some field are empty'
+            })
+        }
+    }
+
+    changeName = (e) => {
+        var name = e.target.value;
+        this.setState({
+            name
+        })
+    }
+
+    changeEmail = (e) => {
+        var email = e.target.value;
+        this.setState({
+            email
+        })
+    }
+
+    changePhoneNo = (e) => {
+        var phoneNo = e.target.value;
+        this.setState({
+            phoneNo
+        })
+    }
+
+    changeMessage = (e) => {
+        var message = e.target.value;
+        this.setState({
+            message
+        })
     }
 
     render() {
@@ -49,24 +121,31 @@ export default class Contact extends Component {
                         </div>
                         <div className="row">
                             <div className="col-lg-12">
-                                <form id="contactForm" name="sentMessage" noValidate="novalidate">
+                                <form id="contactForm" onSubmit={this.contactHandler} name="sentMessage"
+                                      noValidate="novalidate">
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <input className="form-control" id="name" type="text"
-                                                       placeholder="Your Name *" required="required"
+                                                       placeholder="Your Name *" required={true}
+                                                       onChange={this.changeName}
+                                                       value={this.state.name}
                                                        data-validation-required-message="Please enter your name."/>
                                                 <p className="help-block text-danger"></p>
                                             </div>
                                             <div className="form-group">
                                                 <input className="form-control" id="email" type="email"
-                                                       placeholder="Your Email *" required="required"
+                                                       placeholder="Your Email *" required={true}
+                                                       onChange={this.changeEmail}
+                                                       value={this.state.email}
                                                        data-validation-required-message="Please enter your email address."/>
                                                 <p className="help-block text-danger"></p>
                                             </div>
                                             <div className="form-group">
                                                 <input className="form-control" id="phone" type="tel"
                                                        placeholder="Your Phone *" required="required"
+                                                       onChange={this.changePhoneNo}
+                                                       value={this.state.phoneNo}
                                                        data-validation-required-message="Please enter your phone number."/>
                                                 <p className="help-block text-danger"></p>
                                             </div>
@@ -74,18 +153,29 @@ export default class Contact extends Component {
                                         <div className="col-md-6">
                                             <div className="form-group">
                                             <textarea className="form-control" id="message" placeholder="Your Message *"
-                                                      required="required"
+                                                      required={true}
+                                                      onChange={this.changeMessage}
+                                                      value={this.state.message}
                                                       data-validation-required-message="Please enter a message."></textarea>
                                                 <p className="help-block text-danger"></p>
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>
+                                        {!!this.state.error && <div className="col-lg-12 text-center">
+                                            <div id="success"></div>
+                                            <center>
+                                                <p className='text-warning'>{this.state.error}</p>
+                                            </center>
+
+                                        </div>
+                                        }
                                         <div className="col-lg-12 text-center">
                                             <div id="success"></div>
                                             <center>
                                                 <button id="sendMessageButton"
+                                                        type='submit'
                                                         className="btn btn-primary btn-xl text-uppercase home-btn"
-                                                        type="submit">Send Message
+                                                        >Send Message
                                                 </button>
                                             </center>
 

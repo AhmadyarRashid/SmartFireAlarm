@@ -10,3 +10,5 @@ export const lastUpdatedCart = 'LAST_UPDATED_CART';
 export const clearcart = ' CLEAR_CART';
 
 export const addOrder = 'ADD_ORDER';
+
+export const addUsers = 'ADD_ALL_USERS';

@@ -22,6 +22,7 @@ import {
 import {connect} from 'react-redux';
 import {addCart, lastUpdatedCart} from '../../actions/cart';
 import {localToRedux} from '../../actions/UserAuthenticate';
+import {getProductQty} from '../../middleWare/userFunctions';
 
 class Home extends Component {
 
@@ -33,7 +34,9 @@ class Home extends Component {
             hubAmount: 1200,
             slaveQty: 1,
             slaveAmount: 600,
-            error: ''
+            error: '',
+            maxHub:0,
+            maxSlave:0
         }
     }
 
@@ -121,15 +124,44 @@ class Home extends Component {
             console.log(e);
         }
 
-        try{
+        try {
             if (this.props.cart.length == 0) {
                 console.log(JSON.parse(localStorage.getItem('cart')));
                 var cart = JSON.parse(localStorage.getItem('cart'));
                 this.props.dispatch(lastUpdatedCart({updatedCart: cart}));
             }
-        }catch (e) {
+        } catch (e) {
             console.log(e);
         }
+
+        getProductQty({})
+            .then(res => {
+                if (res.gq == 'OK') {
+                    console.log(res.doc);
+                    res.doc.forEach(item => {
+
+                        if(item._id == 'HUB'){
+                            console.log(item);
+                            var maxHub = item.count;
+                            this.setState({
+                                maxHub
+                            })
+                        }
+                        if(item._id == 'SLAVE'){
+                            console.log(item);
+                            var maxSlave = item.count;
+                            this.setState({
+                                maxSlave
+                            })
+                        }
+                    })
+                } else {
+                    console.log('No data found');
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
 
     toggleModal = () => {
@@ -159,20 +191,36 @@ class Home extends Component {
 
     changeHubQty = (event) => {
         var hubQty = Number(event.target.value);
-        var hubAmount = 1200 * Number(hubQty);
-        this.setState(() => ({
-            hubQty,
-            hubAmount
-        }));
+        if (hubQty <= this.state.maxHub ){
+            var hubAmount = 1200 * Number(hubQty);
+            this.setState(() => ({
+                hubQty,
+                hubAmount
+            }));
+        } else{
+            this.setState(() => ({
+                hubQty:1,
+                hubAmount:this.props.unitPrice1
+            }));
+        }
+
     }
 
     changeSlaveQty = (event) => {
         var slaveQty = Number(event.target.value);
-        var slaveAmount = 600 * Number(slaveQty);
-        this.setState(() => ({
-            slaveQty,
-            slaveAmount
-        }));
+        if (slaveQty <= this.state.maxSlave){
+            var slaveAmount = 600 * Number(slaveQty);
+            this.setState(() => ({
+                slaveQty,
+                slaveAmount
+            }));
+        } else {
+            this.setState(() => ({
+                slaveQty:1,
+                slaveAmount:this.props.unitPrice2
+            }));
+        }
+
     }
 
     render() {
@@ -297,13 +345,16 @@ class Home extends Component {
                                                         <Col sm={10}>
                                                             <Input type="number"
                                                                    onChange={event => this.changeHubQty(event)}
+                                                                   min={0}
                                                                    value={this.state.hubQty}/>
                                                         </Col>
                                                     </FormGroup>
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>AMT: </Label>
                                                         <Col sm={10}>
-                                                            <Input type="number" disabled={true}
+                                                            <Input type="number"
+                                                                   min={0}
+                                                                   disabled={true}
                                                                    value={this.state.hubAmount}/>
                                                         </Col>
                                                     </FormGroup>
@@ -451,13 +502,12 @@ const mapStatToProps = state => ({
     cart: state.cart
 })
 
-
 Home.defaultProps = {
-    deviceName1: 'HUB Device',
+    deviceName1: 'HUB',
     deviceDescription1: 'Auto generate call and notify to user',
     deviceImage1: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice1: 1200,
-    deviceName2: 'Slave Device',
+    deviceName2: 'Slave',
     deviceDescription2: 'send health to server and hub device',
     deviceImage2: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
     unitPrice2: 600
