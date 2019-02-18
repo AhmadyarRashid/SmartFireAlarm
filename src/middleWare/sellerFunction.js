@@ -26,6 +26,17 @@ export const getUser = data => {
         })
 }
 
+export const getAllQuery = data => {
+    return axios
+        .post('http://localhost:3000/seller/getAllQuery' , {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
 export const getQty = data => {
     return axios
         .post('http://localhost:3000/seller/getQty',{})

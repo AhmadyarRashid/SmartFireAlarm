@@ -6,6 +6,7 @@ import UserAuthReducer from '../reducers/UserAuthenticate';
 import AddToCartReducer from '../reducers/Cart';
 import MyOrder from '../reducers/myOrders';
 import Users from '../reducers/users';
+import Query from '../reducers/query';
 
 export default () => {
     const store = createStore(
@@ -15,7 +16,8 @@ export default () => {
             userAuth: UserAuthReducer,
             cart: AddToCartReducer,
             myOrder: MyOrder,
-            users: Users
+            users: Users,
+            query:Query
         })
     );
     return store;

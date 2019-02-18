@@ -13,11 +13,14 @@ export default class Contact extends Component {
         }
     }
 
-    contactHandler = (e) => {
-        e.preventDefault();
-        if (this.state.name.trim() !== '' || this.state.email.trim() !== '' || this.state.message.trim !== '') {
+    contactHandler = () => {
+        if (this.state.name.trim() == '' || this.state.email.trim() == '' || this.state.message.trim == '') {
             console.log(this.state);
+            this.setState({
+                error: 'Some field are empty'
+            })
 
+        } else {
             userQuery({
                     name: this.state.name,
                     email: this.state.email,
@@ -42,10 +45,6 @@ export default class Contact extends Component {
                         }, 1000)
                     }
                 })
-        } else {
-            this.setState({
-                error: 'Some field are empty'
-            })
         }
     }
 
@@ -121,7 +120,7 @@ export default class Contact extends Component {
                         </div>
                         <div className="row">
                             <div className="col-lg-12">
-                                <form id="contactForm" onSubmit={this.contactHandler} name="sentMessage"
+                                <form id="contactForm"  name="sentMessage"
                                       noValidate="novalidate">
                                     <div className="row">
                                         <div className="col-md-6">
@@ -143,10 +142,10 @@ export default class Contact extends Component {
                                             </div>
                                             <div className="form-group">
                                                 <input className="form-control" id="phone" type="tel"
-                                                       placeholder="Your Phone *" required="required"
+                                                       placeholder="Your Phone *"
                                                        onChange={this.changePhoneNo}
                                                        value={this.state.phoneNo}
-                                                       data-validation-required-message="Please enter your phone number."/>
+                                                       />
                                                 <p className="help-block text-danger"></p>
                                             </div>
                                         </div>
@@ -173,7 +172,7 @@ export default class Contact extends Component {
                                             <div id="success"></div>
                                             <center>
                                                 <button id="sendMessageButton"
-                                                        type='submit'
+                                                        onClick={this.contactHandler}
                                                         className="btn btn-primary btn-xl text-uppercase home-btn"
                                                         >Send Message
                                                 </button>

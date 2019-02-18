@@ -21,8 +21,9 @@ import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import AddInventory from '../AdminDashBoardComponent/AddInventoryComponent';
 import Complains from '../AdminDashBoardComponent/ComplainComponent';
 import Query from '../AdminDashBoardComponent/UserQueryComponent';
-import {getUser} from "../../middleWare/sellerFunction";
+import {getUser,getAllQuery} from "../../middleWare/sellerFunction";
 import {storeAllUser} from '../../actions/users';
+import {storeAllQuery} from '../../actions/query';
 import {connect} from 'react-redux';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
@@ -65,6 +66,18 @@ class Dashboard extends React.Component {
             }).catch(e => {
             console.log('Some Network Error');
         });
+
+        getAllQuery({})
+            .then(res => {
+                if(res.gaq == 'OK'){
+                    this.props.dispatch(storeAllQuery(res.doc));
+                }
+            })
+            .catch(e => {
+               console.log(e);
+            });
+
+
     }
 
     render() {

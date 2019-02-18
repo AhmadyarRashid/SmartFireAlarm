@@ -67,7 +67,8 @@ class CustomerComponent extends Component {
                                     condensed
                                     pagination={paginationFactory()}
                                     filter={filterFactory()}
-                                    {...props.baseProps} />
+                                    {...props.baseProps}
+                                    noDataIndication={ 'no results found' }/>
                             </div>
                         )
                     }

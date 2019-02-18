@@ -12,3 +12,5 @@ export const clearcart = ' CLEAR_CART';
 export const addOrder = 'ADD_ORDER';
 
 export const addUsers = 'ADD_ALL_USERS';
+
+export const addQuery = 'ADD_ALL_QUERY';
