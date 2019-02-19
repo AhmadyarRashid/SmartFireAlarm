@@ -5,6 +5,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
 import {connect} from 'react-redux';
+import {sendReply} from '../../actions/query';
 
 const {SearchBar} = Search;
 
@@ -56,7 +57,10 @@ class UserQuery extends Component {
         const sendEmail = (e,row) => {
             e.preventDefault();
             console.log(row);
-            console.log('===============\n', this.state);
+            this.props.dispatch(sendReply(row._id));
+            this.setState({
+                reply:''
+            })
         }
 
         const expandRow = {

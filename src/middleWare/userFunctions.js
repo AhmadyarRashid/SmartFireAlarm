@@ -73,7 +73,10 @@ export const getProductQty = data => {
 export const buyProduct = data => {
     return axios
         .post('http://localhost:3000/users/buyProduct', {
-                data
+                email: data.email,
+                hub:data.hubQty,
+                slave:data.slaveQty,
+                shipping:data.shipping
             }
         )
         .then(res => {

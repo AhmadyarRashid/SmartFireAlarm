@@ -12,6 +12,7 @@ import Signup from '../components/SignUpComponent';
 import Userportal from "../components/UserPortalDashboard/UserportalComponent";
 import CartDetail from '../components/Home/CartDetailsComponent';
 import {createBrowserHistory} from 'history';
+import TestComponent from '../components/TestComponent';
 
 const histroy = createBrowserHistory();
 
@@ -21,6 +22,7 @@ const AppRouter = () => (
       {/*<Header />*/}
       <Switch>
         <Route path="/" component={Home} exact={true} />
+        <Route path='/test' component={TestComponent}/>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup}/>
         <Route path='/userportal' component={Userportal}/>

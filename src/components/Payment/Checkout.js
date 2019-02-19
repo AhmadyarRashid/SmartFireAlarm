@@ -28,8 +28,6 @@ const theme = createMuiTheme({
 })
 
 const styles = theme => ({
-
-
     appBar: {
         position: 'relative',
     },
@@ -63,7 +61,7 @@ const styles = theme => ({
     button: {
         marginTop: theme.spacing.unit * 3,
         marginLeft: theme.spacing.unit,
-        color:'white'
+        color: 'white'
     },
 });
 
@@ -91,42 +89,33 @@ class Checkout extends React.Component {
 
         if (this.state.activeStep == 2) {
 
-
-            console.log('========= place order btn clicked =============');
-
-            /*
-            let totalAmount = 0;
+            var hubQty = 0;
+            var slaveQty = 0;
+            var email = this.props.userAuth.email;
+            var shipping = 200;
             this.props.cart.forEach(item => {
-                totalAmount += Number(item.amount);
+                console.log(item);
+                if (item.deviceId == 1) {
+                    hubQty = item.quantity
+                }
+                if (item.deviceId == 2) {
+                    slaveQty = item.quantity
+                }
             })
-            totalAmount += 200;
-            const buyCart = {
-                amount:totalAmount,
-                cart:[],
-                user:this.props.userAuth.email
-            }
-            this.props.cart.forEach(item => {
-                if (item.deviceId == 1){
-                    buyCart.cart.push({type:'HUB', quantity : item.quantity})
+            buyProduct({email, hubQty, slaveQty, shipping}).then(res => {
+                if (res.bp == 'OK') {
+                    console.log('add to cart sucessfully');
+
+                } else {
+                    console.log('some problem occurs');
                 }
-                if (item.deviceId == 2){
-                    buyCart.cart.push({type:'SLAVE', quantity : item.quantity})
-                }
-            });
-            */
-
-
-
-
-           // buyProduct(buyCart);
-
+            }).catch(e => {
+                console.log(e);
+            })
             this.props.dispatch(addOrder(this.props.cart));
             setTimeout(() => {
                 this.props.dispatch(clearCart());
                 localStorage.removeItem('cart');
-                console.log('=============== New Updated States =============');
-                console.log('================ cart =============\n', this.props.cart);
-                console.log('================ MyOrder =============\n', this.props.myOrder);
             }, 1500);
         }
 
@@ -210,12 +199,7 @@ class Checkout extends React.Component {
                                                     will
                                                     send you an update when your order has shipped.
                                                 </Typography>
-                                                <Button
-                                                    onClick={this.backHome}
-                                                    variant="contained"
-                                                >
-                                                    Back To Home
-                                                </Button>
+
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
