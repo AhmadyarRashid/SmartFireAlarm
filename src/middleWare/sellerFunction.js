@@ -17,7 +17,7 @@ export const addDevice = data => {
 
 export const getUser = data => {
     return axios
-        .post('http://localhost:3000/seller/getUser',{})
+        .post('http://localhost:3000/seller/getUser', {})
         .then(res => {
             return res.data;
         })
@@ -28,7 +28,7 @@ export const getUser = data => {
 
 export const getAllQuery = data => {
     return axios
-        .post('http://localhost:3000/seller/getAllQuery' , {})
+        .post('http://localhost:3000/seller/getAllQuery', {})
         .then(res => {
             return res.data;
         })
@@ -39,7 +39,18 @@ export const getAllQuery = data => {
 
 export const getQty = data => {
     return axios
-        .post('http://localhost:3000/seller/getQty',{})
+        .post('http://localhost:3000/seller/getQty', {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+export const getSummary = data => {
+    return axios
+        .post('http://localhost:3000/seller/getSummary', {})
         .then(res => {
             return res.data;
         })
