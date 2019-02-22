@@ -13,6 +13,7 @@ import Userportal from "../components/UserPortalDashboard/UserportalComponent";
 import CartDetail from '../components/Home/CartDetailsComponent';
 import {createBrowserHistory} from 'history';
 import TestComponent from '../components/TestComponent';
+import ForgetPass from '../components/ForgetPassComponent';
 
 const histroy = createBrowserHistory();
 

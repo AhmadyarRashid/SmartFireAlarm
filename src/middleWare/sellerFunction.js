@@ -58,3 +58,14 @@ export const getSummary = data => {
             console.log(e);
         })
 }
+
+export const getSales = data => {
+    return axios
+        .post('http://localhost:3000/seller/getSales', {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

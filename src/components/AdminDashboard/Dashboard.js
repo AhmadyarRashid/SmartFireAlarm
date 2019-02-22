@@ -21,11 +21,13 @@ import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import AddInventory from '../AdminDashBoardComponent/AddInventoryComponent';
 import Complains from '../AdminDashBoardComponent/ComplainComponent';
 import Query from '../AdminDashBoardComponent/UserQueryComponent';
-import {getUser,getAllQuery} from "../../middleWare/sellerFunction";
+import {getUser,getAllQuery, getSales} from "../../middleWare/sellerFunction";
 import {storeAllUser} from '../../actions/users';
 import {storeAllQuery} from '../../actions/query';
+import {storeAllSales} from '../../actions/sales';
 import {connect} from 'react-redux';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import SaleComponent from '../AdminDashBoardComponent/SaleComponent';
 
 
 const theme = createMuiTheme({
@@ -76,6 +78,19 @@ class Dashboard extends React.Component {
             .catch(e => {
                console.log(e);
             });
+
+        getSales({})
+            .then(res => {
+                if(res.gs == 'OK'){
+                    console.log('get all sale details' , res.doc);
+                    this.props.dispatch(storeAllSales(res.doc));
+                }else {
+                    console.log('no sales found');
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
 
 
     }
@@ -145,6 +160,7 @@ class Dashboard extends React.Component {
                             <Route path='/admin/customer' component={CustomerComponent}/>
                             <Route path='/admin/complains' component={Complains}/>
                             <Route path='/admin/query' component={Query}/>
+                            <Route path='/admin/sales' component={SaleComponent}/>
                         </Switch>
                     </div>
                 </BrowserRouter>

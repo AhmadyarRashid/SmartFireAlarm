@@ -103,3 +103,15 @@ export const userQuery = data => {
         });
 }
 
+export const getUserOrders = data => {
+    return axios
+        .post('http://localhost:3000/users/myorders' , {
+            userId: data.userId
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

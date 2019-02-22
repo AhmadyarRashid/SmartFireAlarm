@@ -1,6 +1,7 @@
 import * as ActionsTypes from '../actionsTypes/ActionsTypes';
 
 const userAuthenticateDefaultState = {
+    id:'',
     isAuth: false,
     email: '',
     password: '',
@@ -45,6 +46,7 @@ export default (state = userAuthenticateDefaultState, action) => {
             state.address = action.payload.address;
             return state;
         case ActionsTypes.localStorageToRedux:
+            state.id = action.payload.id;
             state.isAuth = action.payload.isAuth;
             state.email = action.payload.email;
             state.password = action.payload.password;

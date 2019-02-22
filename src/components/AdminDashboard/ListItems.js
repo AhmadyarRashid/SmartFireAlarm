@@ -37,6 +37,14 @@ export const mainListItems = (
                 <ListItemText primary="Customers"/>
             </ListItem>
         </NavLink>
+        <NavLink to='/admin/sales'>
+            <ListItem button>
+                <ListItemIcon>
+                    <BarChartIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Sales Details"/>
+            </ListItem>
+        </NavLink>
         <NavLink to='/admin/complains'>
             <ListItem button>
                 <ListItemIcon>

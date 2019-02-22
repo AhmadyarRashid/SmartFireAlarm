@@ -50,6 +50,7 @@ class Login extends Component {
 
                             // this.props.dispatch(userAuth(this.state.email, this.state.password));
                             let auth = {
+                                id:res.res._id,
                                 email: res.res.email,
                                 password:res.res.password,
                                 isAuth: true,

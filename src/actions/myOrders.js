@@ -5,4 +5,11 @@ export const addOrder = (
 ) => ({
     type: ActionsTypes.addOrder,
     payload: order
+});
+
+export const storeAllMyOrders = (
+    myOrders = []
+) => ({
+    type: ActionsTypes.storeAllMyOrders,
+    payload: myOrders
 })

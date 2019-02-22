@@ -22,7 +22,8 @@ import {
 import {connect} from 'react-redux';
 import {addCart, lastUpdatedCart} from '../../actions/cart';
 import {localToRedux} from '../../actions/UserAuthenticate';
-import {getProductQty} from '../../middleWare/userFunctions';
+import {storeAllMyOrders} from '../../actions/myOrders';
+import {getProductQty, getUserOrders} from '../../middleWare/userFunctions';
 
 class Home extends Component {
 
@@ -30,22 +31,22 @@ class Home extends Component {
         super(props);
         this.state = {
             showModal: false,
-            hubQty: 1,
-            hubAmount: 1200,
-            slaveQty: 1,
-            slaveAmount: 600,
+            hubQty: 0,
+            hubAmount: 0,
+            slaveQty: 0,
+            slaveAmount: 0,
             error: '',
-            maxHub:0,
-            maxSlave:0
+            maxHub: 0,
+            maxSlave: 0
         }
     }
 
     HubProductHandler = () => {
-        if(!this.props.userAuth.isAuth){
+        if (!this.props.userAuth.isAuth) {
             this.setState(({
                 error: 'Please Login First!'
             }));
-        }else {
+        } else {
             if (Number(this.state.hubQty) > 0) {
                 this.setState(({
                     error: ''
@@ -76,11 +77,11 @@ class Home extends Component {
 
     SlaveProductHandler = () => {
 
-        if(!this.props.userAuth.isAuth){
+        if (!this.props.userAuth.isAuth) {
             this.setState(({
                 error: 'Please Login First!'
             }));
-        }else {
+        } else {
             if (Number(this.state.slaveQty > 0)) {
                 this.setState(({
                     error: ''
@@ -111,7 +112,9 @@ class Home extends Component {
         try {
             var user = localStorage.getItem('userAuth');
             user = JSON.parse(user);
+            console.log(JSON.stringify(user, null, 2));
             this.props.dispatch(localToRedux({
+                id: user.id,
                 email: user.email,
                 password: user.password,
                 isAuth: user.isAuth,
@@ -134,20 +137,22 @@ class Home extends Component {
             console.log(e);
         }
 
+        //console.log(this.props.userAuth);
+
         getProductQty({})
             .then(res => {
                 if (res.gq == 'OK') {
                     console.log(res.doc);
                     res.doc.forEach(item => {
 
-                        if(item._id == 'HUB'){
+                        if (item._id == 'HUB') {
                             console.log(item);
                             var maxHub = item.count;
                             this.setState({
                                 maxHub
                             })
                         }
-                        if(item._id == 'SLAVE'){
+                        if (item._id == 'SLAVE') {
                             console.log(item);
                             var maxSlave = item.count;
                             this.setState({
@@ -161,7 +166,21 @@ class Home extends Component {
             })
             .catch(e => {
                 console.log(e);
-            })
+            });
+
+        getUserOrders({
+            userId: this.props.userAuth.id
+        }).then(res => {
+            if (res.guo == 'OK') {
+                this.props.dispatch(storeAllMyOrders(res.doc));
+            } else {
+                console.log('No Current Sales Found');
+            }
+        }).catch(e => {
+            console.log(e);
+        })
+
+
     }
 
     toggleModal = () => {
@@ -191,16 +210,16 @@ class Home extends Component {
 
     changeHubQty = (event) => {
         var hubQty = Number(event.target.value);
-        if (hubQty <= this.state.maxHub ){
+        if (hubQty <= this.state.maxHub) {
             var hubAmount = 1200 * Number(hubQty);
             this.setState(() => ({
                 hubQty,
                 hubAmount
             }));
-        } else{
+        } else {
             this.setState(() => ({
-                hubQty:1,
-                hubAmount:this.props.unitPrice1
+                hubQty: 1,
+                hubAmount: this.props.unitPrice1
             }));
         }
 
@@ -208,7 +227,7 @@ class Home extends Component {
 
     changeSlaveQty = (event) => {
         var slaveQty = Number(event.target.value);
-        if (slaveQty <= this.state.maxSlave){
+        if (slaveQty <= this.state.maxSlave) {
             var slaveAmount = 600 * Number(slaveQty);
             this.setState(() => ({
                 slaveQty,
@@ -216,8 +235,8 @@ class Home extends Component {
             }));
         } else {
             this.setState(() => ({
-                slaveQty:1,
-                slaveAmount:this.props.unitPrice2
+                slaveQty: 1,
+                slaveAmount: this.props.unitPrice2
             }));
         }
 
@@ -225,11 +244,11 @@ class Home extends Component {
 
     render() {
         const BuyHUBbtnHandler = () => {
-            if(!this.props.userAuth.isAuth){
+            if (!this.props.userAuth.isAuth) {
                 this.setState(({
                     error: 'Please Login First!'
                 }));
-            }else {
+            } else {
                 console.log('============= buy button clicked ==============');
                 if (Number(this.state.hubQty) > 0) {
                     this.setState(({
@@ -259,11 +278,11 @@ class Home extends Component {
         }
 
         const BuySLAVEbtnHandler = () => {
-            if(!this.props.userAuth.isAuth){
+            if (!this.props.userAuth.isAuth) {
                 this.setState(({
                     error: 'Please Login First!'
                 }));
-            }else {
+            } else {
                 console.log('============= buy button clicked ==============');
                 if (Number(this.state.slaveQty > 0)) {
                     this.setState(({
@@ -483,7 +502,7 @@ class Home extends Component {
                 <Modal isOpen={this.state.showModal} toggle={this.toggleModal} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Confirmation</ModalHeader>
                     <ModalBody>
-                       Your order are sucessfully added into cart.
+                        Your order are sucessfully added into cart.
                     </ModalBody>
                     <ModalFooter>
                         <Button className='btn btn-primary' onClick={this.toggleBuyModal}>View Cart</Button>{' '}

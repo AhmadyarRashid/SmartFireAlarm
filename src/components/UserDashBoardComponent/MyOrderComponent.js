@@ -7,9 +7,6 @@ import {
     ModalHeader,
     ModalFooter,
     Button,
-    Form,
-    Row,
-    Col,
     FormGroup,
     Input,
     Label
@@ -25,6 +22,10 @@ class MyOrder extends Component {
             rating: 0,
             comment: ''
         }
+    }
+
+    componentWillMount() {
+        console.log('========== we are in my order component =======' , this.props.myOrder);
     }
 
     toggleFeedBackModal = () => {
@@ -57,39 +58,50 @@ class MyOrder extends Component {
             <Breadcrumb>
                 <BreadcrumbItem>Order Date : {String(order.date)}</BreadcrumbItem>
             </Breadcrumb>
-            <table className='table table-hover table-striped table-responsive'>
-                <thead>
-                <tr>
-                    <th colSpan={3}>Product Name & Details</th>
-                    <th colSpan={2}>Quantity</th>
-                    <th>Price</th>
-                    <th>Shipping Details</th>
-                    <th colSpan={2}>Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                {order.order.map(item => (
-                    this.renderItems(item)
-                ))}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colSpan={8}>
-                        <center>
-                            <button
-                                onClick={this.toggleFeedBackModal}
-                                className='btn btn-primary btn-lg'>
-                                FeedBack
-                            </button>
-                            {'   '}
-                            <button className='btn btn-primary btn-lg'>
-                                Recieved
-                            </button>
-                        </center>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
+            <center>
+                <table className='table table-hover table-striped table-responsive' align="center" >
+                    <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Hub Quantity</th>
+                        <th>Slave Quantity</th>
+                        <th>Total Amount</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {/*{order.order.map(item => (*/}
+                    {/*this.renderItems(item)*/}
+                    {/*))}*/}
+                    <tr>
+                        <td>{order._id}</td>
+                        <td>{order.hub}</td>
+                        <td>{order.slave}</td>
+                        <td>{order.amount}</td>
+                        <td>{order.date}</td>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colSpan={8}>
+                            <center>
+                                <button
+                                    onClick={this.toggleFeedBackModal}
+                                    className='btn btn-primary btn-lg'>
+                                    FeedBack
+                                </button>
+                                {'   '}
+                                <button className='btn btn-primary btn-lg'>
+                                    Recieved
+                                </button>
+                            </center>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </center>
+
         </div>
     );
 

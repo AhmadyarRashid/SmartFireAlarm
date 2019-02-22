@@ -10,8 +10,11 @@ export const lastUpdatedCart = 'LAST_UPDATED_CART';
 export const clearcart = ' CLEAR_CART';
 
 export const addOrder = 'ADD_ORDER';
+export const storeAllMyOrders = 'STORE_ALL_MY_ORDERS';
 
 export const addUsers = 'ADD_ALL_USERS';
 
 export const addQuery = 'ADD_ALL_QUERY';
 export const sendReply = 'SEND_REPLY';
+
+export const addSales = 'ADD_SALES';

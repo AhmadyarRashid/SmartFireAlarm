@@ -7,6 +7,7 @@ import AddToCartReducer from '../reducers/Cart';
 import MyOrder from '../reducers/myOrders';
 import Users from '../reducers/users';
 import Query from '../reducers/query';
+import Sales from '../reducers/sales';
 
 export default () => {
     const store = createStore(
@@ -17,7 +18,8 @@ export default () => {
             cart: AddToCartReducer,
             myOrder: MyOrder,
             users: Users,
-            query:Query
+            query:Query,
+            sales:Sales
         })
     );
     return store;
