@@ -88,11 +88,13 @@ class MyOrder extends Component {
                             <center>
                                 <button
                                     onClick={this.toggleFeedBackModal}
-                                    className='btn btn-primary btn-lg'>
+                                    className='btn btn-secondary btn-lg'>
                                     FeedBack
                                 </button>
                                 {'   '}
-                                <button className='btn btn-primary btn-lg'>
+                                <button
+                                    className='btn btn-secondary btn-lg'
+                                >
                                     Recieved
                                 </button>
                             </center>
@@ -173,7 +175,7 @@ class MyOrder extends Component {
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleFeedBackModal}>Do Something</Button>{' '}
+                        <Button color="primary" onClick={this.toggleFeedBackModal}>Send</Button>{' '}
                         <Button color="secondary" onClick={this.toggleFeedBackCancelModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

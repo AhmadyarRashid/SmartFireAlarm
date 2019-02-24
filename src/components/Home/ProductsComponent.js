@@ -12,8 +12,7 @@ export default class Portfolio extends Component{
                     <div className="row">
                         <div className="col-lg-12 text-center">
                             <h2 className="section-heading text-uppercase">Products</h2>
-                            <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet
-                                consectetur.</h3>
+
                         </div>
                     </div>
                     <div className="row">
@@ -28,7 +27,6 @@ export default class Portfolio extends Component{
                             </a>
                             <div className="portfolio-caption">
                                 <h4>Hub Devices</h4>
-                                <p className="text-muted">Illustration</p>
                             </div>
                         </div>
                         <div className="col-md-6 col-sm-6 portfolio-item">
@@ -42,7 +40,6 @@ export default class Portfolio extends Component{
                             </a>
                             <div className="portfolio-caption">
                                 <h4>Slave Devices</h4>
-                                <p className="text-muted">Graphic Design</p>
                             </div>
                         </div>
                     </div>

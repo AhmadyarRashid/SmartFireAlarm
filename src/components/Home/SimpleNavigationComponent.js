@@ -20,20 +20,32 @@ const SimpleNavigation = (props) =>{
         window.open('http://localhost:8080/', '_self');
     }
     return(
-        <nav className="navbar navbar-dark navbar-expand-lg bg-dark fixed-top" id="mainNav">
+        <nav className="navbar navbar-dark navbar-expand-lg fixed-top" style={{background:'#1A1919'}} id="mainNav">
             <div className="container">
-                <NavLink to='/' className="navbar-brand js-scroll-trigger" href="#page-top">Smart Fire Alarm System</NavLink>
-                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    Menu
-                    <i className="fas fa-bars"></i>
-                </button>
+                <NavLink to='/'
+                         className="navbar-brand js-scroll-trigger"
+                         href="#page-top"
+                         style={{color:'#A9A9A9'}}
+                >Smart Fire Alarm System</NavLink>
+                {
+                    props.userAuth.isAuth &&
+                    <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        Menu
+                        <i className="fas fa-bars"></i>
+                    </button>
+                }
+
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav text-uppercase ml-auto">
-                        <li className="nav-item">
-                            <a onClick={() => SignOutHandler(props)} className="nav-link js-scroll-trigger" href="#services">Logout</a>
-                        </li>
+                        {
+                            props.userAuth.isAuth &&
+                            <li className="nav-item">
+                                <a onClick={() => SignOutHandler(props)} style={{color:'#A9A9A9'}} className="nav-link js-scroll-trigger" href="#services">Logout</a>
+                            </li>
+                        }
+
 
                     </ul>
                 </div>

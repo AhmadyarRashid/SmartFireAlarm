@@ -22,7 +22,10 @@ import {buyProduct} from '../../middleWare/userFunctions';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#fed136',
+            main: '#A9A9A9',
+        },
+        secondary:{
+            main: '#838383',
         }
     }
 })
@@ -212,7 +215,7 @@ class Checkout extends React.Component {
                                                     )}
                                                     <Button
                                                         variant="contained"
-                                                        color="primary"
+                                                        color="secondary"
                                                         onClick={this.handleNext}
                                                         className={classes.button}
                                                     >

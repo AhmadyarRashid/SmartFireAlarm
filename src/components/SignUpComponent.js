@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {register} from '../middleWare/userFunctions';
+import SimpleNavigation from "./Home/SimpleNavigationComponent";
+import {NavLink} from "react-router-dom";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +24,7 @@ export default class SignUp extends Component {
             this.setState({
                 error: 'Some field are empty'
             })
-        }else if (this.state.pass1.length < 5 ||this.state.pass2.length < 5 ){
+        } else if (this.state.pass1.length < 5 || this.state.pass2.length < 5) {
             this.setState({
                 error: 'Password length must be greater than 4'
             })
@@ -32,14 +34,14 @@ export default class SignUp extends Component {
             })
         } else {
             const user = {
-                email : this.state.email,
+                email: this.state.email,
                 userName: this.state.userName,
-                address : this.state.address,
-                phoneNo : this.state.phoneNo,
+                address: this.state.address,
+                phoneNo: this.state.phoneNo,
                 password: this.state.pass1
             }
             register(user).then(res => {
-                if(res.reg == 'OK'){
+                if (res.reg == 'OK') {
                     this.setState({
                         error: 'Registration Sucessfully'
                     });
@@ -51,7 +53,7 @@ export default class SignUp extends Component {
                         this.props.history.push('/login');
                     }, 1000);
 
-                }else{
+                } else {
                     this.setState({
                         error: res.reg
                     })
@@ -109,89 +111,127 @@ export default class SignUp extends Component {
 
     render() {
         return (
-            <header className="masthead-login"
-                    style={{padding: 0, backgroundImage: `url(${'./images/header-bg.jpg'})`}}>
+            <header className="masthead-login signupHtml"
+                    style={{padding: 0,backgroundImage: `url(${'./images/header-bg.jpg'})`}}>
+                <SimpleNavigation/>
                 <div className="container">
 
-                    <div className='row' style={{width: '100%', height: '100%'}}>
+                    <div className='row' style={{width: '100%'}}>
                         <div className='col-md-4 intro-text-login'>
-                            <div className="intro-heading-login text-uppercase">Smart Fire Alarm System</div>
-                            <div className="intro-lead-in-login">Welcome in the Future</div>
+                            {/*<div className="intro-heading-login">{this.props.title}</div>*/}
+                            <h2 className="intro-heading-login" style={{margin: 0, padding: 0}} align="left">Smart</h2>
+                            <h2 className="intro-heading-login" style={{margin: 0, padding: 0}} align="left">Fire</h2>
+                            <h2 className="intro-heading-login" style={{margin: 0, padding: 0}} align="left">Alarm</h2>
+                            <h2 className="intro-heading-login" style={{margin: 0, padding: 0}} align="left">System</h2>
                         </div>
-                        <div className='col-md-4'></div>
+                        <div className='col-md-3'></div>
 
-                        <div className='col-md-4'>
+                        <div className='col-md-5'>
                             <div className='intro-text-login'>
-                                <form action='post' onSubmit={this.signupHandler}>
+                                <div style={{backgroundColor: 'white', opacity: 0.7, padding: 35}}>
+                                    <form action='post' onSubmit={this.signupHandler}>
 
-                                    <div className="intro-lead-in-login">Sign Up</div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">User Name :</span>
+                                        <h2 style={{color: '#A9A9A9'}} className='intro-lead-in-login'>Sign Up</h2>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.userName}</span>
+                                            </div>
+                                            <input type="text" className="form-control" onChange={this.changeName}
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   required={true}/>
                                         </div>
-                                        <input type="text" className="form-control" onChange={this.changeName}
-                                               aria-label="Username" aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">Phone No :</span>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.phoneNo}</span>
+                                            </div>
+                                            <input type="text"
+                                                   onChange={this.changePhoneNo}
+                                                   className="form-control"
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   required={true}/>
                                         </div>
-                                        <input type="text"
-                                               onChange={this.changePhoneNo}
-                                               className="form-control"
-                                               aria-label="Username" aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">Email : </span>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.email}</span>
+                                            </div>
+                                            <input type="email" className="form-control"
+                                                   aria-label="Username"
+                                                   onChange={this.changeEmail}
+                                                   aria-describedby="basic-addon1" required={true}/>
                                         </div>
-                                        <input type="email" className="form-control"
-                                               aria-label="Username"
-                                               onChange={this.changeEmail}
-                                               aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">Address : </span>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.address}</span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                   onChange={this.changeAddress}
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   required={true}/>
                                         </div>
-                                        <input type="text" className="form-control"
-                                               onChange={this.changeAddress}
-                                               aria-label="Username" aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon1">Password : </span>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.pass1}</span>
+                                            </div>
+                                            <input type="password" className="form-control"
+                                                   onChange={this.changePassword1}
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   required={true}/>
                                         </div>
-                                        <input type="password" className="form-control"
-                                               onChange={this.changePassword1}
-                                               aria-label="Username" aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
                                             <span className="input-group-text"
-                                                  id="basic-addon1">Retype Password : </span>
+                                                  id="basic-addon1">{this.props.pass2}</span>
+                                            </div>
+                                            <input type="password" className="form-control"
+                                                   onChange={this.changePassword2}
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   required={true}/>
                                         </div>
-                                        <input type="password" className="form-control"
-                                               onChange={this.changePassword2}
-                                               aria-label="Username" aria-describedby="basic-addon1" required={true}/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        {
-                                            !!this.state.error &&
-                                            <p className='text-danger'>{this.state.error}</p>
-                                        }
-                                    </div>
-                                    <div className="input-group mb-3" align="right">
-                                        <button type='submit' className='btn btn-lg btn-primary form-control'>Signup
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div className="input-group mb-3">
+                                            {
+                                                !!this.state.error &&
+                                                <p className='text-danger' style={{fontSize: 10}}>{this.state.error}</p>
+                                            }
+                                        </div>
+                                        <div className="input-group mb-3">
+                                            <button
+                                                type='submit'
+                                                className='btn btn-lg  form-control'
+                                                style={{background: '#A9A9A9', color: 'white', height: 35}}
+                                            >
+                                                Signup
+                                            </button>
+
+                                        </div>
+                                        <NavLink to={'/login'}>
+                                            <p align="right" style={{fontSize: 9, color: 'blue', marginTop: -11}}>Login
+                                                Now</p>
+                                        </NavLink>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </header>
         );
     }
 }
+
+SignUp.defaultProps = {
+    title: 'Smart \n Fire \n Alarm',
+    userName: 'User Name \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    phoneNo: 'Phone No \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    email: 'Email \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    address: 'Address \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    pass1: 'Password \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    pass2: 'Retype Password'
+
+}
+
+export default SignUp;

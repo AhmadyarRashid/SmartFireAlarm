@@ -209,37 +209,75 @@ class Home extends Component {
     }
 
     changeHubQty = (event) => {
-        var hubQty = Number(event.target.value);
-        if (hubQty <= this.state.maxHub) {
-            var hubAmount = 1200 * Number(hubQty);
+        var hubQty = Math.round(Number(event.target.value));
+
+        if (hubQty<= 0) {
             this.setState(() => ({
-                hubQty,
-                hubAmount
-            }));
-        } else {
-            this.setState(() => ({
-                hubQty: 1,
-                hubAmount: this.props.unitPrice1
-            }));
+                hubQty: 0,
+                hubAmount: 0
+            }))
+
+            if (this.state.maxHub == 0) {
+                this.setState(() => ({
+                    error: 'No Device Avalable in Stock'
+                }))
+            } else {
+                this.setState(() => ({
+                    error: ''
+                }))
+            }
+        }else {
+            if (hubQty <= this.state.maxHub) {
+                var hubAmount = 1200 * Number(hubQty);
+                this.setState(() => ({
+                    hubQty,
+                    hubAmount,
+                    error:''
+                }));
+            } else {
+                this.setState(() => ({
+                    hubQty: 0,
+                    hubAmount: 0,
+                    error: `Maximum ${this.state.maxHub} devices available in Stock`
+                }));
+            }
         }
 
     }
 
     changeSlaveQty = (event) => {
-        var slaveQty = Number(event.target.value);
-        if (slaveQty <= this.state.maxSlave) {
-            var slaveAmount = 600 * Number(slaveQty);
-            this.setState(() => ({
-                slaveQty,
-                slaveAmount
-            }));
-        } else {
-            this.setState(() => ({
-                slaveQty: 1,
-                slaveAmount: this.props.unitPrice2
-            }));
-        }
+        var slaveQty = Math.round(Number(event.target.value));
+        if(slaveQty <= 0){
+            if (this.state.maxSlave == 0) {
+                this.setState(() => ({
+                    slaveQty: 0,
+                    slaveAmount: 0
+                }))
 
+                this.setState(() => ({
+                    error: 'No Device Avalable in Stock'
+                }))
+            } else {
+                this.setState(() => ({
+                    error: ''
+                }))
+            }
+        }else {
+            if (slaveQty <= this.state.maxSlave) {
+                var slaveAmount = 600 * Number(slaveQty);
+                this.setState(() => ({
+                    slaveQty,
+                    slaveAmount,
+                    error:''
+                }));
+            } else {
+                this.setState(() => ({
+                    slaveQty: 0,
+                    slaveAmount: 0,
+                    error: `Maximum ${this.state.maxSlave} devices available in Stock`
+                }));
+            }
+        }
     }
 
     render() {
@@ -311,6 +349,12 @@ class Home extends Component {
 
         }
 
+        const clearError = () => {
+            this.setState({
+                error: ''
+            })
+        }
+
         return (
             <div id="page-top">
 
@@ -327,7 +371,7 @@ class Home extends Component {
                      aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <div className="close-modal" data-dismiss="modal">
+                            <div className="close-modal" onClick={clearError} data-dismiss="modal">
                                 <div className="lr">
                                     <div className="rl"></div>
                                 </div>
@@ -338,25 +382,20 @@ class Home extends Component {
                                         <div className="modal-body">
                                             <div className='row'>
                                                 <div className='col'>
-                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>HUB
-                                                        Device</h3>
-                                                    <p className="item-intro text-muted">Lorem ipsum dolor sit amet
-                                                        consectetur.</p>
+
                                                     <img className="img-fluid d-block mx-auto"
-                                                         src="http://localhost:8080/images/portfolio/01-full.jpg"
+                                                         src="http://localhost:8080/images/portfolio/04-thumbnail.jpg"
                                                          alt=""/>
                                                 </div>
-                                                <div className='col' style={{marginTop: 20}}>
-                                                    <p>Use this area to describe your project. Lorem ipsum dolor sit
-                                                        amet,
-                                                        consectetur adipisicing elit. Est blanditiis dolorem culpa
-                                                        incidunt
+                                                <div className='col' style={{marginTop: 0}}>
+                                                    <h3 className="text-uppercase" style={{marginTop: 0}}>HUB
+                                                        Device</h3>
+                                                    <p>{this.props.deviceDescription1}
                                                     </p>
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>Shipping:</Label>
                                                         <Col sm={10}>
-                                                            <p>Free Shipping in Pakistan Estimated Delivery
-                                                                Time:23-40days</p>
+                                                            <p>Rs 200 Shipping in Pakistan</p>
                                                         </Col>
                                                     </FormGroup>
                                                     <FormGroup row>
@@ -379,7 +418,8 @@ class Home extends Component {
                                                     </FormGroup>
                                                     {
                                                         !!this.state.error &&
-                                                        <p className='text-danger'>{this.state.error}</p>
+                                                        <p className='text-danger'
+                                                           style={{fontSize: 10}}>{this.state.error}</p>
                                                     }
                                                     <div className='row'>
                                                         <div className='col-12'>
@@ -387,13 +427,12 @@ class Home extends Component {
                                                                 <Button
                                                                     onClick={() => BuyHUBbtnHandler()}
                                                                     type="button"
-                                                                    data-dismiss="modal"
-                                                                    className='btn btn-primary btn-lg'>
+                                                                    className='btn btn-secondary btn-lg'>
                                                                     Buy Now
                                                                 </Button>
                                                                 {' '}
                                                                 <Button type="button" onClick={this.HubProductHandler}
-                                                                        className='btn btn-primary btn-lg'>
+                                                                        className='btn btn-secondary btn-lg'>
                                                                     Add To Cart
                                                                 </Button>
                                                             </center>
@@ -414,7 +453,7 @@ class Home extends Component {
                      aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <div className="close-modal" data-dismiss="modal">
+                            <div className="close-modal" onClick={clearError} data-dismiss="modal">
                                 <div className="lr">
                                     <div className="rl"></div>
                                 </div>
@@ -425,25 +464,19 @@ class Home extends Component {
                                         <div className="modal-body">
                                             <div className='row'>
                                                 <div className='col'>
-                                                    <h3 className="text-uppercase" style={{marginTop: -80}}>SLAVE
-                                                        Device</h3>
-                                                    <p className="item-intro text-muted">Lorem ipsum dolor sit amet
-                                                        consectetur.</p>
                                                     <img className="img-fluid d-block mx-auto"
-                                                         src="http://localhost:8080/images/portfolio/01-full.jpg"
+                                                         src="http://localhost:8080/images/portfolio/02-thumbnail.jpg"
                                                          alt=""/>
                                                 </div>
-                                                <div className='col' style={{marginTop: 20}}>
-                                                    <p>Use this area to describe your project. Lorem ipsum dolor sit
-                                                        amet,
-                                                        consectetur adipisicing elit. Est blanditiis dolorem culpa
-                                                        incidunt
+                                                <div className='col' style={{marginTop: 0}}>
+                                                    <h3 className="text-uppercase" style={{marginTop: 0}}>SLAVE
+                                                        Device</h3>
+                                                    <p>{this.props.deviceDescription2}
                                                     </p>
                                                     <FormGroup row>
                                                         <Label for="exampleEmail" sm={2}>Shipping:</Label>
                                                         <Col sm={10}>
-                                                            <p>Free Shipping in Pakistan Estimated Delivery
-                                                                Time:23-40days</p>
+                                                            <p>Rs 200 Shipping in Pakistan</p>
                                                         </Col>
                                                     </FormGroup>
                                                     <FormGroup row>
@@ -463,7 +496,8 @@ class Home extends Component {
                                                     </FormGroup>
                                                     {
                                                         !!this.state.error &&
-                                                        <p className='text-danger'>{this.state.error}</p>
+                                                        <p className='text-danger'
+                                                           style={{fontSize: 10}}>{this.state.error}</p>
                                                     }
                                                     <div className='row'>
                                                         <div className='col-12'>
@@ -472,8 +506,7 @@ class Home extends Component {
                                                                     <Button
                                                                         onClick={() => BuySLAVEbtnHandler()}
                                                                         type="button"
-                                                                        data-dismiss="modal"
-                                                                        className='btn btn-primary btn-lg'>
+                                                                        className='btn btn-secondary btn-lg'>
                                                                         Buy Now
                                                                     </Button>
                                                                 </NavLink>
@@ -481,7 +514,7 @@ class Home extends Component {
                                                                 <Button
                                                                     type="button"
                                                                     onClick={this.SlaveProductHandler}
-                                                                    className='btn btn-primary btn-lg'>
+                                                                    className='btn btn-secondary btn-lg'>
                                                                     Add To Cart
                                                                 </Button>
                                                             </center>

@@ -355,7 +355,7 @@ class CartDetails extends Component {
                                     <td colSpan={6}></td>
                                     <td>
                                         <center>
-                                            <NavLink to='/payment' className='btn btn-primary btn-lg'>Check
+                                            <NavLink to='/payment' className='btn btn-secondary btn-lg'>Check
                                                 Out</NavLink>
                                         </center>
 

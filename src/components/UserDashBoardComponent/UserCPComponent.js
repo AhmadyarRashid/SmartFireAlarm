@@ -144,7 +144,7 @@ class UserCP extends Component {
                                     <Col md={10}></Col>
                                     <Col md={2}>
                                         <Button type='submit'
-                                                className='btn btn-primary btn-lg form-control-lg'>Confirm</Button>
+                                                className='btn btn-secondary btn-lg form-control-lg'>Confirm</Button>
                                     </Col>
                                 </Row>
                             </form>

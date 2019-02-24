@@ -166,7 +166,7 @@ class UserProfile extends Component {
                                 <button
                                     onClick={this.handlerProfile}
                                     type='submit'
-                                    className='btn btn-primary btn-lg form-control-lg'>
+                                    className='btn btn-secondary btn-lg form-control-lg'>
                                     {this.state.buttonStat == true ? 'Save' : 'Edit'}
 
                                 </button>

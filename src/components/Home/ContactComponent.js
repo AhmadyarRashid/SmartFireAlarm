@@ -79,43 +79,11 @@ export default class Contact extends Component {
     render() {
         return (
             <div>
-                <section className="py-5">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-3 col-sm-6">
-                                <a href="#">
-                                    <img className="img-fluid d-block mx-auto" src="./images/logos/envato.jpg" alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <a href="#">
-                                    <img className="img-fluid d-block mx-auto" src="./images/logos/designmodo.jpg"
-                                         alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <a href="#">
-                                    <img className="img-fluid d-block mx-auto" src="./images/logos/themeforest.jpg"
-                                         alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <a href="#">
-                                    <img className="img-fluid d-block mx-auto" src="./images/logos/creative-market.jpg"
-                                         alt=""/>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <section id="contact" style={{backgroundImage: `url(${'./images/map-image.png'})`}}>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 text-center">
                                 <h2 className="section-heading text-uppercase">Contact Us</h2>
-                                <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet
-                                    consectetur.</h3>
                             </div>
                         </div>
                         <div className="row">
@@ -173,7 +141,8 @@ export default class Contact extends Component {
                                             <center>
                                                 <button id="sendMessageButton"
                                                         onClick={this.contactHandler}
-                                                        className="btn btn-primary btn-xl text-uppercase home-btn"
+                                                        className="btn btn-xl text-uppercase home-btn bg-dark"
+                                                        style={{ color: 'white'}}
                                                         >Send Message
                                                 </button>
                                             </center>

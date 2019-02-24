@@ -50,7 +50,7 @@ class DashBoardComponent extends Component {
                     <div className='col '>
                         <Card className='text-white' style={{background: '#5d6d7e'}}>
                             <CardBody>
-                                <CardTitle>HUB DEVICE QTY</CardTitle>
+                                <CardTitle>Available HUB</CardTitle>
                                 <CardText><h1>{this.state.totalHubs}</h1></CardText>
                             </CardBody>
                         </Card>
@@ -59,7 +59,7 @@ class DashBoardComponent extends Component {
                     <div className='col'>
                         <Card className='text-white' style={{background: '#5d6d7e'}}>
                             <CardBody>
-                                <CardTitle>SLAVE DEVICE QTY</CardTitle>
+                                <CardTitle>Available SLAVE</CardTitle>
                                 <CardText><h1>{this.state.totalSlave}</h1></CardText>
                             </CardBody>
                         </Card>

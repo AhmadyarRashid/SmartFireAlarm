@@ -32,7 +32,7 @@ class SideBar extends Component {
         return (
             <div>
 
-                <ul className="sidebar navbar-nav">
+                <ul className="sidebar navbar-nav" style={{marginTop:40, background: '#1A1919'}}>
 
                     <li className="nav-item">
                         <NavLink to='/userportal/' className="nav-link">

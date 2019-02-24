@@ -5,9 +5,9 @@ import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 
 const Navigation = (props) => (
-    <nav className="navbar navbar-dark navbar-expand-lg bg-dark fixed-top" id="mainNav">
+    <nav className="navbar navbar-dark navbar-expand-lg fixed-top" style={{background:'#1A1919'}} id="mainNav">
         <div className="container">
-            <a className="navbar-brand js-scroll-trigger" href="#page-top">Smart Fire Alarm System</a>
+            <a className="navbar-brand js-scroll-trigger" href="#page-top" style={{color:'#A9A9A9'}} >Smart Fire Alarm System</a>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -16,20 +16,20 @@ const Navigation = (props) => (
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav text-uppercase ml-auto">
-                    <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#services">Services</a>
+                    <li className="nav-item" >
+                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}}  href="#services">Services</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#portfolio">Products</a>
+                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#portfolio">Products</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#about">About</a>
+                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#about">About</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#team">Team</a>
+                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#team">Team</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#contact">Contact</a>
                     </li>
                     {
                         props.userAuth.isAuth === true ?
@@ -37,16 +37,16 @@ const Navigation = (props) => (
                                 <NavLink to='/showCart' className="nav-link js-scroll-trigger">
                                     {
                                         props.cart.length > 0 ?
-                                            <Badge badgeContent={props.cart.length} color="secondary">
-                                                <i className='fas fa-fw fa-shopping-cart'></i>
+                                            <Badge badgeContent={props.cart.length} color="primary">
+                                                <i className='fas fa-fw fa-shopping-cart'  style={{color:'#A9A9A9'}} ></i>
                                             </Badge> :
-                                            <i className='fas fa-fw fa-shopping-cart'></i>
+                                            <i className='fas fa-fw fa-shopping-cart'  style={{color:'#A9A9A9'}}></i>
                                     }
                                 </NavLink>
                             </li>
                             :
                             <li className="nav-item">
-                                <NavLink to='/login' className="nav-link js-scroll-trigger">
+                                <NavLink to='/login' className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}}>
                                     Login
                                 </NavLink>
                             </li>
@@ -56,13 +56,13 @@ const Navigation = (props) => (
                     {
                         props.userAuth.isAuth === true ?
                             <li className="nav-item">
-                                <NavLink to='/userportal' className="nav-link js-scroll-trigger">
+                                <NavLink to='/userportal' className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} >
                                     <i className='fas fa-fw fa-user'></i>
                                 </NavLink>
                             </li>
                             :
                             <li className="nav-item">
-                                <NavLink to='/signup' className="nav-link js-scroll-trigger">
+                                <NavLink to='/signup' className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}}>
                                     Signup
                                 </NavLink>
                             </li>
