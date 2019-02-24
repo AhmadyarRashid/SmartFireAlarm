@@ -139,6 +139,10 @@ class SignUp extends Component {
                                             </div>
                                             <input type="text" className="form-control" onChange={this.changeName}
                                                    aria-label="Username" aria-describedby="basic-addon1"
+                                                   pattern="[A-Za-z0-9_ ]{3,12}"
+                                                   title="UserName char between [3,12].Only use alphanumeric character, space and _ char"
+                                                   minLength={3}
+                                                   maxLength={12}
                                                    required={true}/>
                                         </div>
                                         <div className="input-group mb-3">
@@ -149,6 +153,8 @@ class SignUp extends Component {
                                             <input type="text"
                                                    onChange={this.changePhoneNo}
                                                    className="form-control"
+                                                   pattern="03[0-9]{9}"
+                                                   title="For Example 03131539336"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>
@@ -159,6 +165,8 @@ class SignUp extends Component {
                                             </div>
                                             <input type="email" className="form-control"
                                                    aria-label="Username"
+                                                   pattern="[A-Za-z0-9_.]+@[a-z]{3,5}.[a-z]{3}"
+                                                   title="For Example ahmedyar61@gmail.com"
                                                    onChange={this.changeEmail}
                                                    aria-describedby="basic-addon1" required={true}/>
                                         </div>
@@ -169,6 +177,8 @@ class SignUp extends Component {
                                             </div>
                                             <input type="text" className="form-control"
                                                    onChange={this.changeAddress}
+                                                   minLength={12}
+                                                   title="Min Length must be 12"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>
@@ -179,6 +189,8 @@ class SignUp extends Component {
                                             </div>
                                             <input type="password" className="form-control"
                                                    onChange={this.changePassword1}
+                                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                                                   title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>
@@ -189,6 +201,8 @@ class SignUp extends Component {
                                             </div>
                                             <input type="password" className="form-control"
                                                    onChange={this.changePassword2}
+                                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                                                   title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>

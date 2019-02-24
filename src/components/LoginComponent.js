@@ -210,6 +210,8 @@ class Login extends Component {
                                                 <input type="email"
                                                        onChange={val => updateEmail(val)}
                                                        className="form-control"
+                                                       pattern="[A-Za-z0-9_.]+@[a-z]{3,5}.[a-z]{3}"
+                                                       title="For Example ahmedyar61@gmail.com"
                                                        value={this.state.email}
                                                        aria-label="Username"
                                                        required={true}

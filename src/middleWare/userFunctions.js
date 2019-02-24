@@ -115,3 +115,31 @@ export const getUserOrders = data => {
             console.log(e);
         })
 }
+
+export const recievedOrder = data => {
+    return axios
+        .post('http://localhost:3000/users/receivedOrder' , {
+            id: data.id
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+export const sendFeedBack = data => {
+    return axios
+        .post('http://localhost:3000/users/orderFeedBack'  , {
+            id: data.id,
+            rating: data.rating,
+            feedback: data.feedback
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

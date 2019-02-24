@@ -13,3 +13,23 @@ export const storeAllMyOrders = (
     type: ActionsTypes.storeAllMyOrders,
     payload: myOrders
 })
+
+export const receiveOrder = (
+    id = ''
+) => ({
+    type: ActionsTypes.receviceOrder,
+    id
+})
+
+export const orderFeedBack = (
+    {
+        id= '',
+        rating = 0,
+        feedback = ''
+    } = {}
+) => ({
+    type : ActionsTypes.orderFeedback,
+    id,
+    rating,
+    feedback
+})

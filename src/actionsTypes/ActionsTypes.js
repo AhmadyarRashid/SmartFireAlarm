@@ -11,6 +11,8 @@ export const clearcart = ' CLEAR_CART';
 
 export const addOrder = 'ADD_ORDER';
 export const storeAllMyOrders = 'STORE_ALL_MY_ORDERS';
+export const receviceOrder = 'RECIEVED_ORDER';
+export const orderFeedback = 'ORDER_FEEDBACK';
 
 export const addUsers = 'ADD_ALL_USERS';
 

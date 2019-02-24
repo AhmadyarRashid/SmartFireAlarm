@@ -13,7 +13,8 @@ export default class Contact extends Component {
         }
     }
 
-    contactHandler = () => {
+    contactHandler = (e) => {
+        e.preventDefault();
         if (this.state.name.trim() == '' || this.state.email.trim() == '' || this.state.message.trim == '') {
             console.log(this.state);
             this.setState({
@@ -88,8 +89,7 @@ export default class Contact extends Component {
                         </div>
                         <div className="row">
                             <div className="col-lg-12">
-                                <form id="contactForm"  name="sentMessage"
-                                      noValidate="novalidate">
+                                <form onSubmit={this.contactHandler}>
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group">
@@ -105,14 +105,19 @@ export default class Contact extends Component {
                                                        placeholder="Your Email *" required={true}
                                                        onChange={this.changeEmail}
                                                        value={this.state.email}
+                                                       pattern="[A-Za-z0-9_.]+@[a-z]{3,5}.[a-z]{3}"
+                                                       title="For Example ahmedyar61@gmail.com"
                                                        data-validation-required-message="Please enter your email address."/>
                                                 <p className="help-block text-danger"></p>
                                             </div>
                                             <div className="form-group">
-                                                <input className="form-control" id="phone" type="tel"
-                                                       placeholder="Your Phone *"
+                                                <input className="form-control"
                                                        onChange={this.changePhoneNo}
                                                        value={this.state.phoneNo}
+                                                       pattern="03[0-9]{9}"
+                                                       title="For Example 03131539336"
+                                                       id="phone" type="tel"
+                                                       placeholder="Your Phone *"
                                                        />
                                                 <p className="help-block text-danger"></p>
                                             </div>
@@ -121,6 +126,8 @@ export default class Contact extends Component {
                                             <div className="form-group">
                                             <textarea className="form-control" id="message" placeholder="Your Message *"
                                                       required={true}
+                                                      minLength={12}
+                                                      title="Minlength of Message is 12"
                                                       onChange={this.changeMessage}
                                                       value={this.state.message}
                                                       data-validation-required-message="Please enter a message."></textarea>
@@ -140,7 +147,7 @@ export default class Contact extends Component {
                                             <div id="success"></div>
                                             <center>
                                                 <button id="sendMessageButton"
-                                                        onClick={this.contactHandler}
+                                                        type='submit'
                                                         className="btn btn-xl text-uppercase home-btn bg-dark"
                                                         style={{ color: 'white'}}
                                                         >Send Message
