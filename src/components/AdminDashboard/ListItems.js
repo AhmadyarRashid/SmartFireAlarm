@@ -48,7 +48,8 @@ export const mainListItems = (
         <NavLink to='/admin/complains'>
             <ListItem button>
                 <ListItemIcon>
-                    <BarChartIcon/>
+                    <i className='fas fa fa-exclamation-triangle'></i>
+                    {/*<BarChartIcon/>*/}
                 </ListItemIcon>
                 <ListItemText primary="Customer Complains"/>
             </ListItem>
@@ -63,7 +64,8 @@ export const mainListItems = (
         </NavLink>
         <ListItem button>
             <ListItemIcon>
-                <LayersIcon/>
+                {/*<LayersIcon/>*/}
+                <i className="fas fa-fw fa-sign-out-alt"></i>
             </ListItemIcon>
             <ListItemText primary="Signout"/>
         </ListItem>

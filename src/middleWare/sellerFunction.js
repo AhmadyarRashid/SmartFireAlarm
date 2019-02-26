@@ -69,3 +69,19 @@ export const getSales = data => {
             console.log(e);
         })
 }
+
+export const sendReplyEmail = data => {
+    return axios
+        .post('http://localhost:3000/seller/sendReply' , {
+            name : data.name,
+            email : data.email,
+            message : data.message,
+            replySms: data.reply
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

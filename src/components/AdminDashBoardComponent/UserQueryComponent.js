@@ -6,6 +6,7 @@ import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
 import {connect} from 'react-redux';
 import {sendReply} from '../../actions/query';
+import {sendReplyEmail} from '../../middleWare/sellerFunction';
 
 const {SearchBar} = Search;
 
@@ -56,7 +57,22 @@ class UserQuery extends Component {
 
         const sendEmail = (e,row) => {
             e.preventDefault();
+            console.log('========= yahoo reply send sucessfully ============');
             console.log(row);
+
+            sendReplyEmail({
+                id: row._id,
+                name : row.name,
+                email: row.email,
+                message : row.message,
+                reply: this.state.reply
+            }).then(res =>{
+                if(res.sr == 'OK'){
+                    console.log('email sent sucessfully');
+                }
+            }).catch(e =>{
+
+            });
             this.props.dispatch(sendReply(row._id));
             this.setState({
                 reply:''

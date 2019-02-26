@@ -86,6 +86,7 @@ function getStepContent(step) {
 class Checkout extends React.Component {
     state = {
         activeStep: 0,
+        saleId : ''
     };
 
     handleNext = () => {
@@ -107,8 +108,11 @@ class Checkout extends React.Component {
             })
             buyProduct({email, hubQty, slaveQty, shipping}).then(res => {
                 if (res.bp == 'OK') {
-                    console.log('add to cart sucessfully');
-
+                    console.log('add to cart sucessfully', res);
+                    let saleId = res.saleId
+                    this.setState(() => ({
+                       saleId
+                    }));
                 } else {
                     console.log('some problem occurs');
                 }
@@ -196,7 +200,7 @@ class Checkout extends React.Component {
                                                     Thank you for your order. Your order placed sucessfully.
                                                 </Typography>
                                                 <Typography variant="subtitle1">
-                                                    Your order number is #2001539. We have emailed your order
+                                                    Your order number is {!!this.state.saleId ? this.state.saleId: '#2503496'  }. We have emailed your order
                                                     confirmation,
                                                     and
                                                     will
