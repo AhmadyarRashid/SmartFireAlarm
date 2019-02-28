@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {deleteItemFromCart, updateQuantityCart} from '../../actions/cart';
-import {userSignOut} from "../../actions/UserAuthenticate";
+import {localToRedux, userSignOut} from "../../actions/UserAuthenticate";
 import {lastUpdatedCart} from '../../actions/cart';
 import SimpleNav from './SimpleNavigationComponent';
 import {getProductQty} from "../../middleWare/userFunctions";
@@ -19,6 +19,26 @@ class CartDetails extends Component {
     }
 
     componentWillMount() {
+
+        try {
+            var user = localStorage.getItem('userAuth');
+            user = JSON.parse(user);
+            console.log(JSON.stringify(user, null, 2));
+            this.props.dispatch(localToRedux({
+                id: user.id,
+                email: user.email,
+                password: user.password,
+                isAuth: user.isAuth,
+                userName: user.userName,
+                phoneNo: user.phoneNo,
+                address: user.address
+            }));
+
+        } catch (e) {
+            console.log(e);
+        }
+
+
         if (this.props.cart.length == 0) {
             console.log(JSON.parse(localStorage.getItem('cart')));
             var cart = JSON.parse(localStorage.getItem('cart'));

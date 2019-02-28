@@ -85,3 +85,32 @@ export const sendReplyEmail = data => {
             console.log(e);
         })
 }
+
+export const adminLogin = data => {
+    return axios
+        .post('http://localhost:3000/seller/login' , {
+            email : data.email,
+            password : data.password
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+export const changePassword = data => {
+    return axios
+        .post('http://localhost:3000/seller/changePass', {
+            email: data.email,
+            oldPass: data.oldPass,
+            newPass: data.newPass
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

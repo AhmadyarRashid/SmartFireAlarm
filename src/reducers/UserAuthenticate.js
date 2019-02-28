@@ -9,12 +9,12 @@ const userAuthenticateDefaultState = {
     userName: 'Ahmad Yar',
     phoneNo: '03335581143',
     address: 'G-9 islamabad, pakistan',
-    orders: 12,
-    awaitingPayment: 2,
-    awaitingShipment: 2,
-    awaitingDelivery: 2,
-    awaitingFeedback: 2,
-    disputes: 2
+    orders: 0,
+    awaitingPayment: 0,
+    awaitingShipment: 0,
+    awaitingDelivery: 0,
+    awaitingFeedback: 0,
+    disputes: 0
 };
 
 export default (state = userAuthenticateDefaultState, action) => {

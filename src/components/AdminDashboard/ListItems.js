@@ -62,6 +62,16 @@ export const mainListItems = (
                 <ListItemText primary="Customer Query"/>
             </ListItem>
         </NavLink>
+        <NavLink to='/admin/changePass'>
+            <ListItem button>
+                <ListItemIcon>
+                    {/*<LayersIcon/>*/}
+                    <i className='fas fa fa-wrench'></i>
+
+                </ListItemIcon>
+                <ListItemText primary="ChangePassword"/>
+            </ListItem>
+        </NavLink>
         <ListItem button>
             <ListItemIcon>
                 {/*<LayersIcon/>*/}

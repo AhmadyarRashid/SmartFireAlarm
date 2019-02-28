@@ -8,6 +8,7 @@ import MyOrder from '../reducers/myOrders';
 import Users from '../reducers/users';
 import Query from '../reducers/query';
 import Sales from '../reducers/sales';
+import adminAuth from '../reducers/adminAuthentication';
 
 export default () => {
     const store = createStore(
@@ -18,8 +19,9 @@ export default () => {
             cart: AddToCartReducer,
             myOrder: MyOrder,
             users: Users,
-            query:Query,
-            sales:Sales
+            query: Query,
+            sales: Sales,
+            adminAuth: adminAuth
         })
     );
     return store;

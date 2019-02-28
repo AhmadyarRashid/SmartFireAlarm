@@ -20,3 +20,5 @@ export const addQuery = 'ADD_ALL_QUERY';
 export const sendReply = 'SEND_REPLY';
 
 export const addSales = 'ADD_SALES';
+
+export const adminLogin = 'ADMIN_LOGIN';

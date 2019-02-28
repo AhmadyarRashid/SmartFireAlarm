@@ -17,6 +17,10 @@ class Complain extends Component{
                 <Breadcrumb>
                     <BreadcrumbItem active>Complains</BreadcrumbItem>
                 </Breadcrumb>
+
+                <img
+                    src="http://localhost:8080/images/underConstruction.jpg"
+                ></img>
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Breadcrumb, BreadcrumbItem, FormGroup, Label, Input, Collapse, Button, CardBody, Card} from 'reactstrap';
 import {addDevice} from '../../middleWare/sellerFunction';
+import {ToastsContainer,ToastsContainerPosition, ToastsStore} from 'react-toasts';
 
 class AddInventory extends Component {
     constructor(props) {
@@ -47,34 +48,41 @@ class AddInventory extends Component {
                 .then(res => {
                     if (res.ad = 'OK') {
                         console.log(' HUB device add sucessfully')
+                        ToastsStore.success(`${this.state.hubQty} Hub has been store Sucessfully`, 3000);
+                        this.setState({
+                            hubQty:0
+                        })
                     }else {
                         console.log('Some Error Exists')
+                        ToastsStore.error('Sorry Some Connection error, Item not store in inventory' , 3000);
                     }
                 })
                 .catch(e => {
                     console.log(e);
                 });
-            this.setState({
-                hubQty:0
-            })
+
         }
 
         const addSlaveHandler = () => {
             console.log(this.state.slaveQty);
+
             addDevice({type: 'SLAVE', qty: this.state.slaveQty})
                 .then(res => {
                     if (res.ad = 'OK') {
                         console.log('Slave device add sucessfully')
+                        ToastsStore.success(`${this.state.slaveQty} slave has been store Sucessfully`,3000);
+                        this.setState({
+                            slaveQty:0
+                        })
                     }else {
                         console.log('Some Error Exists')
+                        ToastsStore.error('Sorry Some Connection error, Item not store in inventory' , 3000);
                     }
                 })
                 .catch(e => {
                     console.log(e);
                 });
-            this.setState({
-                slaveQty:0
-            })
+
         }
 
         return (
@@ -135,6 +143,8 @@ class AddInventory extends Component {
                         </CardBody>
                     </Card>
                 </Collapse>
+
+                <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
             </div>
         );
     }

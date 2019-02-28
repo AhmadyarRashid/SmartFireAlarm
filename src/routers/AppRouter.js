@@ -13,6 +13,7 @@ import Userportal from "../components/UserPortalDashboard/UserportalComponent";
 import CartDetail from '../components/Home/CartDetailsComponent';
 import {createBrowserHistory} from 'history';
 import TestComponent from '../components/TestComponent';
+import AdminLogin from '../components/AdminLoginComponent';
 import ForgetPass from '../components/ForgetPassComponent';
 
 const histroy = createBrowserHistory();
@@ -25,6 +26,7 @@ const AppRouter = () => (
         <Route path="/" component={Home} exact={true} />
         <Route path='/test' component={TestComponent}/>
         <Route path='/login' component={Login} />
+        <Route path='/admin/login' component={AdminLogin} />
         <Route path='/signup' component={Signup}/>
         <Route path='/userportal' component={Userportal}/>
         <Route path='/showCart' component={CartDetail} />

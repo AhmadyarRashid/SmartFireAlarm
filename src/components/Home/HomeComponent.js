@@ -211,7 +211,7 @@ class Home extends Component {
     changeHubQty = (event) => {
         var hubQty = Math.round(Number(event.target.value));
 
-        if (hubQty<= 0) {
+        if (hubQty <= 0) {
             this.setState(() => ({
                 hubQty: 0,
                 hubAmount: 0
@@ -226,13 +226,13 @@ class Home extends Component {
                     error: ''
                 }))
             }
-        }else {
+        } else {
             if (hubQty <= this.state.maxHub) {
                 var hubAmount = 1200 * Number(hubQty);
                 this.setState(() => ({
                     hubQty,
                     hubAmount,
-                    error:''
+                    error: ''
                 }));
             } else {
                 this.setState(() => ({
@@ -247,7 +247,7 @@ class Home extends Component {
 
     changeSlaveQty = (event) => {
         var slaveQty = Math.round(Number(event.target.value));
-        if(slaveQty <= 0){
+        if (slaveQty <= 0) {
             if (this.state.maxSlave == 0) {
                 this.setState(() => ({
                     slaveQty: 0,
@@ -262,13 +262,13 @@ class Home extends Component {
                     error: ''
                 }))
             }
-        }else {
+        } else {
             if (slaveQty <= this.state.maxSlave) {
                 var slaveAmount = 600 * Number(slaveQty);
                 this.setState(() => ({
                     slaveQty,
                     slaveAmount,
-                    error:''
+                    error: ''
                 }));
             } else {
                 this.setState(() => ({
@@ -316,13 +316,17 @@ class Home extends Component {
         }
 
         const BuySLAVEbtnHandler = () => {
+
+            console.log('=========== buy slave btn click ==============');
+            console.log('hub quantity is ', this.state.slaveQty, typeof this.state.slaveQty);
             if (!this.props.userAuth.isAuth) {
                 this.setState(({
                     error: 'Please Login First!'
                 }));
             } else {
-                console.log('============= buy button clicked ==============');
-                if (Number(this.state.slaveQty > 0)) {
+                console.log('============= user authenticate sucessfully ==============');
+                if (this.state.slaveQty > 0) {
+                    console.log('============= slave quantity is greater than 0 ==============');
                     this.setState(({
                         error: ''
                     }));
@@ -338,8 +342,8 @@ class Home extends Component {
                     console.log(this.props.cart);
 
                     localStorage.setItem("cart", JSON.stringify(this.props.cart));
-
                     window.open('http://localhost:8080/showCart', '_self');
+
                 } else {
                     this.setState(({
                         error: 'Please Enter Quantity!'
@@ -502,14 +506,12 @@ class Home extends Component {
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
-                                                                <NavLink to='/showCart'>
                                                                     <Button
                                                                         onClick={() => BuySLAVEbtnHandler()}
                                                                         type="button"
                                                                         className='btn btn-secondary btn-lg'>
                                                                         Buy Now
                                                                     </Button>
-                                                                </NavLink>
                                                                 {' '}
                                                                 <Button
                                                                     type="button"
@@ -557,11 +559,11 @@ const mapStatToProps = state => ({
 Home.defaultProps = {
     deviceName1: 'HUB',
     deviceDescription1: 'Auto generate call and notify to user',
-    deviceImage1: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
+    deviceImage1: 'http://localhost:8080/images/portfolio/04-thumbnail.jpg',
     unitPrice1: 1200,
     deviceName2: 'Slave',
     deviceDescription2: 'send health to server and hub device',
-    deviceImage2: 'http://localhost:8080/images/portfolio/01-thumbnail.jpg',
+    deviceImage2: 'http://localhost:8080/images/portfolio/02-thumbnail.jpg',
     unitPrice2: 600
 };
 export default connect(mapStatToProps)(Home);

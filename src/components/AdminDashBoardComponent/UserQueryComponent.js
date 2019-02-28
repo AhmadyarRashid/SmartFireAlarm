@@ -7,6 +7,7 @@ import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit
 import {connect} from 'react-redux';
 import {sendReply} from '../../actions/query';
 import {sendReplyEmail} from '../../middleWare/sellerFunction';
+import {ToastsContainer, ToastsContainerPosition, ToastsStore} from "react-toasts";
 
 const {SearchBar} = Search;
 
@@ -69,6 +70,9 @@ class UserQuery extends Component {
             }).then(res =>{
                 if(res.sr == 'OK'){
                     console.log('email sent sucessfully');
+                    ToastsStore.success(`Email Send Sucessfully`,3000);
+                }else {
+                    ToastsStore.error(`Email not send due to some network problem`,3000);
                 }
             }).catch(e =>{
 
@@ -138,7 +142,7 @@ class UserQuery extends Component {
                     }
                 </ToolkitProvider>
 
-
+                <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
             </div>
         );
     }

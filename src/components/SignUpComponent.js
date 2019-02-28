@@ -154,7 +154,7 @@ class SignUp extends Component {
                                                    onChange={this.changePhoneNo}
                                                    className="form-control"
                                                    pattern="03[0-9]{9}"
-                                                   title="For Example 03131539336"
+                                                   title="For Example 03XXXXXXXXX total length must be 11"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>
@@ -165,7 +165,7 @@ class SignUp extends Component {
                                             </div>
                                             <input type="email" className="form-control"
                                                    aria-label="Username"
-                                                   pattern="[A-Za-z0-9_.]+@[a-z]{3,5}.[a-z]{3}"
+                                                   pattern="[A-Za-z0-9_.]+@gmail.[a-z]{3}"
                                                    title="For Example ahmedyar61@gmail.com"
                                                    onChange={this.changeEmail}
                                                    aria-describedby="basic-addon1" required={true}/>
@@ -177,8 +177,8 @@ class SignUp extends Component {
                                             </div>
                                             <input type="text" className="form-control"
                                                    onChange={this.changeAddress}
-                                                   minLength={12}
-                                                   title="Min Length must be 12"
+                                                   minLength={15}
+                                                   title="Min Length must be 15"
                                                    aria-label="Username" aria-describedby="basic-addon1"
                                                    required={true}/>
                                         </div>

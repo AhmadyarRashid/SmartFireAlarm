@@ -28,6 +28,7 @@ import {storeAllSales} from '../../actions/sales';
 import {connect} from 'react-redux';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import SaleComponent from '../AdminDashBoardComponent/SaleComponent';
+import ChangePass from '../AdminDashBoardComponent/AdminChangePass';
 
 
 const theme = createMuiTheme({
@@ -160,6 +161,7 @@ class Dashboard extends React.Component {
                             <Route path='/admin/customer' component={CustomerComponent}/>
                             <Route path='/admin/complains' component={Complains}/>
                             <Route path='/admin/query' component={Query}/>
+                            <Route path='/admin/changePass' component={ChangePass}/>
                             <Route path='/admin/sales' component={SaleComponent}/>
                         </Switch>
                     </div>
