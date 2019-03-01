@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8848fde6-011a-46a4-8364-dabc2b9718df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actionsTypes/ActionsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actionsTypes/ActionsTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/AddInventoryComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/AddInventoryComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/ComplainComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/ComplainComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/UserQueryComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminDashBoardComponent/UserQueryComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminDashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminDashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminDashboard/ListItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminDashboard/ListItems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartDetailsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartDetailsComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/HomeComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NotFoundPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotFoundPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SignUpComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUpComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserDashBoardComponent/UserCPComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserDashBoardComponent/UserCPComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserDashBoardComponent/UserProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserDashBoardComponent/UserProfileComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleWare/sellerFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleWare/sellerFunction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/UserAuthenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/UserAuthenticate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routers/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routers/AppRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/configureStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/configureStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="8848fde6-011a-46a4-8364-dabc2b9718df" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/public/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,51 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/AdminDashBoardComponent/AdminChangePass.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="168" column="50" lean-forward="true" selection-start-line="168" selection-start-column="50" selection-end-line="168" selection-end-column="50" />
-              <folding>
-                <element signature="n#AdminChangePass#0" />
-                <element signature="n#!!block;n#constructor#0;n#AdminChangePass#0" />
-                <element signature="e#310#412#0" />
-                <element signature="e#442#546#0" />
-                <element signature="e#895#2777#0" />
-                <element signature="n#!!block;n#render#0;n#AdminChangePass#0" />
-                <element signature="e#243#277#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/middleWare/sellerFunction.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="104" column="54" selection-start-line="104" selection-start-column="44" selection-end-line="104" selection-end-column="54" />
-              <folding>
-                <element signature="e#61#385#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/UserDashBoardComponent/UserCPComponent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="23" column="9" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="23" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#2625#6654#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -194,56 +130,6 @@
               <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
               <item name="WEB" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="AdminDashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="AdminDashBoardComponent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="UserDashBoardComponent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="middleWare" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -332,16 +218,15 @@
       <workItem from="1551249107344" duration="962000" />
       <workItem from="1551284235809" duration="6661000" />
       <workItem from="1551326474725" duration="2004000" />
-      <workItem from="1551374581880" duration="9216000" />
+      <workItem from="1551374581880" duration="9433000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300750000" />
+    <option name="totallyTimeSpent" value="300967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20833333" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -854,13 +739,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/UserDashBoardComponent/UserCPComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/AdminDashBoardComponent/AdminChangePass.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="23" column="9" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="23" selection-end-column="9" />
+        <state relative-caret-position="85">
+          <caret line="168" column="38" lean-forward="true" selection-start-line="168" selection-start-column="38" selection-end-line="168" selection-end-column="38" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#2625#6654#0" />
+            <element signature="n#AdminChangePass#0" />
+            <element signature="n#!!block;n#constructor#0;n#AdminChangePass#0" />
+            <element signature="e#310#412#0" />
+            <element signature="e#442#546#0" />
+            <element signature="e#895#2777#0" />
+            <element signature="n#!!block;n#render#0;n#AdminChangePass#0" />
+            <element signature="e#243#277#0" />
           </folding>
         </state>
       </provider>
@@ -875,18 +765,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/AdminDashBoardComponent/AdminChangePass.js">
+    <entry file="file://$PROJECT_DIR$/src/components/UserDashBoardComponent/UserCPComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="168" column="50" lean-forward="true" selection-start-line="168" selection-start-column="50" selection-end-line="168" selection-end-column="50" />
+        <state relative-caret-position="202">
+          <caret line="23" column="9" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="23" selection-end-column="9" />
           <folding>
-            <element signature="n#AdminChangePass#0" />
-            <element signature="n#!!block;n#constructor#0;n#AdminChangePass#0" />
-            <element signature="e#310#412#0" />
-            <element signature="e#442#546#0" />
-            <element signature="e#895#2777#0" />
-            <element signature="n#!!block;n#render#0;n#AdminChangePass#0" />
-            <element signature="e#243#277#0" />
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#2625#6654#0" />
           </folding>
         </state>
       </provider>
