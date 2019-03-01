@@ -114,3 +114,14 @@ export const changePassword = data => {
             console.log(e);
         })
 }
+
+export const getAllReports = data => {
+    return axios
+        .post('http://localhost:3000/seller/getReports' , {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

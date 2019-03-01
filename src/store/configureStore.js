@@ -9,6 +9,7 @@ import Users from '../reducers/users';
 import Query from '../reducers/query';
 import Sales from '../reducers/sales';
 import adminAuth from '../reducers/adminAuthentication';
+import reports from '../reducers/reports';
 
 export default () => {
     const store = createStore(
@@ -21,7 +22,8 @@ export default () => {
             users: Users,
             query: Query,
             sales: Sales,
-            adminAuth: adminAuth
+            adminAuth: adminAuth,
+            reports: reports
         })
     );
     return store;

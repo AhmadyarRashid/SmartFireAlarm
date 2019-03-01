@@ -48,7 +48,6 @@ class UserQuery extends Component {
             clickToExpand: true
         };
 
-
         const changeReplay = (e) => {
             var reply = e.target.value;
             this.setState({
