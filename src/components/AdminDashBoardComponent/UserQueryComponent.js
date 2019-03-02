@@ -74,7 +74,7 @@ class UserQuery extends Component {
                     ToastsStore.error(`Email not send due to some network problem`,3000);
                 }
             }).catch(e =>{
-
+                console.log(e);
             });
             this.props.dispatch(sendReply(row._id));
             this.setState({
