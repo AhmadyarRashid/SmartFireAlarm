@@ -92,6 +92,8 @@ class Complain extends Component {
 
         const submitProgress = (e, row) => {
             e.preventDefault();
+            console.log(row._id);
+            const reportId = row._id;
             console.log('=============================================');
             if (this.state.cb1) {
                 sendReportUpdate({
@@ -109,7 +111,7 @@ class Complain extends Component {
                 })
             } else if (this.state.cb2) {
                 sendReportUpdate({
-                    id: row._id,
+                    reportId: row._id,
                     status: 2,
                     deviceName : row.deviceName,
                     email: row.email,

@@ -18,7 +18,6 @@ import {addOrder} from '../../actions/myOrders';
 import SimpleNavigation from '../Home/SimpleNavigationComponent';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {buyProduct} from '../../middleWare/userFunctions';
-
 const theme = createMuiTheme({
     palette: {
         primary: {

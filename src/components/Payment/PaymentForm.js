@@ -4,22 +4,32 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import OnlinePayment from './OnlinePayment';
 
 function PaymentForm() {
     return (
         <React.Fragment>
+
             <Typography variant="h6" gutterBottom>
                 Payment method
             </Typography>
+            <StripeProvider
+                apiKey="pk_test_EdxFb7k0wHLKwB7MjqrCdzIm00VP9i3odL"
+            >
+                <Elements>
+                    <OnlinePayment/>
+                </Elements>
+            </StripeProvider>
             <Grid container spacing={24}>
                 <Grid item xs={12} md={6}>
-                    <TextField required id="cardName" label="Name on card" fullWidth />
+                    <TextField required id="cardName" label="Name on card" fullWidth/>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <TextField required id="cardNumber" label="Card number" fullWidth />
+                    <TextField required id="cardNumber" label="Card number" fullWidth/>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <TextField required id="expDate" label="Expiry date" fullWidth />
+                    <TextField required id="expDate" label="Expiry date" fullWidth/>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
@@ -32,11 +42,12 @@ function PaymentForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveCard" value="yes" />}
+                        control={<Checkbox color="secondary" name="saveCard" value="yes"/>}
                         label="Remember credit card details for next time"
                     />
                 </Grid>
             </Grid>
+
         </React.Fragment>
     );
 }
