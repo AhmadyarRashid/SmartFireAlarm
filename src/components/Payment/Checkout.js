@@ -18,12 +18,13 @@ import {addOrder} from '../../actions/myOrders';
 import SimpleNavigation from '../Home/SimpleNavigationComponent';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {buyProduct} from '../../middleWare/userFunctions';
+
 const theme = createMuiTheme({
     palette: {
         primary: {
             main: '#A9A9A9',
         },
-        secondary:{
+        secondary: {
             main: '#838383',
         }
     }
@@ -69,24 +70,34 @@ const styles = theme => ({
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <AddressForm/>;
-        case 1:
-            return <PaymentForm/>;
-        case 2:
-            return <Review/>;
-        default:
-            throw new Error('Unknown step');
-    }
-}
 
 class Checkout extends React.Component {
     state = {
         activeStep: 0,
-        saleId : ''
+        saleId: '',
+        paymentComplete: false
     };
+
+    paymentCompleteHandler = (data) => {
+        console.log('payment button click sucessfully');
+        this.setState({
+            paymentComplete: true
+        })
+    }
+
+
+    getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <AddressForm/>;
+            case 1:
+                return <PaymentForm payCompleteSubmit={this.paymentCompleteHandler}/>;
+            case 2:
+                return <Review/>;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
 
     handleNext = () => {
 
@@ -110,7 +121,7 @@ class Checkout extends React.Component {
                     console.log('add to cart sucessfully', res);
                     let saleId = res.saleId
                     this.setState(() => ({
-                       saleId
+                        saleId
                     }));
                 } else {
                     console.log('some problem occurs');
@@ -124,7 +135,6 @@ class Checkout extends React.Component {
                 localStorage.removeItem('cart');
             }, 1500);
         }
-
 
         this.setState(state => ({
             activeStep: state.activeStep + 1,
@@ -199,7 +209,9 @@ class Checkout extends React.Component {
                                                     Thank you for your order. Your order placed sucessfully.
                                                 </Typography>
                                                 <Typography variant="subtitle1">
-                                                    Your order number is {!!this.state.saleId ? this.state.saleId: '#2503496'  }. We have emailed your order
+                                                    Your order number
+                                                    is {!!this.state.saleId ? this.state.saleId : '#2503496'}. We have
+                                                    emailed your order
                                                     confirmation,
                                                     and
                                                     will
@@ -209,7 +221,7 @@ class Checkout extends React.Component {
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
-                                                {getStepContent(activeStep)}
+                                                {this.getStepContent(activeStep)}
                                                 <div className={classes.buttons}>
                                                     {activeStep !== 0 && (
                                                         <Button onClick={this.handleBack} className={classes.button}>
@@ -219,6 +231,7 @@ class Checkout extends React.Component {
                                                     <Button
                                                         variant="contained"
                                                         color="secondary"
+                                                        disabled={(this.state.activeStep === 1 && this.state.paymentComplete === false) ? true : false}
                                                         onClick={this.handleNext}
                                                         className={classes.button}
                                                     >

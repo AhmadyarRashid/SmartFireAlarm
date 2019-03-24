@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import React, {Component} from 'react';
+import {CardElement, injectStripe} from 'react-stripe-elements';
 
 class CheckoutForm extends Component {
     constructor(props) {
@@ -9,15 +9,19 @@ class CheckoutForm extends Component {
     }
 
     async submit(e) {
-        let { token } = await this.props.stripe.createToken({ name: "Name" });
+        let {token} = await this.props.stripe.createToken({name: "Name"});
         let response = await fetch("http://localhost:3000/charge", {
             method: "POST",
-            headers: { "Content-Type": "text/plain" },
+            headers: {"Content-Type": "text/plain"},
             body: token.id
         });
 
-        if (response.ok) this.setState({complete: true});
-
+        if (response.ok) {
+            this.setState({complete: true});
+            setTimeout(() => {
+                this.props.payCompleteSubmit(123);
+            }, 2000);
+        }
     }
 
     render() {
@@ -27,12 +31,15 @@ class CheckoutForm extends Component {
         return (
             <div className="checkout">
                 <p>Would you to like to complete the purchase</p>
-                <CardElement />
-                <button
-                    onClick={this.submit}
-                >
-                    Send
-                </button>
+                <CardElement/>
+                <center>
+                    <button
+                        className="btn btn-outline-primary"
+                        onClick={this.submit}
+                    >
+                        Submit
+                    </button>
+                </center>
             </div>
         );
     }
