@@ -14,7 +14,9 @@ import CartDetail from '../components/Home/CartDetailsComponent';
 import {createBrowserHistory} from 'history';
 import TestComponent from '../components/TestComponent';
 import AdminLogin from '../components/AdminLoginComponent';
-import ForgetPass from '../components/ForgetPassComponent';
+import ResetPass from '../components/ResetPasswordComponent';
+import ForgetPassword from "../components/ForgetPassComponent";
+
 
 const histroy = createBrowserHistory();
 
@@ -27,6 +29,7 @@ const AppRouter = () => (
         <Route path='/test' component={TestComponent}/>
         <Route path='/login' component={Login} />
         <Route path='/admin/login' component={AdminLogin} />
+        <Route path='/forgetPassword' component={ForgetPassword}/>
         <Route path='/signup' component={Signup}/>
         <Route path='/userportal' component={Userportal}/>
         <Route path='/showCart' component={CartDetail} />
@@ -35,6 +38,7 @@ const AppRouter = () => (
         <Route path="/admin" component={Dashboard}/>
         <Route path="/help" component={HelpPage} />
         <Route path="/payment" component={CheckOut}/>
+        <Route path="/resetPassword/:id" component={ResetPass}/>
         <Route component={NotFoundPage} />
       </Switch>
     </div>

@@ -160,6 +160,12 @@ class Login extends Component {
                                                             Login
                                                         </button>
                                                     </div>
+                                                    <div style={{marginTop: 10}}>
+                                                        <NavLink to={'/forgetPassword'}>
+                                                            <p align="right" style={{fontSize: 9, color: 'blue', marginTop: -11}}>Forget Password ?
+                                                            </p>
+                                                        </NavLink>
+                                                    </div>
                                                     <NavLink to='/signup'>
                                                         <p style={{color: '#A9A9A9'}}>Create New Account ?</p>
                                                     </NavLink>
