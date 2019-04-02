@@ -40,7 +40,7 @@ const theme = createMuiTheme({
             main:'#FFFFFF'
         }
     }
-})
+});
 
 const drawerWidth = 240;
 
@@ -60,19 +60,19 @@ class Dashboard extends React.Component {
     componentWillMount() {
         getUser({})
             .then(res => {
-                if (res.gu == 'OK') {
+                if (res.gu === 'OK') {
                     console.log('doc ============\n', res.doc);
                     this.props.dispatch(storeAllUser(res.doc));
                 } else {
                     console.log('No User Exists');
                 }
             }).catch(e => {
-            console.log('Some Network Error');
+            console.log('Some Network Error',e);
         });
 
         getAllQuery({})
             .then(res => {
-                if(res.gaq == 'OK'){
+                if(res.gaq === 'OK'){
                     this.props.dispatch(storeAllQuery(res.doc));
                 }
             })
@@ -82,7 +82,7 @@ class Dashboard extends React.Component {
 
         getSales({})
             .then(res => {
-                if(res.gs == 'OK'){
+                if(res.gs === 'OK'){
                     console.log('get all sale details' , res.doc);
                     this.props.dispatch(storeAllSales(res.doc));
                 }else {
@@ -131,9 +131,9 @@ class Dashboard extends React.Component {
                                     Dashboard
                                 </Typography>
                                 <IconButton color="inherit">
-                                    <Badge badgeContent={4} color="secondary">
-                                        <NotificationsIcon/>
-                                    </Badge>
+                                    {/*<Badge badgeContent={4} color="secondary">*/}
+                                        {/*/!*<NotificationsIcon/>*!/*/}
+                                    {/*</Badge>*/}
                                 </IconButton>
                             </Toolbar>
                         </AppBar>

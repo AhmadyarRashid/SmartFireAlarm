@@ -142,3 +142,14 @@ export const sendReportUpdate = data => {
             console.log(e);
         })
 }
+
+export const getSaleData = data => {
+    return axios
+        .post('http://localhost:3000/seller/getSaleData' , {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}

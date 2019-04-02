@@ -14,7 +14,7 @@ function PaymentForm(props) {
                 apiKey="pk_test_EdxFb7k0wHLKwB7MjqrCdzIm00VP9i3odL"
             >
                 <Elements>
-                    <OnlinePayment payCompleteSubmit={props.payCompleteSubmit}/>
+                    <OnlinePayment bill={props.bill} payCompleteSubmit={props.payCompleteSubmit}/>
                 </Elements>
             </StripeProvider>
 

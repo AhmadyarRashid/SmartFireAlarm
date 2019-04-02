@@ -22,7 +22,7 @@ class DashBoardComponent extends Component {
         getSummary({})
             .then(res => {
                 if (res){
-                    if(res.gs == 'OK'){
+                    if(res.gs === 'OK'){
                         this.setState(() => ({
                            totalHubs: res.hub,
                            totalSlave: res.slave,

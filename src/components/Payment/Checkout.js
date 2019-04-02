@@ -28,7 +28,7 @@ const theme = createMuiTheme({
             main: '#838383',
         }
     }
-})
+});
 
 const styles = theme => ({
     appBar: {
@@ -75,15 +75,16 @@ class Checkout extends React.Component {
     state = {
         activeStep: 0,
         saleId: '',
-        paymentComplete: false
+        paymentComplete: false,
+        bill: 0
     };
 
-    paymentCompleteHandler = (data) => {
+    paymentCompleteHandler = () => {
         console.log('payment button click sucessfully');
         this.setState({
             paymentComplete: true
         })
-    }
+    };
 
 
     getStepContent(step) {
@@ -91,7 +92,7 @@ class Checkout extends React.Component {
             case 0:
                 return <AddressForm/>;
             case 1:
-                return <PaymentForm payCompleteSubmit={this.paymentCompleteHandler}/>;
+                return <PaymentForm bill={this.state.bill} payCompleteSubmit={this.paymentCompleteHandler}/>;
             case 2:
                 return <Review/>;
             default:
@@ -101,25 +102,53 @@ class Checkout extends React.Component {
 
     handleNext = () => {
 
-        if (this.state.activeStep == 2) {
+        if (this.state.activeStep === 0) {
+            this.props.cart.forEach(item => {
+                console.log('========items are =========', item);
+                if (item.deviceId === 1) {
+                    setTimeout(() => {
+                        this.setState(preStat => ({
+                           bill : preStat.bill + (Number(item.quantity) * 1200)
+                        }));
+                    } ,0);
 
-            var hubQty = 0;
-            var slaveQty = 0;
-            var email = this.props.userAuth.email;
-            var shipping = 200;
+                }
+                if (item.deviceId === 2) {
+                    setTimeout(() => {
+                        this.setState(preStat => ({
+                            bill : preStat.bill + (item.quantity * 600)
+                        }))
+                    } ,0);
+                }
+            });
+
+            console.log(this.state.bill);
+        }
+
+        if (this.state.activeStep === 1) {
+            console.log(this.state.bill)
+        }
+
+
+        if (this.state.activeStep === 2) {
+
+            let hubQty = 0;
+            let slaveQty = 0;
+            let email = this.props.userAuth.email;
+            let shipping = 200;
             this.props.cart.forEach(item => {
                 console.log(item);
-                if (item.deviceId == 1) {
+                if (item.deviceId === 1) {
                     hubQty = item.quantity
                 }
-                if (item.deviceId == 2) {
+                if (item.deviceId === 2) {
                     slaveQty = item.quantity
                 }
-            })
+            });
             buyProduct({email, hubQty, slaveQty, shipping}).then(res => {
-                if (res.bp == 'OK') {
+                if (res.bp === 'OK') {
                     console.log('add to cart sucessfully', res);
-                    let saleId = res.saleId
+                    let saleId = res.saleId;
                     this.setState(() => ({
                         saleId
                     }));
