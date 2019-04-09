@@ -30,7 +30,6 @@ import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import SaleComponent from '../AdminDashBoardComponent/SaleComponent';
 import ChangePass from '../AdminDashBoardComponent/AdminChangePass';
 
-
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -156,7 +155,7 @@ class Dashboard extends React.Component {
                         </Drawer>
 
                         <Switch>
-                            <Route path='/admin' exact={true} component={DashBoardComponent}/>
+                            <Route path='/admin/dashboard' exact={true} component={DashBoardComponent}/>
                             <Route path='/admin/addInventory' component={AddInventory}/>
                             <Route path='/admin/customer' component={CustomerComponent}/>
                             <Route path='/admin/complains' component={Complains}/>

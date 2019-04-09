@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from "react-redux";
 import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
 
 const Navigation = (props) => (
     <nav className="navbar navbar-dark navbar-expand-lg fixed-top" style={{background:'#1A1919'}} id="mainNav">

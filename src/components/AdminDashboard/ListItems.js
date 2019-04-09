@@ -13,7 +13,7 @@ import {NavLink, Link} from 'react-router-dom';
 
 export const mainListItems = (
     <div>
-        <NavLink to='/admin/'>
+        <NavLink to='/admin/dashboard'>
             <ListItem button>
                 <ListItemIcon>
                     <DashboardIcon/>
@@ -72,7 +72,7 @@ export const mainListItems = (
                 <ListItemText primary="ChangePassword"/>
             </ListItem>
         </NavLink>
-        <ListItem button>
+        <ListItem onClick={() => {window.open("http://localhost:8080/admin","_self")}}>
             <ListItemIcon>
                 {/*<LayersIcon/>*/}
                 <i className="fas fa-fw fa-sign-out-alt"></i>

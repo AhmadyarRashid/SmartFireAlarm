@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {NavLink} from "react-router-dom";
 import SimpleNavigation from './Home/SimpleNavigationComponent';
 import {adminLogin} from '../middleWare/sellerFunction';
 import {connect} from 'react-redux';
 import {adminLoginAction} from '../actions/adminAuth';
+import {NavLink} from "react-router-dom";
 
 class AdminLogin extends Component {
     constructor(props) {
@@ -49,18 +49,20 @@ class AdminLogin extends Component {
                         this.setState({
                             error: 'Login Sucessfully'
                         })
+
                         setTimeout(() => {
                             this.props.dispatch(adminLoginAction({
                                 email: this.state.email,
                                 password: this.state.password
                             }));
-                            this.setState({
-                                email: '',
-                                password: '',
-                                error: '',
-                                isAuth: false
-                            })
-                           // this.props.history.pushState(null,'/admin');
+
+                            this.props.history.push('/admin/dashboard');
+                            // this.setState({
+                            //     email: '',
+                            //     password: '',
+                            //     error: '',
+                            //     isAuth: false
+                            // })
                         }, 1000);
                     } else if (res.al == 'notFound') {
                         this.setState({
@@ -154,6 +156,12 @@ class AdminLogin extends Component {
                                             >
                                                 Login
                                             </button>
+                                        </div>
+                                        <div style={{marginTop: 10}}>
+                                            <NavLink to={'/forgetPassword'}>
+                                                <p align="right" style={{fontSize: 9, color: 'blue', marginTop: -11}}>Forget Password ?
+                                                </p>
+                                            </NavLink>
                                         </div>
                                     </form>
                                 </div>

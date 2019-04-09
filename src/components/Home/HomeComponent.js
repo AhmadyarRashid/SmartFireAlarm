@@ -506,12 +506,12 @@ class Home extends Component {
                                                     <div className='row'>
                                                         <div className='col-12'>
                                                             <center>
-                                                                    <Button
-                                                                        onClick={() => BuySLAVEbtnHandler()}
-                                                                        type="button"
-                                                                        className='btn btn-secondary btn-lg'>
-                                                                        Buy Now
-                                                                    </Button>
+                                                                <Button
+                                                                    onClick={() => BuySLAVEbtnHandler()}
+                                                                    type="button"
+                                                                    className='btn btn-secondary btn-lg'>
+                                                                    Buy Now
+                                                                </Button>
                                                                 {' '}
                                                                 <Button
                                                                     type="button"
