@@ -20,6 +20,7 @@ export const register = user => {
             name: user.userName,
             address: user.address,
             email: user.email,
+            city: user.city,
             password: user.password,
             phoneNo: user.phoneNo
         })
@@ -74,9 +75,9 @@ export const buyProduct = data => {
     return axios
         .post('http://localhost:3000/users/buyProduct', {
                 email: data.email,
-                hub:data.hubQty,
-                slave:data.slaveQty,
-                shipping:data.shipping
+                hub: data.hubQty,
+                slave: data.slaveQty,
+                shipping: data.shipping
             }
         )
         .then(res => {
@@ -93,7 +94,7 @@ export const userQuery = data => {
             name: data.name,
             email: data.email,
             phoneNo: data.phoneNo,
-            message : data.message
+            message: data.message
         })
         .then(res => {
             return res.data
@@ -105,7 +106,7 @@ export const userQuery = data => {
 
 export const getUserOrders = data => {
     return axios
-        .post('http://localhost:3000/users/myorders' , {
+        .post('http://localhost:3000/users/myorders', {
             userId: data.userId
         })
         .then(res => {
@@ -118,7 +119,7 @@ export const getUserOrders = data => {
 
 export const recievedOrder = data => {
     return axios
-        .post('http://localhost:3000/users/receivedOrder' , {
+        .post('http://localhost:3000/users/receivedOrder', {
             id: data.id
         })
         .then(res => {
@@ -131,7 +132,7 @@ export const recievedOrder = data => {
 
 export const resetPassword = data => {
     return axios
-        .post('http://localhost:3000/users/resetPassword',{
+        .post('http://localhost:3000/users/resetPassword', {
             id: data.id,
             password: data.password
         })
@@ -145,7 +146,7 @@ export const resetPassword = data => {
 
 export const confirmResetUser = data => {
     return axios
-        .post('http://localhost:3000/users/confirmResetUser',{
+        .post('http://localhost:3000/users/confirmResetUser', {
             id: data.id
         })
         .then(res => {
@@ -159,10 +160,10 @@ export const confirmResetUser = data => {
 
 export const forgetPassword = data => {
     return axios
-        .post('http://localhost:3000/users/forgetPassword',{
+        .post('http://localhost:3000/users/forgetPassword', {
             email: data.email
-        } )
-        .then(res=>{
+        })
+        .then(res => {
             return res.data
         })
         .catch(e => {
@@ -172,7 +173,7 @@ export const forgetPassword = data => {
 
 export const sendFeedBack = data => {
     return axios
-        .post('http://localhost:3000/users/orderFeedBack'  , {
+        .post('http://localhost:3000/users/orderFeedBack', {
             id: data.id,
             rating: data.rating,
             feedback: data.feedback
@@ -184,3 +185,18 @@ export const sendFeedBack = data => {
             console.log(e);
         })
 };
+
+export const verifyEmail = data => {
+    return axios
+        .post('http://localhost:3000/users/verifyEmail', {
+            id: data.id
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
+

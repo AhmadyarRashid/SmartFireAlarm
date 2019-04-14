@@ -88,78 +88,83 @@ class AdminChangePass extends Component {
     }
 
     render() {
-        return (
-            <div style={{
-                flexGrow: 1,
-                marginTop: 65
-            }}
-                 className='container'
-            >
-                <Breadcrumb>
-                    <BreadcrumbItem active>Change Password</BreadcrumbItem>
-                </Breadcrumb>
+        if (this.props.adminAuth.isAuth == false){
+            window.open('http://localhost:8080/admin', '_self');
+        } else {
+            return (
+                <div style={{
+                    flexGrow: 1,
+                    marginTop: 65
+                }}
+                     className='container'
+                >
+                    <Breadcrumb>
+                        <BreadcrumbItem active>Change Password</BreadcrumbItem>
+                    </Breadcrumb>
 
-                <Form method='post' onSubmit={this.submitForm}>
-                    <Row>
-                        <Col md={10}>
-                            <form method='post'>
-                                <FormGroup>
-                                    <Label for="exampleAddress">Email</Label>
-                                    <Input type="email"
-                                           disabled={true}
-                                           value={this.props.adminAuth.email}
-                                           className='form-control-lg' name="address"
-                                           id="exampleAddress" autofocus={true}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleAddress">Old Password</Label>
-                                    <Input type="password"
-                                           onChange={this.changeOldPass}
-                                           required={true}
-                                           value={this.state.oldPass}
-                                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-                                           title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
-                                           className='form-control-lg' name="address"
-                                           id="exampleAddress" autofocus={true}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleAddress1">New Password</Label>
-                                    <Input type="password"
-                                           required={true}
-                                           value={this.state.newPass1}
-                                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-                                           title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
-                                           onChange={this.changeNewPass1}
-                                           className='form-control-lg' name="address"
-                                           id="exampleAddress1"/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleAddress2">Re-type New Password</Label>
-                                    <Input type="password"
-                                           required={true}
-                                           value={this.state.newPass2}
-                                           pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-                                           title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
-                                           onChange={this.changeNewPass2}
-                                           className='form-control-lg' name="address"
-                                           id="exampleAddress2"/>
-                                </FormGroup>
-                                {!!this.state.error &&
-                                <p className='text-danger' style={{fontSize: 10}}
-                                   align="center">{this.state.error}</p>}
-                                <Row>
-                                    <Col md={10}></Col>
-                                    <Col md={2}>
-                                        <Button type='submit'
-                                                className='btn btn-secondary btn-lg form-control-lg'>Confirm</Button>
-                                    </Col>
-                                </Row>
-                            </form>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-        )
+                    <Form method='post' onSubmit={this.submitForm}>
+                        <Row>
+                            <Col md={10}>
+                                <form method='post'>
+                                    <FormGroup>
+                                        <Label for="exampleAddress">Email</Label>
+                                        <Input type="email"
+                                               disabled={true}
+                                               value={this.props.adminAuth.email}
+                                               className='form-control-lg' name="address"
+                                               id="exampleAddress" autofocus={true}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="exampleAddress">Old Password</Label>
+                                        <Input type="password"
+                                               onChange={this.changeOldPass}
+                                               required={true}
+                                               value={this.state.oldPass}
+                                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                                               title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
+                                               className='form-control-lg' name="address"
+                                               id="exampleAddress" autofocus={true}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="exampleAddress1">New Password</Label>
+                                        <Input type="password"
+                                               required={true}
+                                               value={this.state.newPass1}
+                                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                                               title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
+                                               onChange={this.changeNewPass1}
+                                               className='form-control-lg' name="address"
+                                               id="exampleAddress1"/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="exampleAddress2">Re-type New Password</Label>
+                                        <Input type="password"
+                                               required={true}
+                                               value={this.state.newPass2}
+                                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                                               title="Password must conatin UpperCase, LowerCase, Number/SpecialChar and min 8 Chars"
+                                               onChange={this.changeNewPass2}
+                                               className='form-control-lg' name="address"
+                                               id="exampleAddress2"/>
+                                    </FormGroup>
+                                    {!!this.state.error &&
+                                    <p className='text-danger' style={{fontSize: 10}}
+                                       align="center">{this.state.error}</p>}
+                                    <Row>
+                                        <Col md={10}></Col>
+                                        <Col md={2}>
+                                            <Button type='submit'
+                                                    className='btn btn-secondary btn-lg form-control-lg'>Confirm</Button>
+                                        </Col>
+                                    </Row>
+                                </form>
+                            </Col>
+                        </Row>
+                    </Form>
+                </div>
+            )
+        }
+
     }
 }
 

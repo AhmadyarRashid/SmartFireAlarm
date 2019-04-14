@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Breadcrumb, BreadcrumbItem, FormGroup, Label, Input, Collapse, Button, CardBody, Card} from 'reactstrap';
 import {addDevice} from '../../middleWare/sellerFunction';
 import {ToastsContainer,ToastsContainerPosition, ToastsStore} from 'react-toasts';
+import {connect} from 'react-redux';
 
 class AddInventory extends Component {
     constructor(props) {
@@ -85,69 +86,76 @@ class AddInventory extends Component {
 
         }
 
-        return (
-            <div
-                style={{
-                    flexGrow: 1,
-                    marginTop: 65
-                }}
-                className='container'
-            >
-                <Breadcrumb>
-                    <BreadcrumbItem active>Add Inventory</BreadcrumbItem>
-                </Breadcrumb>
+        if (this.props.adminAuth.isAuth == false){
+            window.open('http://localhost:8080/admin', '_self');
+        } else {
+            return (
+                <div
+                    style={{
+                        flexGrow: 1,
+                        marginTop: 65
+                    }}
+                    className='container'
+                >
+                    <Breadcrumb>
+                        <BreadcrumbItem active>Add Inventory</BreadcrumbItem>
+                    </Breadcrumb>
 
-                <Button color="primary" onClick={toggleHub} className='form-control' style={{marginBottom: '1rem'}}>Add
-                    Hub</Button>
-                <Collapse isOpen={this.state.collHub}>
-                    <Card>
-                        <CardBody>
-                            <FormGroup>
-                                <Label for="exampleEmail">Add Hub :</Label>
-                                <Input
-                                    value={this.state.hubQty}
-                                    className='form-control-lg'
-                                    min={0}
-                                    onChange={changeHubQty}
-                                    type="number"
-                                    id="exampleEmail"/>
-                            </FormGroup>
+                    <Button color="primary" onClick={toggleHub} className='form-control' style={{marginBottom: '1rem'}}>Add
+                        Hub</Button>
+                    <Collapse isOpen={this.state.collHub}>
+                        <Card>
+                            <CardBody>
+                                <FormGroup>
+                                    <Label for="exampleEmail">Add Hub :</Label>
+                                    <Input
+                                        value={this.state.hubQty}
+                                        className='form-control-lg'
+                                        min={0}
+                                        onChange={changeHubQty}
+                                        type="number"
+                                        id="exampleEmail"/>
+                                </FormGroup>
 
-                            <button
-                                onClick={addHubHandler}
-                                className='btn btn-primary'>Confirm
-                            </button>
-                        </CardBody>
-                    </Card>
-                </Collapse>
+                                <button
+                                    onClick={addHubHandler}
+                                    className='btn btn-primary'>Confirm
+                                </button>
+                            </CardBody>
+                        </Card>
+                    </Collapse>
 
-                <Button color="primary" onClick={toggleSlave} className='form-control' style={{marginBottom: '1rem'}}>Add
-                    Slave</Button>
-                <Collapse isOpen={this.state.collslave}>
-                    <Card>
-                        <CardBody>
-                            <FormGroup>
-                                <Label for="slave">Add Slave :</Label>
-                                <Input
-                                    value={this.state.slaveQty}
-                                    className='form-control-lg'
-                                    min={0}
-                                    onChange={changeSlaveQty}
-                                    type="number"
-                                    id="slave"/>
-                            </FormGroup>
-                            <button
-                                onClick={addSlaveHandler}
-                                className='btn btn-primary'>Confirm
-                            </button>
-                        </CardBody>
-                    </Card>
-                </Collapse>
+                    <Button color="primary" onClick={toggleSlave} className='form-control' style={{marginBottom: '1rem'}}>Add
+                        Slave</Button>
+                    <Collapse isOpen={this.state.collslave}>
+                        <Card>
+                            <CardBody>
+                                <FormGroup>
+                                    <Label for="slave">Add Slave :</Label>
+                                    <Input
+                                        value={this.state.slaveQty}
+                                        className='form-control-lg'
+                                        min={0}
+                                        onChange={changeSlaveQty}
+                                        type="number"
+                                        id="slave"/>
+                                </FormGroup>
+                                <button
+                                    onClick={addSlaveHandler}
+                                    className='btn btn-primary'>Confirm
+                                </button>
+                            </CardBody>
+                        </Card>
+                    </Collapse>
 
-                <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
-            </div>
-        );
+                    <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
+                </div>
+            );
+        }
+
     }
 }
-
-export default AddInventory;
+const mapStatToProps = state => ({
+   adminAuth : state.adminAuth
+});
+export default connect(mapStatToProps)(AddInventory);

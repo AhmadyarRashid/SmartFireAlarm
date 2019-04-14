@@ -22,5 +22,9 @@ export const sendReply = 'SEND_REPLY';
 export const addSales = 'ADD_SALES';
 
 export const adminLogin = 'ADMIN_LOGIN';
+export const adminLogout = 'ADMIN_LOGOUT';
+
+export const addAllDevices ='ADD_ALL_DEVICES';
 
 export const storeAllReports = 'STORE_ALL_REPORTS';
+

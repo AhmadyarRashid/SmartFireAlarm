@@ -53,7 +53,7 @@ class UserQuery extends Component {
             this.setState({
                 reply
             })
-        }
+        };
 
         const sendEmail = (e,row) => {
             e.preventDefault();
@@ -100,54 +100,59 @@ class UserQuery extends Component {
             }
         };
 
-
-        return (
-            <div
-                style={{
-                    flexGrow: 1,
-                    marginTop: 65
-                }}
-                className='container'
-            >
-                <Breadcrumb>
-                    <BreadcrumbItem active>User Query</BreadcrumbItem>
-                </Breadcrumb>
-
-                <ToolkitProvider
-                    keyField='_id'
-                    data={this.props.query}
-                    columns={columns}
-                    exportCSV
-                    search={ { defaultSearch: 'false' } }
+        if (this.props.adminAuth.isAuth === false){
+            window.open('http://localhost:8080/admin', '_self');
+        }   else {
+            return (
+                <div
+                    style={{
+                        flexGrow: 1,
+                        marginTop: 65
+                    }}
+                    className='container'
                 >
-                    {
-                        props => (
-                            <div>
-                                <SearchBar {...props.searchProps} />
-                                <hr/>
-                                <BootstrapTable
-                                    bootstrap4
-                                    striped
-                                    hover
-                                    condensed
-                                    pagination={paginationFactory()}
-                                    filter={filterFactory()}
-                                    selectRow={selectRow}
-                                    expandRow={expandRow}
-                                    {...props.baseProps}
-                                    noDataIndication={'no results found'}/>
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
+                    <Breadcrumb>
+                        <BreadcrumbItem active>User Query</BreadcrumbItem>
+                    </Breadcrumb>
 
-                <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
-            </div>
-        );
+                    <ToolkitProvider
+                        keyField='_id'
+                        data={this.props.query}
+                        columns={columns}
+                        exportCSV
+                        search={ { defaultSearch: 'false' } }
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar {...props.searchProps} />
+                                    <hr/>
+                                    <BootstrapTable
+                                        bootstrap4
+                                        striped
+                                        hover
+                                        condensed
+                                        pagination={paginationFactory()}
+                                        filter={filterFactory()}
+                                        selectRow={selectRow}
+                                        expandRow={expandRow}
+                                        {...props.baseProps}
+                                        noDataIndication={'no results found'}/>
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+
+                    <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore}/>
+                </div>
+            );
+        }
+
     }
 }
 
 const mapStatToProps = state => ({
+    adminAuth : state.adminAuth,
     query: state.query
 })
 

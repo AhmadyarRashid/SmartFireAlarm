@@ -10,3 +10,7 @@ export const adminLoginAction = (
     email,
     password
 });
+
+export const adminLogoutAction = () => ({
+    type : ActionsTypes.adminLogout
+});

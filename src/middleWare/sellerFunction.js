@@ -72,10 +72,10 @@ export const getSales = data => {
 
 export const sendReplyEmail = data => {
     return axios
-        .post('http://localhost:3000/seller/sendReply' , {
-            name : data.name,
-            email : data.email,
-            message : data.message,
+        .post('http://localhost:3000/seller/sendReply', {
+            name: data.name,
+            email: data.email,
+            message: data.message,
             replySms: data.reply
         })
         .then(res => {
@@ -88,9 +88,9 @@ export const sendReplyEmail = data => {
 
 export const adminLogin = data => {
     return axios
-        .post('http://localhost:3000/seller/login' , {
-            email : data.email,
-            password : data.password
+        .post('http://localhost:3000/seller/login', {
+            email: data.email,
+            password: data.password
         })
         .then(res => {
             return res.data;
@@ -117,7 +117,7 @@ export const changePassword = data => {
 
 export const getAllReports = data => {
     return axios
-        .post('http://localhost:3000/seller/getReports' , {})
+        .post('http://localhost:3000/seller/getReports', {})
         .then(res => {
             return res.data;
         })
@@ -128,12 +128,12 @@ export const getAllReports = data => {
 
 export const sendReportUpdate = data => {
     return axios
-        .post('http://localhost:3000/seller/sendReportUpdate' , {
+        .post('http://localhost:3000/seller/sendReportUpdate', {
             reportId: data.reportId,
             status: data.status,
             deviceName: data.deviceName,
             email: data.email,
-            description : data.description
+            description: data.description
         })
         .then(res => {
             return res.data;
@@ -145,7 +145,18 @@ export const sendReportUpdate = data => {
 
 export const getSaleData = data => {
     return axios
-        .post('http://localhost:3000/seller/getSaleData' , {})
+        .post('http://localhost:3000/seller/getSaleData', {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+export const getAllDevices = data => {
+    return axios
+        .post('http://localhost:3000/seller/getAllDevices',{})
         .then(res => {
             return res.data;
         })

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import SimpleLineChart from '../AdminDashboard/SimpleLineChart';
 import {Card, CardText, CardBody, CardTitle} from 'reactstrap';
 import {getSummary} from '../../middleWare/sellerFunction';
-
+import {connect} from "react-redux";
 
 class DashBoardComponent extends Component {
     constructor(props) {
@@ -41,58 +41,64 @@ class DashBoardComponent extends Component {
 
     render() {
         const {classes} = this.props;
-        return (
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer}/>
+
+        if (this.props.adminAuth.isAuth === false){
+            window.open('http://localhost:8080/admin', '_self');
+        } else {
+            return (
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer}/>
 
 
-                <div className='row'>
-                    <div className='col '>
-                        <Card className='text-white' style={{background: '#5d6d7e'}}>
-                            <CardBody>
-                                <CardTitle>Available HUB</CardTitle>
-                                <CardText><h1>{this.state.totalHubs}</h1></CardText>
-                            </CardBody>
-                        </Card>
+                    <div className='row'>
+                        <div className='col '>
+                            <Card className='text-white' style={{background: '#5d6d7e'}}>
+                                <CardBody>
+                                    <CardTitle>Available HUB</CardTitle>
+                                    <CardText><h1>{this.state.totalHubs}</h1></CardText>
+                                </CardBody>
+                            </Card>
+                        </div>
+
+                        <div className='col'>
+                            <Card className='text-white' style={{background: '#5d6d7e'}}>
+                                <CardBody>
+                                    <CardTitle>Available SLAVE</CardTitle>
+                                    <CardText><h1>{this.state.totalSlave}</h1></CardText>
+                                </CardBody>
+                            </Card>
+                        </div>
+
+                        <div className='col'>
+                            <Card className='text-white' style={{background: '#5d6d7e'}}>
+                                <CardBody>
+                                    <CardTitle>SALES</CardTitle>
+                                    <CardText><h1>{this.state.totalOrders}</h1></CardText>
+                                </CardBody>
+                            </Card>
+                        </div>
+
+                        <div className='col'>
+                            <Card className='text-white' style={{background: '#5d6d7e'}}>
+                                <CardBody>
+                                    <CardTitle>CUSTOMERS</CardTitle>
+                                    <CardText><h1>{this.state.totalCustomer}</h1></CardText>
+                                </CardBody>
+                            </Card>
+                        </div>
                     </div>
 
-                    <div className='col'>
-                        <Card className='text-white' style={{background: '#5d6d7e'}}>
-                            <CardBody>
-                                <CardTitle>Available SLAVE</CardTitle>
-                                <CardText><h1>{this.state.totalSlave}</h1></CardText>
-                            </CardBody>
-                        </Card>
-                    </div>
 
-                    <div className='col'>
-                        <Card className='text-white' style={{background: '#5d6d7e'}}>
-                            <CardBody>
-                                <CardTitle>SALES</CardTitle>
-                                <CardText><h1>{this.state.totalOrders}</h1></CardText>
-                            </CardBody>
-                        </Card>
-                    </div>
+                    <Typography variant="h4" gutterBottom component="h2" style={{marginTop: 5}}>
+                        Orders
+                    </Typography>
+                    <Typography component="div" className={classes.chartContainer}>
+                        <SimpleLineChart/>
+                    </Typography>
+                </main>
+            )
+        }
 
-                    <div className='col'>
-                        <Card className='text-white' style={{background: '#5d6d7e'}}>
-                            <CardBody>
-                                <CardTitle>CUSTOMERS</CardTitle>
-                                <CardText><h1>{this.state.totalCustomer}</h1></CardText>
-                            </CardBody>
-                        </Card>
-                    </div>
-                </div>
-
-
-                <Typography variant="h4" gutterBottom component="h2" style={{marginTop: 5}}>
-                    Orders
-                </Typography>
-                <Typography component="div" className={classes.chartContainer}>
-                    <SimpleLineChart/>
-                </Typography>
-            </main>
-        )
     }
 }
 
@@ -120,4 +126,8 @@ const styles = theme => ({
 
 });
 
-export default withStyles(styles)(DashBoardComponent);
+const mapStatToProps = state => ({
+    adminAuth : state.adminAuth
+})
+
+export default connect(mapStatToProps)(withStyles(styles)(DashBoardComponent));

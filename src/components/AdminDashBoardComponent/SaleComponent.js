@@ -70,50 +70,55 @@ class SaleComponent extends Component {
             }] // A numeric array is also available. the purpose of above example is custom the text
         };
 
-
-
-        return (
-            <div style={{
-                flexGrow: 1,
-                marginTop: 65
-            }}
-                 className='container'
-            >
-                <Breadcrumb>
-                    <BreadcrumbItem active>Sale Details</BreadcrumbItem>
-                </Breadcrumb>
-
-                <ToolkitProvider
-                    keyField='_id'
-                    data={this.props.sales}
-                    columns={columns}
-                    exportCSV
-                    search
+        if (this.props.adminAuth.isAuth === false){
+            window.open('http://localhost:8080/admin', '_self');
+        } else {
+            return (
+                <div style={{
+                    flexGrow: 1,
+                    marginTop: 65
+                }}
+                     className='container'
                 >
-                    {
-                        props => (
-                            <div>
-                                <SearchBar {...props.searchProps} />
-                                <hr/>
-                                <BootstrapTable
-                                    bootstrap4
-                                    striped
-                                    hover
-                                    condensed
-                                    pagination={paginationFactory(options)}
-                                    filter={filterFactory()}
-                                    {...props.baseProps}
-                                    noDataIndication={'no results found'}/>
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
-            </div>
-        );
+                    <Breadcrumb>
+                        <BreadcrumbItem active>Sale Details</BreadcrumbItem>
+                    </Breadcrumb>
+
+                    <ToolkitProvider
+                        keyField='_id'
+                        data={this.props.sales}
+                        columns={columns}
+                        exportCSV
+                        search
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar {...props.searchProps} />
+                                    <hr/>
+                                    <BootstrapTable
+                                        bootstrap4
+                                        striped
+                                        hover
+                                        condensed
+                                        pagination={paginationFactory(options)}
+                                        filter={filterFactory()}
+                                        {...props.baseProps}
+                                        noDataIndication={'no results found'}/>
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+                </div>
+            );
+        }
+
+
     }
 }
 
 const mapStatToProps = state => ({
+    adminAuth : state.adminAuth,
     sales: state.sales
 })
 export default connect(mapStatToProps)(SaleComponent);

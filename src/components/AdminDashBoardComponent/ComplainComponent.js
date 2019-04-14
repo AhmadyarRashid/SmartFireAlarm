@@ -177,46 +177,51 @@ class Complain extends Component {
             }
         };
 
-        return (
-            <div style={{
-                flexGrow: 1,
-                marginTop: 65
-            }}
-                 className='container'
-            >
-                <Breadcrumb>
-                    <BreadcrumbItem active>Complains</BreadcrumbItem>
-                </Breadcrumb>
-
-                <ToolkitProvider
-                    keyField='_id'
-                    data={this.props.reports}
-                    columns={columns}
-                    exportCSV
-                    search={{}}
+        if(this.props.adminAuth.isAuth == false){
+            window.open('http://localhost:8080/admin', '_self');
+        }else {
+            return (
+                <div style={{
+                    flexGrow: 1,
+                    marginTop: 65
+                }}
+                     className='container'
                 >
-                    {
-                        props => (
-                            <div>
-                                <SearchBar {...props.searchProps} />
-                                <hr/>
-                                <BootstrapTable
-                                    bootstrap4
-                                    striped
-                                    hover
-                                    condensed
-                                    pagination={paginationFactory()}
-                                    filter={filterFactory()}
-                                    expandRow={expandRow}
-                                    {...props.baseProps}
-                                    noDataIndication={'no results found'}/>
-                            </div>
-                        )
-                    }
-                </ToolkitProvider>
-                <ToastsContainer position={ToastsContainerPosition.BOTTOM_RIGHT} lightBackground store={ToastsStore}/>
-            </div>
-        );
+                    <Breadcrumb>
+                        <BreadcrumbItem active>Complains</BreadcrumbItem>
+                    </Breadcrumb>
+
+                    <ToolkitProvider
+                        keyField='_id'
+                        data={this.props.reports}
+                        columns={columns}
+                        exportCSV
+                        search={{}}
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar {...props.searchProps} />
+                                    <hr/>
+                                    <BootstrapTable
+                                        bootstrap4
+                                        striped
+                                        hover
+                                        condensed
+                                        pagination={paginationFactory()}
+                                        filter={filterFactory()}
+                                        expandRow={expandRow}
+                                        {...props.baseProps}
+                                        noDataIndication={'no results found'}/>
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+                    <ToastsContainer position={ToastsContainerPosition.BOTTOM_RIGHT} lightBackground store={ToastsStore}/>
+                </div>
+            );
+        }
+
     }
 }
 

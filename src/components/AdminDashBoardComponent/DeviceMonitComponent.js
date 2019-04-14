@@ -9,36 +9,37 @@ import {connect} from 'react-redux';
 const {ExportCSVButton} = CSVExport;
 const {SearchBar} = Search;
 
-const columns = [{
-    dataField: 'name',
-    text: 'Customer Name',
-    sort: true
-}, {
-    dataField: 'phoneNo',
-    text: 'Phone No',
-    sort: true
-}, {
-    dataField: 'address',
-    text: 'Address'
-}, {
-    dataField: 'city',
-    text: 'City'
-}, {
-    dataField: 'email',
-    text: 'Email'
-}, {
-    dataField: 'order',
-    text: 'Order'
-}];
+const columns = [
+    {
+        dataField: '_id',
+        text: 'Id',
+        sort: true
+    }, {
+        dataField: 'label',
+        text: 'Label',
+        sort: true
+    }, {
+        dataField: 'location',
+        text: 'Location'
+    },{
+        dataField: 'health',
+        text: 'Health'
+    }, {
+        dataField: 'deviceType',
+        text: 'Type'
+    }, {
+        dataField: 'configuration',
+        text: 'Configuration'
+    }];
 
-class CustomerComponent extends Component {
+class DeviceMonit extends Component {
     constructor(props) {
         super(props);
     }
 
 
     render() {
-        if (this.props.adminAuth.isAuth == false){
+        if (this.props.adminAuth.isAuth == false) {
             window.open('http://localhost:8080/admin', '_self');
         } else {
             return (
@@ -56,7 +57,7 @@ class CustomerComponent extends Component {
                     </Breadcrumb>
                     <ToolkitProvider
                         keyField='_id'
-                        data={this.props.users}
+                        data={this.props.devices}
                         columns={columns}
                         exportCSV
                         search
@@ -74,7 +75,7 @@ class CustomerComponent extends Component {
                                         pagination={paginationFactory()}
                                         filter={filterFactory()}
                                         {...props.baseProps}
-                                        noDataIndication={ 'no results found' }/>
+                                        noDataIndication={'no results found'}/>
                                 </div>
                             )
                         }
@@ -88,6 +89,6 @@ class CustomerComponent extends Component {
 
 const mapStatToProps = state => ({
     adminAuth: state.adminAuth,
-    users: state.users
+    devices: state.devices
 });
-export default connect(mapStatToProps)(CustomerComponent);
+export default connect(mapStatToProps)(DeviceMonit);

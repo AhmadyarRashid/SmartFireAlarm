@@ -10,10 +10,8 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import {mainListItems, secondaryListItems} from './listItems';
 import DashBoardComponent from '../AdminDashBoardComponent/DashBoardComponent';
 import CustomerComponent from '../AdminDashBoardComponent/CustomerComponent';
@@ -21,10 +19,12 @@ import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import AddInventory from '../AdminDashBoardComponent/AddInventoryComponent';
 import Complains from '../AdminDashBoardComponent/ComplainComponent';
 import Query from '../AdminDashBoardComponent/UserQueryComponent';
-import {getUser,getAllQuery, getSales} from "../../middleWare/sellerFunction";
+import Devices from '../AdminDashBoardComponent/DeviceMonitComponent';
+import {getUser, getAllQuery, getSales, getAllDevices} from "../../middleWare/sellerFunction";
 import {storeAllUser} from '../../actions/users';
 import {storeAllQuery} from '../../actions/query';
 import {storeAllSales} from '../../actions/sales';
+import {storeAllDevices} from '../../actions/devices';
 import {connect} from 'react-redux';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import SaleComponent from '../AdminDashBoardComponent/SaleComponent';
@@ -35,8 +35,8 @@ const theme = createMuiTheme({
         primary: {
             main: '#5D6D7E',
         },
-        secondary:{
-            main:'#FFFFFF'
+        secondary: {
+            main: '#FFFFFF'
         }
     }
 });
@@ -60,31 +60,31 @@ class Dashboard extends React.Component {
         getUser({})
             .then(res => {
                 if (res.gu === 'OK') {
-                    console.log('doc ============\n', res.doc);
+                   // console.log('doc ============\n', res.doc);
                     this.props.dispatch(storeAllUser(res.doc));
                 } else {
                     console.log('No User Exists');
                 }
             }).catch(e => {
-            console.log('Some Network Error',e);
+            console.log('Some Network Error', e);
         });
 
         getAllQuery({})
             .then(res => {
-                if(res.gaq === 'OK'){
+                if (res.gaq === 'OK') {
                     this.props.dispatch(storeAllQuery(res.doc));
                 }
             })
             .catch(e => {
-               console.log(e);
+                console.log(e);
             });
 
         getSales({})
             .then(res => {
-                if(res.gs === 'OK'){
-                    console.log('get all sale details' , res.doc);
+                if (res.gs === 'OK') {
+                   // console.log('get all sale details', res.doc);
                     this.props.dispatch(storeAllSales(res.doc));
-                }else {
+                } else {
                     console.log('no sales found');
                 }
             })
@@ -92,81 +92,98 @@ class Dashboard extends React.Component {
                 console.log(e);
             })
 
+        getAllDevices({})
+            .then(res => {
+                console.log('======= devices =======' , res);
+
+                if (res.gad === 'OK'){
+                    console.log('get all sale details', res.doc);
+                    this.props.dispatch(storeAllDevices(res.doc));
+                }else {
+                    console.log('no devices found');
+                }
+            })
 
     }
 
     render() {
         const {classes} = this.props;
 
-        return (
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter>
+        if (this.props.adminAuth.isAuth == false) {
+            window.open('http://localhost:8080/admin', '_self');
+        } else {
+            return (
+                <MuiThemeProvider theme={theme}>
+                    <BrowserRouter>
 
-                    <div className={classes.root}>
-                        <CssBaseline/>
-                        <AppBar
-                            position="absolute"
-                            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                        >
-                            <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="Open drawer"
-                                    onClick={this.handleDrawerOpen}
-                                    className={classNames(
-                                        classes.menuButton,
-                                        this.state.open && classes.menuButtonHidden,
-                                    )}
-                                >
-                                    <MenuIcon/>
-                                </IconButton>
-                                <Typography
-                                    component="h1"
-                                    variant="h6"
-                                    color="inherit"
-                                    noWrap
-                                    className={classes.title}
-                                >
-                                    Dashboard
-                                </Typography>
-                                <IconButton color="inherit">
-                                    {/*<Badge badgeContent={4} color="secondary">*/}
+                        <div className={classes.root}>
+                            <CssBaseline/>
+                            <AppBar
+                                position="absolute"
+                                className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+                            >
+                                <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="Open drawer"
+                                        onClick={this.handleDrawerOpen}
+                                        className={classNames(
+                                            classes.menuButton,
+                                            this.state.open && classes.menuButtonHidden,
+                                        )}
+                                    >
+                                        <MenuIcon/>
+                                    </IconButton>
+                                    <Typography
+                                        component="h1"
+                                        variant="h6"
+                                        color="inherit"
+                                        noWrap
+                                        className={classes.title}
+                                    >
+                                        Dashboard
+                                    </Typography>
+                                    <IconButton color="inherit">
+                                        {/*<Badge badgeContent={4} color="secondary">*/}
                                         {/*/!*<NotificationsIcon/>*!/*/}
-                                    {/*</Badge>*/}
-                                </IconButton>
-                            </Toolbar>
-                        </AppBar>
-                        <Drawer
-                            variant="permanent"
-                            classes={{
-                                paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-                            }}
-                            open={this.state.open}
-                        >
-                            <div className={classes.toolbarIcon}>
-                                <IconButton onClick={this.handleDrawerClose}>
-                                    <ChevronLeftIcon/>
-                                </IconButton>
-                            </div>
-                            <Divider/>
-                            <List>{mainListItems}</List>
-                            <Divider/>
-                            <List>{secondaryListItems}</List>
-                        </Drawer>
+                                        {/*</Badge>*/}
+                                    </IconButton>
+                                </Toolbar>
+                            </AppBar>
+                            <Drawer
+                                variant="permanent"
+                                classes={{
+                                    paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                                }}
+                                open={this.state.open}
+                            >
+                                <div className={classes.toolbarIcon}>
+                                    <IconButton onClick={this.handleDrawerClose}>
+                                        <ChevronLeftIcon/>
+                                    </IconButton>
+                                </div>
+                                <Divider/>
+                                <List>{mainListItems}</List>
+                                <Divider/>
+                                <List>{secondaryListItems}</List>
+                            </Drawer>
 
-                        <Switch>
-                            <Route path='/admin/dashboard' exact={true} component={DashBoardComponent}/>
-                            <Route path='/admin/addInventory' component={AddInventory}/>
-                            <Route path='/admin/customer' component={CustomerComponent}/>
-                            <Route path='/admin/complains' component={Complains}/>
-                            <Route path='/admin/query' component={Query}/>
-                            <Route path='/admin/changePass' component={ChangePass}/>
-                            <Route path='/admin/sales' component={SaleComponent}/>
-                        </Switch>
-                    </div>
-                </BrowserRouter>
-            </MuiThemeProvider>
-        );
+                            <Switch>
+                                <Route path='/admin/dashboard' exact={true} component={DashBoardComponent}/>
+                                <Route path='/admin/addInventory' component={AddInventory}/>
+                                <Route path='/admin/devices' component={Devices}/>
+                                <Route path='/admin/customer' component={CustomerComponent}/>
+                                <Route path='/admin/complains' component={Complains}/>
+                                <Route path='/admin/query' component={Query}/>
+                                <Route path='/admin/changePass' component={ChangePass}/>
+                                <Route path='/admin/sales' component={SaleComponent}/>
+                            </Switch>
+                        </div>
+                    </BrowserRouter>
+                </MuiThemeProvider>
+            );
+        }
+
     }
 }
 
@@ -251,4 +268,8 @@ const styles = theme => ({
     },
 });
 
-export default connect()(withStyles(styles)(Dashboard));
+const mapStatToProps = state => ({
+    adminAuth: state.adminAuth
+})
+
+export default connect(mapStatToProps)(withStyles(styles)(Dashboard));

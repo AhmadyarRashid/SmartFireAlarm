@@ -1,7 +1,5 @@
 // Store creation
 import {combineReducers, createStore} from "redux";
-import expensesReducer from '../reducers/expenses';
-import filtersReducer from '../reducers/filters';
 import UserAuthReducer from '../reducers/UserAuthenticate';
 import AddToCartReducer from '../reducers/Cart';
 import MyOrder from '../reducers/myOrders';
@@ -10,12 +8,11 @@ import Query from '../reducers/query';
 import Sales from '../reducers/sales';
 import adminAuth from '../reducers/adminAuthentication';
 import reports from '../reducers/reports';
+import devices from '../reducers/devices';
 
 export default () => {
     const store = createStore(
         combineReducers({
-            expenses: expensesReducer,
-            filters: filtersReducer,
             userAuth: UserAuthReducer,
             cart: AddToCartReducer,
             myOrder: MyOrder,
@@ -23,7 +20,8 @@ export default () => {
             query: Query,
             sales: Sales,
             adminAuth: adminAuth,
-            reports: reports
+            reports: reports,
+            devices: devices
         })
     );
     return store;

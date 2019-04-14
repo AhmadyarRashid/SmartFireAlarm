@@ -10,6 +10,7 @@ class SignUp extends Component {
             userName: '',
             phoneNo: '',
             email: '',
+            city: 'Islamabad',
             address: '',
             pass1: '',
             pass2: '',
@@ -37,11 +38,14 @@ class SignUp extends Component {
                 email: this.state.email,
                 userName: this.state.userName,
                 address: this.state.address,
+                city: this.state.city,
                 phoneNo: this.state.phoneNo,
                 password: this.state.pass1
             }
             register(user).then(res => {
                 if (res.reg == 'OK') {
+
+                    alert('Registration Sucessfully');
                     this.setState({
                         error: 'Registration Sucessfully'
                     });
@@ -65,54 +69,61 @@ class SignUp extends Component {
                 })
             })
         }
-    }
+    };
 
     changeName = (e) => {
         var userName = e.target.value;
         this.setState({
             userName
         });
-    }
+    };
 
     changePhoneNo = (e) => {
         var phoneNo = e.target.value;
         this.setState({
             phoneNo
         });
-    }
+    };
 
     changeEmail = (e) => {
         var email = e.target.value;
         this.setState({
             email
         })
-    }
+    };
 
     changeAddress = (e) => {
         var address = e.target.value;
         this.setState({
             address
         })
-    }
+    };
 
     changePassword1 = (e) => {
         var pass1 = e.target.value;
         this.setState({
             pass1
         })
-    }
+    };
 
     changePassword2 = (e) => {
         var pass2 = e.target.value;
         this.setState({
             pass2
         })
-    }
+    };
+
+    changeCity = (e) => {
+        let city = e.target.value;
+        this.setState({
+            city
+        });
+    };
 
     render() {
         return (
             <header className="masthead-login signupHtml"
-                    style={{padding: 0,backgroundImage: `url(${'./images/header-bg.jpg'})`}}>
+                    style={{padding: 0, backgroundImage: `url(${'./images/header-bg.jpg'})`}}>
                 <SimpleNavigation/>
                 <div className="container">
 
@@ -169,6 +180,19 @@ class SignUp extends Component {
                                                    title="For Example ahmedyar61@gmail.com"
                                                    onChange={this.changeEmail}
                                                    aria-describedby="basic-addon1" required={true}/>
+                                        </div>
+                                        <div className="input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="basic-addon1">{this.props.city}</span>
+                                            </div>
+                                            <select className="form-control" onChange={this.changeCity}>
+                                                <option value="Islamabad">Islamabad</option>
+                                                <option value="Rawalpindi">Rawalpindi</option>
+                                                <option value="Lahore">Lahore</option>
+                                                <option value="Karachi">Karachi</option>
+                                                <option value="Other">Other</option>
+                                            </select>
                                         </div>
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
@@ -242,6 +266,7 @@ SignUp.defaultProps = {
     userName: 'User Name \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
     phoneNo: 'Phone No \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
     email: 'Email \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
+    city: 'City \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
     address: 'Address \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
     pass1: 'Password \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0',
     pass2: 'Retype Password'
