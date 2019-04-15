@@ -23,7 +23,8 @@ import {connect} from 'react-redux';
 import {addCart, lastUpdatedCart} from '../../actions/cart';
 import {localToRedux} from '../../actions/UserAuthenticate';
 import {storeAllMyOrders} from '../../actions/myOrders';
-import {getProductQty, getUserOrders} from '../../middleWare/userFunctions';
+import {getProductQty, getUserOrders, emailVerifyOrNot} from '../../middleWare/userFunctions';
+import ErrorComponent from '../ErrorTopBar';
 
 class Home extends Component {
 
@@ -37,7 +38,8 @@ class Home extends Component {
             slaveAmount: 0,
             error: '',
             maxHub: 0,
-            maxSlave: 0
+            maxSlave: 0,
+            verify: false
         }
     }
 
@@ -123,6 +125,23 @@ class Home extends Component {
                 address: user.address
             }));
 
+            emailVerifyOrNot({id: user.id})
+                .then(res => {
+                    console.log('====== verify email ==========', res);
+                    if (res.evon == 'OK'){
+                        if (res.doc.verify === true){
+                            this.setState({
+                                verify: true
+                            })
+                        } else {
+                            this.setState({
+                                verify: false
+                            })
+                        }
+                    }
+                }).catch(e => {
+                    console.log(e);
+                });
         } catch (e) {
             console.log(e);
         }
@@ -362,8 +381,10 @@ class Home extends Component {
         return (
             <div id="page-top">
 
+
                 <Navigation/>
                 <HeaderHome/>
+                {this.state.verify == false && <ErrorComponent/>}
                 <Services/>
                 <Products/>
                 <About/>

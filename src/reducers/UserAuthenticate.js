@@ -6,6 +6,7 @@ const userAuthenticateDefaultState = {
     email: '',
     password: '',
     error: '',
+    verify:false,
     userName: 'Ahmad Yar',
     phoneNo: '03335581143',
     address: 'G-9 islamabad, pakistan',

@@ -5,7 +5,8 @@ import {deleteItemFromCart, updateQuantityCart} from '../../actions/cart';
 import {localToRedux, userSignOut} from "../../actions/UserAuthenticate";
 import {lastUpdatedCart} from '../../actions/cart';
 import SimpleNav from './SimpleNavigationComponent';
-import {getProductQty} from "../../middleWare/userFunctions";
+import {emailVerifyOrNot, getProductQty} from "../../middleWare/userFunctions";
+import ErrorBar from "../ErrorTopBar";
 
 class CartDetails extends Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class CartDetails extends Component {
             item1Qty: 0,
             item2Qty: 0,
             maxHub: 0,
-            maxSlave: 0
+            maxSlave: 0,
+            verify: false
         }
     }
 
@@ -33,6 +35,26 @@ class CartDetails extends Component {
                 phoneNo: user.phoneNo,
                 address: user.address
             }));
+
+            emailVerifyOrNot({id: user.id})
+                .then(res => {
+                    console.log('====== verify email ==========', res);
+                    if (res.evon === 'OK'){
+                        if (res.doc.verify === true){
+                            this.setState({
+                                verify: true
+                            })
+                            console.log(this.state);
+                        } else {
+                            this.setState({
+                                verify: false
+                            })
+                            console.log(this.state);
+                        }
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
 
         } catch (e) {
             console.log(e);
@@ -66,14 +88,14 @@ class CartDetails extends Component {
                     console.log(res.doc);
                     res.doc.forEach(item => {
 
-                        if(item._id == 'HUB'){
+                        if (item._id == 'HUB') {
                             console.log(item);
                             var maxHub = item.count;
                             this.setState({
                                 maxHub
                             })
                         }
-                        if(item._id == 'SLAVE'){
+                        if (item._id == 'SLAVE') {
                             console.log(item);
                             var maxSlave = item.count;
                             this.setState({
@@ -100,11 +122,11 @@ class CartDetails extends Component {
                 qty = Number(event.target.value);
             }
             if (deviceId == 1) {
-                if(qty <= this.state.maxHub){
+                if (qty <= this.state.maxHub) {
                     this.setState(() => ({
                         item1Qty: qty
                     }));
-                }else {
+                } else {
                     this.setState(() => ({
                         item1Qty: 1
                     }));
@@ -112,7 +134,7 @@ class CartDetails extends Component {
                 }
             }
             if (deviceId == 2) {
-                if (qty <= this.state.maxSlave){
+                if (qty <= this.state.maxSlave) {
                     this.setState(() => ({
                         item2Qty: qty
                     }))
@@ -254,6 +276,7 @@ class CartDetails extends Component {
 
                                     </tbody>
 
+
                                     {this.props.cart.length == 0 ?
                                         'Your Cart is Empty!' :
                                         <tfoot>
@@ -315,6 +338,7 @@ class CartDetails extends Component {
                     <SimpleNav/>
 
                     <div className='container' style={{marginTop: 110}}>
+                        {this.state.verify == false && <ErrorBar/>}
                         <table className='table table-hover table-striped table-responsive'>
 
 
@@ -338,6 +362,8 @@ class CartDetails extends Component {
                             ))}
 
                             </tbody>
+
+
 
                             {this.props.cart.length == 0 ?
                                 'Your Cart is Empty!' :
@@ -375,7 +401,7 @@ class CartDetails extends Component {
                                     <td colSpan={6}></td>
                                     <td>
                                         <center>
-                                            <NavLink to='/payment' className='btn btn-secondary btn-lg'>Check
+                                            <NavLink to='/payment' className={this.state.verify == true ? "btn btn-secondary btn-lg" : "btn btn-secondary btn-lg disabled"}>Check
                                                 Out</NavLink>
                                         </center>
 

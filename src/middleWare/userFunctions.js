@@ -199,4 +199,17 @@ export const verifyEmail = data => {
         })
 };
 
+export const emailVerifyOrNot = data => {
+    return axios
+        .post('http://localhost:3000/users/emailVerifyOrNot',{
+            id: data.id
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
 
