@@ -20,15 +20,17 @@ import AddInventory from '../AdminDashBoardComponent/AddInventoryComponent';
 import Complains from '../AdminDashBoardComponent/ComplainComponent';
 import Query from '../AdminDashBoardComponent/UserQueryComponent';
 import Devices from '../AdminDashBoardComponent/DeviceMonitComponent';
-import {getUser, getAllQuery, getSales, getAllDevices} from "../../middleWare/sellerFunction";
+import {getUser, getAllQuery, getSales, getAllDevices, getAllServiceReport} from "../../middleWare/sellerFunction";
 import {storeAllUser} from '../../actions/users';
 import {storeAllQuery} from '../../actions/query';
 import {storeAllSales} from '../../actions/sales';
 import {storeAllDevices} from '../../actions/devices';
+import {storeAllServiceReports} from '../../actions/serviceReports';
 import {connect} from 'react-redux';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import SaleComponent from '../AdminDashBoardComponent/SaleComponent';
 import ChangePass from '../AdminDashBoardComponent/AdminChangePass';
+import ServiceReport from '../AdminDashBoardComponent/ServiceReportComponent';
 
 const theme = createMuiTheme({
     palette: {
@@ -102,7 +104,18 @@ class Dashboard extends React.Component {
                 }else {
                     console.log('no devices found');
                 }
+            });
+
+        getAllServiceReport({})
+            .then(res => {
+                console.log('========= service reports =======' , res);
+                if (res.gasr === 'OK'){
+                    this.props.dispatch(storeAllServiceReports(res.doc));
+                }
             })
+            .catch(e => {
+                console.log(e);
+            });
 
     }
 
@@ -174,6 +187,7 @@ class Dashboard extends React.Component {
                                 <Route path='/admin/devices' component={Devices}/>
                                 <Route path='/admin/customer' component={CustomerComponent}/>
                                 <Route path='/admin/complains' component={Complains}/>
+                                <Route path='/admin/serviceReport' component={ServiceReport}/>
                                 <Route path='/admin/query' component={Query}/>
                                 <Route path='/admin/changePass' component={ChangePass}/>
                                 <Route path='/admin/sales' component={SaleComponent}/>

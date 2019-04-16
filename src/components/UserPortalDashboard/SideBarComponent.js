@@ -41,6 +41,12 @@ class SideBar extends Component {
                         </NavLink>
                     </li>
                     <li className="nav-item">
+                        <NavLink to='/userportal/reports' className="nav-link">
+                            <i className="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Reports Details</span>
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
                         <NavLink to='/userportal/changePassword' className="nav-link">
                             <i className="fas fa-fw fa-edit"></i>
                             <span>Change Password</span>

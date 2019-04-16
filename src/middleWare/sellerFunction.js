@@ -152,11 +152,36 @@ export const getSaleData = data => {
         .catch(e => {
             console.log(e);
         })
-}
+};
 
 export const getAllDevices = data => {
     return axios
-        .post('http://localhost:3000/seller/getAllDevices',{})
+        .post('http://localhost:3000/seller/getAllDevices', {})
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
+export const getAllServiceReport = data => {
+    return axios
+        .post('http://localhost:3000/seller/getAllServiceReport')
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
+export const sendReplyToServiceReport = data => {
+    return axios
+        .post('http://localhost:3000/seller/sendReplyToServiceReport', {
+            id: data.id,
+            response: data.response
+        })
         .then(res => {
             return res.data;
         })

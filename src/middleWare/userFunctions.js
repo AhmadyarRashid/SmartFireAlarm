@@ -210,6 +210,37 @@ export const emailVerifyOrNot = data => {
         .catch(e => {
             console.log(e);
         })
-}
+};
+
+export const submitServiceReport = data => {
+    return axios
+        .post('http://localhost:3000/users/submitServiceReport',{
+            userId: data.userId,
+            email : data.email,
+            description : data.description
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
+export const getAllServiceReport = data => {
+    return axios
+        .post('http://localhost:3000/users/getAllServiceReport',{
+            userId: data.userId
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+};
+
+
+
 
 

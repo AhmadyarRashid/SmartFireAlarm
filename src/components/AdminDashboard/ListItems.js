@@ -62,6 +62,15 @@ export const mainListItems = (
                 <ListItemText primary="Customer Complains"/>
             </ListItem>
         </NavLink>
+        <NavLink to='/admin/serviceReport'>
+            <ListItem button>
+                <ListItemIcon>
+                    <i className='fas fa fa-exclamation-triangle'></i>
+                    {/*<BarChartIcon/>*/}
+                </ListItemIcon>
+                <ListItemText primary="Service Complains"/>
+            </ListItem>
+        </NavLink>
         <NavLink to='/admin/query'>
             <ListItem button>
                 <ListItemIcon>
