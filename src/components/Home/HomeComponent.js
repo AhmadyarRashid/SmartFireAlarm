@@ -387,7 +387,6 @@ class Home extends Component {
                 {this.state.verify == false && <ErrorComponent/>}
                 <Services/>
                 <Products/>
-                <About/>
                 <Team/>
                 <Contact/>
                 <Footer/>
@@ -558,7 +557,7 @@ class Home extends Component {
                 <Modal isOpen={this.state.showModal} toggle={this.toggleModal} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Confirmation</ModalHeader>
                     <ModalBody>
-                        Your order are sucessfully added into cart.
+                        Your order has been successfully added into your cart.
                     </ModalBody>
                     <ModalFooter>
                         <Button className='btn btn-primary' onClick={this.toggleBuyModal}>View Cart</Button>{' '}
@@ -579,11 +578,13 @@ const mapStatToProps = state => ({
 
 Home.defaultProps = {
     deviceName1: 'HUB',
-    deviceDescription1: 'Auto generate call and notify to user',
+    deviceDescription1: 'Functionality: Senses Smoke and Heat. Notify the user on app with WIFI. Voice Call to Emergency department ' +
+        'when smoke detected and sends text messaged to user',
     deviceImage1: 'http://localhost:8080/images/portfolio/04-thumbnail.jpg',
     unitPrice1: 1200,
     deviceName2: 'Slave',
-    deviceDescription2: 'send health to server and hub device',
+    deviceDescription2: 'Functionality: Senses Smoke and Heat. Notify the user on app with WIFI. Notify when smoke detected to the Hub so that ' +
+        'call can be made through it.',
     deviceImage2: 'http://localhost:8080/images/portfolio/02-thumbnail.jpg',
     unitPrice2: 600
 };

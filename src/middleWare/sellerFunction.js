@@ -180,6 +180,8 @@ export const sendReplyToServiceReport = data => {
     return axios
         .post('http://localhost:3000/seller/sendReplyToServiceReport', {
             id: data.id,
+            email: data.email,
+            description: data.description,
             response: data.response
         })
         .then(res => {

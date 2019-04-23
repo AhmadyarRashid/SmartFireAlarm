@@ -29,4 +29,5 @@ export const addAllDevices ='ADD_ALL_DEVICES';
 export const storeAllReports = 'STORE_ALL_REPORTS';
 
 export const storeAllServiceReports = 'STORE_ALL_SERVICE_REPORTS';
+export const completeServiceReports = 'COMPLETE_SERVICE_REPORTS';
 

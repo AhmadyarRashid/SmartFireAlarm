@@ -21,9 +21,9 @@ const Navigation = (props) => (
                     <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#portfolio">Products</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#about">About</a>
-                    </li>
+                    {/*<li className="nav-item">*/}
+                        {/*<a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#about">About</a>*/}
+                    {/*</li>*/}
                     <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" style={{color:'#A9A9A9'}} href="#team">Team</a>
                     </li>

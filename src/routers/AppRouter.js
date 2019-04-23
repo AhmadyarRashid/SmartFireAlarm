@@ -15,7 +15,6 @@ import ResetPass from '../components/ResetPasswordComponent';
 import ForgetPassword from "../components/ForgetPassComponent";
 import VerifyEmail from "../components/VerifyEmailComponent";
 
-
 const histroy = createBrowserHistory();
 
 const AppRouter = () => (
@@ -38,6 +37,7 @@ const AppRouter = () => (
                 <Route path='/admin/query' component={Dashboard}/>
                 <Route path='/admin/changePass' component={Dashboard}/>
                 <Route path='/admin/sales' component={Dashboard}/>
+                <Route path='/admin/serviceReport' component={Dashboard}/>
                 <Route path="/payment" component={CheckOut}/>
                 <Route path="/resetPassword/:id" component={ResetPass}/>
                 <Route path="/verify/:id" component={VerifyEmail}/>

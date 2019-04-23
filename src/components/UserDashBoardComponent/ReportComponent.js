@@ -15,11 +15,24 @@ class ReportComponent extends Component {
             selectedReport: '',
             allReports: [],
             response: '',
-            description:''
+            description: ''
         }
     }
 
     componentWillMount() {
+        getAllServiceReport({
+            userId: this.props.userAuth.id
+        }).then(res => {
+            console.log('======== all user reports ===========', res);
+            this.setState({
+                allReports: res.doc
+            });
+        }).catch(e => {
+            console.log(e);
+        });
+    }
+
+    getLatestReports(){
         getAllServiceReport({
             userId: this.props.userAuth.id
         }).then(res => {
@@ -46,10 +59,10 @@ class ReportComponent extends Component {
     };
 
     responseHandler = (description, response) => {
-          this.setState({
-              description,
-              response
-          });
+        this.setState({
+            description,
+            response
+        });
     };
 
     submitReportHandler = () => {
@@ -65,10 +78,12 @@ class ReportComponent extends Component {
                 description: this.state.textarea
             }).then(res => {
                 console.log('============ report submitted ========', res);
-                this.setState({
+                this.setState((preState) => ({
                     error: '',
                     textarea: ''
-                });
+                }));
+                this.getLatestReports();
+
             }).catch(e => {
                 console.log(e);
                 this.setState({
@@ -90,10 +105,12 @@ class ReportComponent extends Component {
                     <Breadcrumb style={{marginTop: 50}}>
                         <BreadcrumbItem active>Reports Details</BreadcrumbItem>
                     </Breadcrumb>
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
-                        Any Report
-                    </button>
-
+                    <div align="center">
+                        <button type="button" className="btn btn-outline-info btn-lg" data-toggle="modal"
+                                data-target="#exampleModal1">
+                            Any Report
+                        </button>
+                    </div>
                     <br/>
 
                     <table className="table">
@@ -113,7 +130,7 @@ class ReportComponent extends Component {
                                     <td>
                                         <button
                                             type="button"
-                                            className={"btn btn-primary"}
+                                            className={!!item.response ? "btn btn-outline-success" : "btn btn-outline-dark"}
                                             data-toggle="modal"
                                             data-target="#exampleModalLong"
                                             onClick={() => this.responseHandler(item.description, item.response)}
@@ -142,10 +159,7 @@ class ReportComponent extends Component {
                                     Report : {this.state.description} <br/>
                                     Response : {!!this.state.response ? this.state.response : 'No Response'}
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>

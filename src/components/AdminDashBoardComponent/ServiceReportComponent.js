@@ -5,6 +5,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
 import {connect} from 'react-redux';
+import {completeServiceReport} from '../../actions/serviceReports';
 import {sendReplyToServiceReport} from '../../middleWare/sellerFunction';
 import {ToastsContainer, ToastsContainerPosition, ToastsStore} from "react-toasts";
 
@@ -59,10 +60,13 @@ class ServiceReportComponent extends Component {
 
             sendReplyToServiceReport({
                 id: row._id,
+                email: row.email,
+                description: row.description,
                 response: this.state.reply
             }).then(res => {
                 if (res.srtsr === 'OK') {
                     console.log('email sent sucessfully');
+                    this.props.dispatch(completeServiceReport(row.id));
                     ToastsStore.success(`Email Send Sucessfully`, 3000);
                 } else {
                     ToastsStore.error(`Email not send due to some network problem`, 3000);

@@ -19,7 +19,7 @@ export default class Team extends Component{
                             <div className="team-member">
                                 <img className="mx-auto rounded-circle" src="./images/team/1.jpg" alt=""/>
                                 <h4>Muhammad Jasim</h4>
-                                <p className="text-muted">DataBase Designer</p>
+                                <p className="text-muted">Database Designer, Front-End Developer, Hardware Designer</p>
                                 <ul className="list-inline social-buttons">
                                     <li className="list-inline-item">
                                         <a href="#">
@@ -43,7 +43,7 @@ export default class Team extends Component{
                             <div className="team-member">
                                 <img className="mx-auto rounded-circle" src="./images/team/2.jpg" alt=""/>
                                 <h4>Ahmad Yar Rashid</h4>
-                                <p className="text-muted">Backend Developer</p>
+                                <p className="text-muted">Backend Developer, Android Developer, Hardware Designer</p>
                                 <ul className="list-inline social-buttons">
                                     <li className="list-inline-item">
                                         <a href="#">

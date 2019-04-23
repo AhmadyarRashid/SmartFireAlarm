@@ -7,3 +7,10 @@ export const storeAllServiceReports =
         type: ActionsTypes.storeAllServiceReports,
         payload: allReports
     });
+
+export const completeServiceReport = (
+    id = ''
+) => ({
+    type: ActionsTypes.completeServiceReports,
+    id
+});
