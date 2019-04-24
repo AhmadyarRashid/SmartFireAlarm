@@ -22,8 +22,8 @@ export default (state = userAuthenticateDefaultState, action) => {
     switch (action.type) {
         case ActionsTypes.userAuth:
             state.isAuth = true;
-            state.email = 'ahmadyarmeo@gmail.com';
-            state.password = '123456';
+            state.email = action.email;
+            state.password = action.password;
             state.error = 'Login Sucessfully';
             return state;
         case ActionsTypes.userSignOut:

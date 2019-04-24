@@ -384,7 +384,7 @@ class Home extends Component {
 
                 <Navigation/>
                 <HeaderHome/>
-                {this.state.verify == false && <ErrorComponent/>}
+                {this.props.userAuth.isAuth == true && this.state.verify == false && <ErrorComponent/>}
                 <Services/>
                 <Products/>
                 <Team/>
