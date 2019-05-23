@@ -5,9 +5,11 @@
   "author": "Ahmad yar Rashid",
   "license": "MIT",
   "scripts": {
+    "start": "live-server public/",
     "serve": "live-server public/",
     "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "build:prod": "webpack -p --env production"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.0",
@@ -61,11 +63,5 @@
   "devDependencies": {
     "babel-plugin-transform-regenerator": "^6.26.0",
     "webpack-cli": "^3.3.0"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

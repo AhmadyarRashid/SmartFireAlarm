@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const addDevice = data => {
     return axios
-        .post('http://localhost:3000/seller/addDevice', {
+        .post('https://fasserver.herokuapp.com/seller/addDevice', {
             type: data.type,
             qty: data.qty
         })
@@ -17,7 +17,7 @@ export const addDevice = data => {
 
 export const getUser = data => {
     return axios
-        .post('http://localhost:3000/seller/getUser', {})
+        .post('https://fasserver.herokuapp.com/seller/getUser', {})
         .then(res => {
             return res.data;
         })
@@ -28,7 +28,7 @@ export const getUser = data => {
 
 export const getAllQuery = data => {
     return axios
-        .post('http://localhost:3000/seller/getAllQuery', {})
+        .post('https://fasserver.herokuapp.com/seller/getAllQuery', {})
         .then(res => {
             return res.data;
         })
@@ -39,7 +39,7 @@ export const getAllQuery = data => {
 
 export const getQty = data => {
     return axios
-        .post('http://localhost:3000/seller/getQty', {})
+        .post('https://fasserver.herokuapp.com/seller/getQty', {})
         .then(res => {
             return res.data;
         })
@@ -50,7 +50,7 @@ export const getQty = data => {
 
 export const getSummary = data => {
     return axios
-        .post('http://localhost:3000/seller/getSummary', {})
+        .post('https://fasserver.herokuapp.com/seller/getSummary', {})
         .then(res => {
             return res.data;
         })
@@ -61,7 +61,7 @@ export const getSummary = data => {
 
 export const getSales = data => {
     return axios
-        .post('http://localhost:3000/seller/getSales', {})
+        .post('https://fasserver.herokuapp.com/seller/getSales', {})
         .then(res => {
             return res.data;
         })
@@ -72,7 +72,7 @@ export const getSales = data => {
 
 export const sendReplyEmail = data => {
     return axios
-        .post('http://localhost:3000/seller/sendReply', {
+        .post('https://fasserver.herokuapp.com/seller/sendReply', {
             name: data.name,
             email: data.email,
             message: data.message,
@@ -88,7 +88,7 @@ export const sendReplyEmail = data => {
 
 export const adminLogin = data => {
     return axios
-        .post('http://localhost:3000/seller/login', {
+        .post('https://fasserver.herokuapp.com/seller/login', {
             email: data.email,
             password: data.password
         })
@@ -102,7 +102,7 @@ export const adminLogin = data => {
 
 export const changePassword = data => {
     return axios
-        .post('http://localhost:3000/seller/changePass', {
+        .post('https://fasserver.herokuapp.com/seller/changePass', {
             email: data.email,
             oldPass: data.oldPass,
             newPass: data.newPass
@@ -117,7 +117,7 @@ export const changePassword = data => {
 
 export const getAllReports = data => {
     return axios
-        .post('http://localhost:3000/seller/getReports', {})
+        .post('https://fasserver.herokuapp.com/seller/getReports', {})
         .then(res => {
             return res.data;
         })
@@ -128,7 +128,7 @@ export const getAllReports = data => {
 
 export const sendReportUpdate = data => {
     return axios
-        .post('http://localhost:3000/seller/sendReportUpdate', {
+        .post('https://fasserver.herokuapp.com/seller/sendReportUpdate', {
             reportId: data.reportId,
             status: data.status,
             deviceName: data.deviceName,
@@ -145,7 +145,7 @@ export const sendReportUpdate = data => {
 
 export const getSaleData = data => {
     return axios
-        .post('http://localhost:3000/seller/getSaleData', {})
+        .post('https://fasserver.herokuapp.com/seller/getSaleData', {})
         .then(res => {
             return res.data;
         })
@@ -156,7 +156,7 @@ export const getSaleData = data => {
 
 export const getAllDevices = data => {
     return axios
-        .post('http://localhost:3000/seller/getAllDevices', {})
+        .post('https://fasserver.herokuapp.com/seller/getAllDevices', {})
         .then(res => {
             return res.data;
         })
@@ -167,7 +167,7 @@ export const getAllDevices = data => {
 
 export const getAllServiceReport = data => {
     return axios
-        .post('http://localhost:3000/seller/getAllServiceReport')
+        .post('https://fasserver.herokuapp.com/seller/getAllServiceReport')
         .then(res => {
             return res.data;
         })
@@ -178,7 +178,7 @@ export const getAllServiceReport = data => {
 
 export const sendReplyToServiceReport = data => {
     return axios
-        .post('http://localhost:3000/seller/sendReplyToServiceReport', {
+        .post('https://fasserver.herokuapp.com/seller/sendReplyToServiceReport', {
             id: data.id,
             email: data.email,
             description: data.description,

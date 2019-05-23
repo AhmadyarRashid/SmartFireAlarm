@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const login = user => {
     return axios
-        .post('http://localhost:3000/users/login', {
+        .post('https://fasserver.herokuapp.com/users/login', {
             email: user.email,
             password: user.password
         })
@@ -16,7 +16,7 @@ export const login = user => {
 
 export const register = user => {
     return axios
-        .post('http://localhost:3000/users/register', {
+        .post('https://fasserver.herokuapp.com/users/register', {
             name: user.userName,
             address: user.address,
             email: user.email,
@@ -33,7 +33,7 @@ export const register = user => {
 
 export const changePassword = user => {
     return axios
-        .post('http://localhost:3000/users/changePassword', {
+        .post('https://fasserver.herokuapp.com/users/changePassword', {
             email: user.email,
             oldPass: user.oldPass,
             newPass: user.newPass
@@ -48,7 +48,7 @@ export const changePassword = user => {
 
 export const userUpdateProfile = user => {
     return axios
-        .post('http://localhost:3000/users/updateProfile', {
+        .post('https://fasserver.herokuapp.com/users/updateProfile', {
             email: user.email,
             name: user.name,
             phoneNo: user.phoneNo,
@@ -62,7 +62,7 @@ export const userUpdateProfile = user => {
 
 export const getProductQty = () => {
     return axios
-        .post('http://localhost:3000/users/getQty', {})
+        .post('https://fasserver.herokuapp.com/users/getQty', {})
         .then(res => {
             return res.data
         })
@@ -73,7 +73,7 @@ export const getProductQty = () => {
 
 export const buyProduct = data => {
     return axios
-        .post('http://localhost:3000/users/buyProduct', {
+        .post('https://fasserver.herokuapp.com/users/buyProduct', {
                 email: data.email,
                 hub: data.hubQty,
                 slave: data.slaveQty,
@@ -90,7 +90,7 @@ export const buyProduct = data => {
 
 export const userQuery = data => {
     return axios
-        .post('http://localhost:3000/users/contact', {
+        .post('https://fasserver.herokuapp.com/users/contact', {
             name: data.name,
             email: data.email,
             phoneNo: data.phoneNo,
@@ -106,7 +106,7 @@ export const userQuery = data => {
 
 export const getUserOrders = data => {
     return axios
-        .post('http://localhost:3000/users/myorders', {
+        .post('https://fasserver.herokuapp.com/users/myorders', {
             userId: data.userId
         })
         .then(res => {
@@ -119,7 +119,7 @@ export const getUserOrders = data => {
 
 export const recievedOrder = data => {
     return axios
-        .post('http://localhost:3000/users/receivedOrder', {
+        .post('https://fasserver.herokuapp.com/users/receivedOrder', {
             id: data.id
         })
         .then(res => {
@@ -132,7 +132,7 @@ export const recievedOrder = data => {
 
 export const resetPassword = data => {
     return axios
-        .post('http://localhost:3000/users/resetPassword', {
+        .post('https://fasserver.herokuapp.com/users/resetPassword', {
             id: data.id,
             password: data.password
         })
@@ -146,7 +146,7 @@ export const resetPassword = data => {
 
 export const confirmResetUser = data => {
     return axios
-        .post('http://localhost:3000/users/confirmResetUser', {
+        .post('https://fasserver.herokuapp.com/users/confirmResetUser', {
             id: data.id
         })
         .then(res => {
@@ -160,7 +160,7 @@ export const confirmResetUser = data => {
 
 export const forgetPassword = data => {
     return axios
-        .post('http://localhost:3000/users/forgetPassword', {
+        .post('https://fasserver.herokuapp.com/users/forgetPassword', {
             email: data.email
         })
         .then(res => {
@@ -173,7 +173,7 @@ export const forgetPassword = data => {
 
 export const sendFeedBack = data => {
     return axios
-        .post('http://localhost:3000/users/orderFeedBack', {
+        .post('https://fasserver.herokuapp.com/users/orderFeedBack', {
             id: data.id,
             rating: data.rating,
             feedback: data.feedback
@@ -188,7 +188,7 @@ export const sendFeedBack = data => {
 
 export const verifyEmail = data => {
     return axios
-        .post('http://localhost:3000/users/verifyEmail', {
+        .post('https://fasserver.herokuapp.com/users/verifyEmail', {
             id: data.id
         })
         .then(res => {
@@ -201,7 +201,7 @@ export const verifyEmail = data => {
 
 export const emailVerifyOrNot = data => {
     return axios
-        .post('http://localhost:3000/users/emailVerifyOrNot',{
+        .post('https://fasserver.herokuapp.com/users/emailVerifyOrNot',{
             id: data.id
         })
         .then(res => {
@@ -214,7 +214,7 @@ export const emailVerifyOrNot = data => {
 
 export const submitServiceReport = data => {
     return axios
-        .post('http://localhost:3000/users/submitServiceReport',{
+        .post('https://fasserver.herokuapp.com/users/submitServiceReport',{
             userId: data.userId,
             email : data.email,
             description : data.description
@@ -229,7 +229,7 @@ export const submitServiceReport = data => {
 
 export const getAllServiceReport = data => {
     return axios
-        .post('http://localhost:3000/users/getAllServiceReport',{
+        .post('https://fasserver.herokuapp.com/users/getAllServiceReport',{
             userId: data.userId
         })
         .then(res => {
